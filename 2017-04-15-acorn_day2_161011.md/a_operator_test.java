@@ -9,8 +9,8 @@ public class a_operator_test {
 		i=5;
 		++i;
 		System.out.println(i);
-		System.out.println(i++);	//Ãâ·ÂµÇŽÂ i°ªÀº 6
-		//¿©±âŒ­ iŽÂ 7
+		System.out.println(i++);	//출력되는 i값은 6
+		//여기서 i는 7
 		System.out.println(++i);
 		
 		char c1='a';
