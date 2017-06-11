@@ -1,0 +1,180 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+```{r}
+# 산포도
+require(lattice)
+cars
+xyplot(dist ~ speed, data = cars)
+
+# ggplot2를 이용하여 분포를 알 수 있도록 다양하게 출력해보세요
+library(ggplot2)
+ggplot(cars, aes(x = speed, y = dist)) + geom_point()
+ggplot(cars, aes(x = speed, y = dist)) + geom_boxplot()
+ggplot(cars, aes(x = speed, fill = dist)) + geom_density()
+#ggplot(cars, aes(x = speed, fill = dist)) + geom_bar()
+
+#ggplot(cars, aes(x = speed, fill = dist)) + geom_dotplot()
+
+
+# loess로 회귀
+ggplot(cars, aes(x = speed, y = dist)) + geom_point(position = position_jitter(w = 0.2, h = 0.2)) + geom_smooth() + ylab('dist') + xlab('speed')
+
+# 선형회귀 메소드로 회귀
+ggplot(cars, aes(x = speed, y = dist)) + geom_point(position = position_jitter(w = 0.2, h = 0.2)) + geom_smooth(method = "lm", se = FALSE) + ylab('dist') + xlab('speed')
+```
+
+```{r}
+# [1]
+mean(runif(100))
+
+f <- mean
+# [2]
+f(runif(100))
+#function(x) sum(x) / length(x)
+mymean <- function(x) sum(x) / length(x)
+# [3]
+mymean(runif(100))
+# [4]
+mymean(runif(100, 1, 2))
+# [5]
+(function(x) sum(x) / length(x)) (runif(100))
+```
+```{r}
+make.power <- function(x, n){
+  return (x ^ n)
+}
+make.power(3, 2)
+
+make.power1 <- function(n){
+  return (function(x) x ^ n)
+}
+
+my.square <- make.power1(2)
+my.square(3)
+(make.power1(4)) (2) # 2에 4승 = 2^4
+
+mean.and.var <- function(x){
+  m <- mean(x)
+  v <- var(x)
+  data.frame(mean = m, var = v)
+}
+```
+
+```{r}
+sapply(1:10, function(n) mean(rnorm(n = 5, mean = 0, sd = 1)))
+#sapply(1:10, mean(rnorm(n = 5, mean = 0, sd = 1)))
+#sapply(rnorm(n = 5, mean = 0, sd = 1), mean)
+```
+```{r}
+# dataset name: hflights
+# package name: dplyr
+# methods: filter, arrange, select, mutate, summarise, sample_n, sample_frac
+install.packages(c("dplyr", "hflights"), repos="http://cran.nexr.com/")
+vignette("introduction", package = "dplyr")
+library(dplyr)
+library(hflights)
+str(hflights)
+# dplyr way
+select(hflights, Year, Month)
+# traditional way
+hflights[, c("Year", "Month")]
+
+# add column name 'gain'
+mutate(hflights, gain = ArrDelay - DepDelay)
+
+# arrange
+arrange(hflights, Month, desc(DayofMonth))
+
+summarise(hflights, delay = mean(DepDelay, na.rm = TRUE))
+mean(hflights$DepDelay, na.rm = TRUE)
+
+select(hflights, Year:DayOfWeek)
+select(hflights, -(Year:DayOfWeek))
+
+summarise(hflights, delay = mean(DepDelay, na.rm = TRUE))
+```
+
+```{r}
+planes <- group_by(hflights, TailNum)
+delay <- summarise(planes, count = n(), dist = mean(Distance, na.rm = TRUE), delay = mean(ArrDelay, na.rm = TRUE))
+delay <- filter(delay, count > 20, dist < 2000)
+library(ggplot2)
+ggplot(delay, aes(dist, delay)) + geom_point(aes(size = count), alpha = 1 / 2) + geom_smooth() + scale_size_area()
+```
+
+```{r}
+# 문제1) Year, Month, DayofMonth를 수준별로 그룹화
+hflights[c("Year", "Month", "DayofMonth")]
+range(hflights$Year); range(hflights$Month); range(hflights$DayofMonth)
+str(hflights)
+group_by(hflights, Year, Month, DayofMonth)
+
+arranged <- arrange(hflights, Year, Month, DayofMonth)
+
+# 문제2) Year부터 DayofMonth, ArrDelay, DepDelay 열을 선택
+selected <- select(arranged, Year, DayofMonth, ArrDelay, DepDelay)
+
+# 문제3) 평균 연착시간과 평균 출발 지연시간계산
+avg_arrdelay = mean(hflights$ArrDelay, na.rm = TRUE);
+avg_depdelay = mean(hflights$DepDelay, na.rm = TRUE)
+avg <- summarise(selected, avg_arrdelay, avg_depdelay)
+
+# 문제4) 평균 연착시간과 평균 출발지연시간의 차이가 30분 이상인 데이터 추출
+diff_added <- mutate(selected, diff = abs(hflights$ArrDelay - hflights$DepDelay))
+  # q4. dplyr way
+final <- filter(diff_added, diff >= 30)
+final
+
+  # q4. traditional way
+diff30 <- subset(diff_added, subset = (abs(diff_added$diff) >= 30))
+diff30
+```
+```{r}
+library(reshape2)
+
+subject <- c("John", "Mary", "Tea")
+time <- c(1, 1, 1)
+age <- c(33, 3, NA)
+weight <- c(90, NA, 20)
+height <- c(2, 3, NA)
+
+smiths <- data.frame(subject = subject, time = time, age = age, weight = weight, height = height)
+
+melt(smiths)
+melt(smiths, id = c("subject", "time"))
+melt(smiths, id = 1:2)
+melt(smiths, id = c("subject", "time"), measured = c("age", "weight", "height"))
+melt(smiths, measured = c("age", "weight", "height"))
+```
+```{r}
+trial <- data.frame(id = factor(1:4), A1 = c(1, 2, 1, 2), A2 = c(2, 1, 2, 1), B1 = c(3, 3, 3, 3))
+(trialm <- melt(trial))
+(trialm <- cbind(trialm, colsplit(trialm$variable, pattern = "[,]", names = c("treatment", "time"))))
+smithsm = melt(smiths, id = c("subject"), na.rm = TRUE)
+
+dcast(smithsm, time + subject ~ variable)
+dcast(smithsm, ... ~ variable)
+dcast(smithsm, ... ~ subject)
+dcast(smithsm, ... ~ time)
+```
+
+```{r}
+install.packages("languageR", repos="http://cran.nexr.com/")
+data(lexdec, package = 'languageR')
+str(lexdec)
+
+install.packages("plyr", repos="http://cran.nexr.com/")
+library(plyr)
+
+RT.bysub <- with(lexdec, split(RT, Subject))
+RT.means.bysub <- sapply(RT.bysub, mean)
+head(data.frame(RT.mean = RT.means.bysub))
+head(ddply(lexdec, .(Subject), function(df) data.frame(RT.means = mean(df$RT))))
+
+ddply(lexdec, .(PrevType, Class), function(df) with(df, data.frame(meanRT = mean(RT))))
+```
+
