@@ -1,0 +1,189 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+
+```{r}
+x <- matrix(1:4, nrow = 2, ncol = 2, byrow = FALSE, dimnames = NULL)
+y <- matrix(5:8, nrow = 2, ncol = 2, byrow = TRUE, dimnames = NULL)
+x + y
+x - y
+x * y
+x / y
+x ^ y
+x %*% y
+```
+
+```{r}
+m = matrix(c(1:9), nrow = 3, ncol = 3)
+y = t(m)
+m * y
+print('======')
+det(m)
+det(y)
+```
+
+```{r}
+v1 <- c(2, 1, 3)
+v2 <- c(1, 2, 3)
+v1 %*% v2 #내접 계산
+crossprod(v1 , v2) #원래는 외접계산인데 내접으로 계산됨
+```
+```{r}
+data(iris)
+split(iris, iris$Species)
+lapply(split(iris$Sepal.Length, iris$Species), mean)
+```
+
+```{r}
+x <- data.frame(name = c("a", "b", "c"), math = c(1, 2, 3))
+y <- data.frame(name = c("c", "b", "z"), english = c(4, 5, 6))
+merge(x, y)
+merge(x, y, by = "name")
+merge(x, y, all = TRUE)
+merge(x, y, all.x = TRUE)
+merge(x, y, all.y = TRUE)
+```
+
+```{r}
+#subset(iris, select = (Species == "setosa"))
+subset(iris, subset = (Species == "setosa"))
+subset(iris, subset = (Species == "setosa" & Sepal.Length > 5.0))
+# subset(iris, select = c(Sepal.Length, Species))
+# subset(iris, select = -c(Sepal.Length, Species))
+# iris[, !names(iris) %in% c("Sepal.Length", "Species")]
+# iris[, names(iris) %in% c("Sepal.Length", "Species")]
+```
+
+```{r}
+data(mtcars)
+head(mtcars)
+str(mtcars)
+mtcars
+```
+
+```{r}
+subset(mtcars, cyl >= 4 & cyl <= 6)[c("mpg", "cyl", "am")]
+# do not need subset= in ()
+subset(mtcars, subset = (cyl >= 4 & cyl <= 6))[c("mpg", "cyl", "am")]
+subset(mtcars, subset = (cyl >= 4 & cyl <= 6), select = c(mpg, cyl, am))
+subset(mtcars, subset = (cyl %in% c(4, 5, 6)), select = c(mpg, cyl, am))
+
+subset(mtcars, am == 0)["am"]
+subset(mtcars, subset = (am == 0))["am"]
+
+subset(mtcars, subset = (mpg > 20))["mpg"]
+
+mean(mtcars$hp) #146.6875
+subset(mtcars, subset = (hp >= mean(mtcars$hp)))["hp"]
+subset(mtcars, hp >= mean(mtcars$hp))["hp"]
+
+subset(mtcars, am == 0 & cyl %in% c(4, 6))["mpg"]
+# result above are different
+a <- subset(mtcars, am == 0 & cyl == c(4, 6))["mpg"]
+b <- sum(a)
+b / 5
+
+mean(subset(mtcars, am == 0 & cyl %in% c(4, 6))$mpg)
+```
+
+```{r}
+NROW(mtcars)
+names(mtcars)
+class(mtcars)
+sapply(mtcars, class)
+mean(mtcars$mpg)
+x_1 <- (max(mtcars$mpg) - mtcars$mpg) / max(mtcars$mpg - min(mtcars$mpg))
+x_1
+x_2 <- with(mtcars, (max(mpg) - mpg) / max(mpg - min(mpg)))
+
+attach(mtcars)
+x_3 <- (max(mpg) - mpg) / max(mpg -min(mpg))
+x_3
+detach(mtcars)
+search()
+```
+```{r}
+x <- data.frame(val = c(1, 2, 3, 4, NA, 5, NA))
+x1 <- within(x, (val <- ifelse(is.na(val), median(val, na.rm = TRUE), val))) # keeps origin's format
+x2 <- with(x, (val <- ifelse(is.na(val), median(val, na.rm = TRUE), val))) # transforms origin's format
+x
+x1
+x2
+x$val[is.na(x$val)] <- median(x$val, na.rm = TRUE)
+x
+```
+
+```{r}
+data(airquality)
+head(airquality)
+transform(airquality, Ozone = -Ozone)
+transform(airquality, new = -Ozone, Temp = Temp -32 / 1.8)
+transform(airquality, logOzone = log(Ozone))
+```
+
+```{r}
+coin <- c(2, 2, 0, 1, 1, 1, 2, 3, 1, 2, 2, 3, 3, 4, 1, 3, 2, 3, 3, 1, 2, 2, 1, 2, 2) # 25 times
+coin.freq <- table(coin)
+coin.freq
+#freq <- table(coin)
+cumfreq <- cumsum(coin.freq)
+plot(0:4, cumfreq, main = "(25times repeated) 4회 동전 던지기 결과", xlab = "앞면이 나온 횟수", ylab = "빈도수", ylim = c(1, 30), type = "l")
+```
+
+```{r}
+str(cars)
+head(cars)
+plot(cars, type = "l")
+plot(cars, type = "p")
+plot(cars, type = "b")
+plot(cars, type = "b", pch = 20)
+plot(cars, type = "b", pch = 22)
+plot(cars, type = "b", pch = "+")
+plot(cars, type = "b", pch = "+", cex = 2)
+plot(cars, pch = "+", type = "l", cex = 2, lty = "dotdash")
+```
+```{r}
+salary = rnorm(100, 250, 100)
+hist(salary, main = "company's employee wage", xlab = "wage", ylab = "freq", col = "lightblue", breaks = 5)
+
+# continuous var
+data <- rnorm(40, 20, 15)
+#hist(data, freq = FALSE, col = "orange", main = "Histogram", xlab = "x", ylab = "f(x)", yaxs = "i", xaxs = "i", breaks = seq(-10, 80, l = 6))
+hist(data, freq = FALSE, col = "orange", main = "Histogram", xlab = "x", ylab = "f(x)", yaxs = "i", xaxs = "i")
+
+# discrete var
+barplot(coin.freq, xlab = "head freq", ylab = "freq", main = "4")
+```
+
+```{r}
+x <- (0:20) * pi / 10
+y <- cos(x)
+
+ysin <- sin(x)
+
+plot(x, y); text(3, 0, "cos(x)")
+
+plot(x ,ysin); text(5, 0, "sin(x)")
+```
+
+```{r}
+d <- density(mtcars$mpg)
+plot(d); polygon(d, col= "red", border = "blue")
+```
+
+```{r}
+ret = boxplot(iris$Sepal.Width)
+
+hist(iris$Sepal.Width, freq = FALSE)
+lines(density(iris$Sepal.Width))
+rug(iris$Sepal.Width)
+rug(jitter(iris$Sepal.Width))
+```
+
+
+
+
+
