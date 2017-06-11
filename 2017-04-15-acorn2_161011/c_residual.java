@@ -5,6 +5,6 @@ public class c_residual {
 		int share=10/8;
 		int remain=10%8;
 		float result=10/8.0f;
-		System.out.println("³ª´°¼À°á°ú: "+share+"\n³ª¸ÓÁö"+remain+"\n¼Ò¼öÁ¡±îÁöÆ÷ÇÔ"+result);
+		System.out.println("ë‚˜ëˆ—ì…ˆê²°ê³¼: "+share+"\në‚˜ë¨¸ì§€"+remain+"\nì†Œìˆ˜ì ê¹Œì§€í¬í•¨"+result);
 	}
 }
