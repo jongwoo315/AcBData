@@ -1,0 +1,83 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+```{r}
+# 이원배치 분산분석
+```
+
+```{r}
+gender.fac <- as.factor(c(rep("M", 9), rep("F", 9)))
+class <- c("class_1", "class_1", "class_1", "class_2", "class_2", "class_2", "class_3", "class_3", "class_3")
+class.fac <- as.factor(c(rep(class, 2)))
+score_stats <- c(71, 77, 78, 76, 77, 78, 71, 70, 69, 80, 76, 80, 79, 78, 77, 73, 71, 70)
+```
+
+```{r}
+# 테이블
+score.df <- data.frame(gender.fac, class.fac, score_stats)
+score.df
+write.table(score.df, "/home/jw/twowayanova.csv")
+```
+
+```{r}
+install.packages("doBy", repos="http://cran.nexr.com/")
+```
+
+```{r}
+library(doBy)
+```
+
+```{r}
+summaryBy(score_stats ~ gender.fac, data = score.df, FUN = c(mean, sd, min, max))
+summaryBy(score_stats ~ class.fac, data = score.df, FUN = c(mean, sd, min, max))
+summary(score_stats, data = score.df)
+```
+
+```{r}
+par(mfrow = c(2, 2))
+plot(score_stats ~ gender.fac, main = "box plot by gender")
+plot(score_stats ~ class.fac, main = "box plot by class")
+interaction.plot(gender.fac, class.fac, score_stats, bty = 'l', main = "interaction effect plot")
+interaction.plot(class.fac, gender.fac, score_stats, bty = 'l', main = "interaction effect plot")
+```
+
+```{r}
+# two-way ANOVA : aov() # replicates, interaction effect
+aov_model = aov(score_stats ~ gender.fac + class.fac + gender.fac:class.fac)
+summary(aov_model)
+TukeyHSD(aov_model)
+plot(aov_model)
+```
+
+```{r}
+# duncan으로 사후 분석하기
+install.packages("agricolae", repos="http://cran.nexr.com/")
+```
+
+```{r}
+library(agricolae)
+duncan.test(aov_model, "group", alpha = 0.05, console = TRUE)
+```
+
+```{r}
+install.packages("laercio", repos="http://cran.nexr.com/")
+```
+
+```{r}
+library(laercio)
+n <- rep(10, 3)
+group <- rep(1:3, n)
+y1 <- c(50.5, 52.1, 51.9, 52.4, 50.6, 51.4, 51.2, 52.2, 51.5, 50.8)
+y2 <- c(47.5, 47.7, 46.6, 47.1, 47.2, 47.8, 45.2, 47.4, 45.0, 47.9)
+y3 <- c(46.0, 47.1, 45.6, 47.1, 47.2, 46.4, 45.9, 47.1, 44.9, 46.2)
+y <- c(y1, y2, y3) 
+
+
+group_df <- data.frame(y, group)
+aov_model <- aov(y ~ group, data = group_df)
+LDuncan(aov_model, "group")
+```
+
