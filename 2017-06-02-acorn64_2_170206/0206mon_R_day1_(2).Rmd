@@ -1,0 +1,194 @@
+
+```{r}
+employ <- read.table("/home/jw/Documents/employee.txt", header = T, sep = ",")
+employ
+```
+```{r}
+View(employ)
+```
+
+```{r}
+class(employ$id); class(employ$name); class(employ$salary); class(employ$start_date); class(employ$dept)
+sapply(employ, class)
+```
+```{r}
+employee2 <- read.csv("/home/jw/Documents/employee.csv", header = T, sep = ",")
+employee2
+```
+```{r}
+library(foreign)
+rootstock.url <- "http://www.stata-press.com/data/r10/rootstock.dta"
+rootstock <- read.dta(rootstock.url)
+head(rootstock)
+str(rootstock)
+```
+```{r}
+X <- rnorm(1000, 64.5, 2.5)
+# avg=64.5, var=2.5
+```
+
+```{r}
+sort(X)
+```
+
+```{r}
+par(mfrow = c(1, 3))
+hist(X, probability = TRUE, col = gray(0.9), main = "student weight dist")
+```
+```{r}
+D = dnorm(X, 64.5, 2.5)
+plot(X, D, main = "student weight dist", xlab = "weight")
+```
+
+```{r}
+par(mfrow = c(1, 1))
+```
+```{r}
+X = rnorm(100, 50.0, 10.0)
+X
+```
+
+```{r}
+sum(X) / 100
+plot(X)
+```
+```{r}
+var(X)
+sd(X)
+```
+```{r}
+gc()
+```
+```{r}
+save(list = ls(), file="myfile.RData")
+load("myfile.RData")
+```
+```{r}
+getwd()
+```
+```{r}
+#install.packages("tm", dependencies = TRUE)
+install.packages("tm", repos="http://cran.nexr.com/")
+```
+
+```{r}
+library(tm)
+```
+
+```{r}
+installed.packages()
+```
+
+```{r}
+gender = c("m", "f")
+is.factor(gender)
+as.factor(gender)
+```
+
+```{r}
+fa <- as.factor(gender)
+plot(fa)
+```
+
+```{r}
+a <- c(1, 2, 3)
+b <- rep(1:4, 2)
+c <- seq(1,9, by = 2)
+c(10, 5, 3, 6, 21) -> x
+x
+```
+
+```{r}
+d <- rep(1:3, each = 3)
+d
+```
+```{r}
+vectorA <- c(1, 2, 3)
+names(vectorA) <- c("aaa", "bbb", "ccc")
+vectorA["aaa"]
+vectorA[2]
+vectorA[vectorA > 1]
+vectorA[c(FALSE, FALSE, TRUE)]
+vectorB = append(vectorA, c(3, 4, 5))
+vectorB
+```
+
+```{r}
+union(vectorA, vectorB)
+intersect(vectorA, vectorB)
+setdiff(vectorA, vectorB)
+```
+
+```{r}
+x <- c(1, 2, 3)
+y <- c(2, 3, -4)
+x * y
+x - y
+x + y
+x / y
+all(x > 2)
+any(x > 2)
+```
+
+```{r}
+x <- NULL
+x + c(4, 5, 6)
+x <- c(1, 2, 3) + c(4, 5, 6)
+x
+```
+
+```{r}
+x <- c(1, 3, 8, 2, 20)
+x[x > 3] <- 0
+x
+```
+```{r}
+x <- matrix(nrow = 2, ncol = 2)
+
+#x[1, 1] = 1
+x[1, 2] = 2
+x[2, 1] = 3
+x[2, 2] = 4
+x
+
+is.na(x)
+```
+
+```{r}
+a <- matrix(data=1:9, nrow=3, ncol=3, byrow="TRUE", dimnames = list(c("a","b","c"), c("x", "y", "z")))
+a
+
+# x <- c(1, 4, 7)
+# y <- c(2, 5, 8)
+# z <- c(3, 6, 9)
+
+#b <- data.frame(x, y, z)
+#b
+
+```
+
+```{r}
+z <- ts(matrix(rnorm(300), 100, 3), start = c(1961, 1), frequency = 12)
+head(z)
+```
+
+```{r}
+edit(employ)
+```
+
+```{r}
+install.packages("data.table", repos="http://cran.nexr.com/")
+library(data.table)
+```
+
+```{r}
+dt <- data.table(x = c(1, 2, 3), y = c("a", "b", "c"))
+dt
+```
+
+```{r}
+data(iris)
+IRIS <- data.table(iris)
+setkey(IRIS, Species)
+IRIS[IRIS$Species == "setosa", ]
+```
