@@ -1,0 +1,73 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+```{r}
+summary(cars)
+plot(cars$speed, cars$dist)
+
+res.lm <- lm(dist ~ speed, data = cars)
+summary(res.lm)
+```
+
+```{r}
+coef(res.lm)
+plot(cars$speed, cars$dist, xlab = "Speed", ylab = "Distance to stop", xlim = c(0, 30), ylim = c(0, 125))
+abline(coef(res.lm), col = 2)
+```
+
+```{r}
+# 관측치 = 적합된 값 + 잔차
+
+# 회귀식으로부터 얻어진 적합된 값
+fitted(res.lm)[1:4]
+
+# 잔차를 구하는 함수
+residuals(res.lm)[1:4]
+
+# 잔차 제곱을 구하는 함수
+deviance(res.lm)
+
+# 잔차 그래프
+plot(res.lm, which = 1)
+## 점들이 패턴없이 무작위로 퍼져 있어야 좋은 적합
+```
+
+```{r}
+install.packages('lmtest', repos="http://cran.nexr.com/")
+library(lmtest)
+dwtest(res.lm)
+# 결과: p-value < 0.05일 때 자기상관이 유의미성을 가지게 됨
+```
+
+```{r}
+# 선형 모델을 사용한 예측
+# predict(Generic Function)
+# 내부적으로 호출되는 함수
+# predict.lm
+# predict.glm
+# predict.nls
+
+# 점추정
+predict(res.lm, newdata = data.frame(speed = 3))
+
+# 구간추정
+predict(res.lm, newdata = data.frame(speed = 3), interval = 'confidence')
+
+# 특정 속도를 가진 경우의 차량인 경우, 오차항을 고려해 추정
+predict(res.lm, newdata = data.frame(speed = 3), interval = 'prediction')
+```
+
+```{r}
+par(mfrow = c(2, 2))
+plot(res.lm)
+
+# Residuals vs Fitted: 수평일 때 최적
+
+# Scale - Location: x축=선형회귀 예측값, y축=표준화 잔차
+
+# Residuals vs Leverage: Leverage는 설명변수(독립변수)가 얼마나 극단에 치우쳐 있는가를 보여줌
+```
+
