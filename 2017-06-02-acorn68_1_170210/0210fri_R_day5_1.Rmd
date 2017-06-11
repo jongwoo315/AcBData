@@ -1,0 +1,135 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+```{r}
+install.packages("UsingR", repos="http://cran.nexr.com/")
+library(UsingR)
+
+head(cfb)
+summary(cfb$INCOME)
+
+# 지수형태의 히스토그램
+hist(cfb$INCOME, breaks = 500, freq = TRUE)
+
+# 로그 형태로 바꾸면 정규분포화됨 
+cfb <- transform(cfb, INCOME_log = log(INCOME + 1))
+hist(cfb$INCOME_log, breaks = 500, freq = TRUE)
+
+# 
+cfb <- transform(cfb, INCOME_sqrt = sqrt(INCOME + 1))
+hist(cfb$INCOME_sqrt, breaks = 500, freq = TRUE)
+```
+
+```{r}
+# 정규성 확인 방법
+qqnorm(cfb$INCOME, main = "소득 Q-Q도")
+qqline(cfb$INCOME)
+
+qqnorm(cfb$INCOME_log, main = "Q-Q도 (log)") 
+qqline(cfb$INCOME_log)
+
+qqnorm(cfb$INCOME_sqrt, main = "Q-Q도  (sqrt)")
+qqline(cfb$INCOME_sqrt)
+
+par(mfrow = c(1, 1))
+```
+
+```{r}
+library(MASS)
+# Data from 93 Cars on Sale in the USA in 1993
+str(Cars93)
+
+hist(Cars93$MPG.highway)
+disc_1 <- Cars93[ , c("Model", "MPG.highway")]
+head(disc_1)
+
+disc_1 <- within(disc_1, {
+  MPG.highway_cd = character(0)
+  MPG.highway_cd[MPG.highway >= 20 & MPG.highway < 25] = "20 ~ 25"
+  MPG.highway_cd[MPG.highway >= 25 & MPG.highway < 30] = "25 ~ 30"
+  MPG.highway_cd[MPG.highway >= 30 & MPG.highway < 35] = "30 ~ 35"
+  MPG.highway_cd[MPG.highway >= 35 & MPG.highway < 40] = "35 ~ 40"
+  MPG.highway_cd[MPG.highway >= 40 & MPG.highway < 45] = "40 ~ 45"
+  MPG.highway_cd[MPG.highway >= 45 & MPG.highway < 50] = "45 ~ 50"
+  MPG.highway_cd = factor(MPG.highway_cd, level = c("20 ~ 25", "25 ~ 30", "30 ~ 35", "35 ~ 40", "40 ~ 45"))
+})
+
+attributes(disc_1$MPG.highway_cd)
+table(disc_1$MPG.highway_cd)
+```
+
+```{r}
+highway_1 <- disc_1[order(disc_1$MPG.highway), ]
+dim(highway_1)
+dim(highway_1)[1] # num of rows
+highway_1$N <- seq(1:length(disc_1$MPG.highway))
+# length(disc_1$MPG.highway) equals to 93
+
+# used within to omit highway_1 at every command used below
+highway_1 <- within(highway_1, {
+  MPG.highway_cd3 <- character(0)
+  MPG.highway_cd3[N <= 23] = "1st_Freq"
+  MPG.highway_cd3[N >= 24 & N <= 46] = "2nd_Freq"
+  MPG.highway_cd3[N >= 47 & N <= 69] = "3rd_Freq"
+  MPG.highway_cd3[N >= 70] = "4th_Freq"
+  MPG.highway_cd3 <- factor(MPG.highway_cd3, level = c("1st_Freq", "2nd_Freq", "3rd_Freq", "4th_Freq")) 
+})
+
+head(highway_1)
+table(highway_1$MPG.highway_cd3)
+```
+
+```{r}
+disc_3 <- Cars93[ , c("Model", "MPG.highway")]
+summary(disc_3$MPG.highway)
+sort(disc_3$MPG.highway)
+disc_3 <- within(disc_3, {
+  MPG.highway_cd2 = character(0)
+  MPG.highway_cd2[MPG.highway < quantile(MPG.highway, 0.25)] = "1Q"
+  MPG.highway_cd2[MPG.highway >= quantile(MPG.highway, 0.25) & MPG.highway < quantile(MPG.highway, 0.5)] = "2Q"
+  MPG.highway_cd2[MPG.highway >= quantile(MPG.highway, 0.5) & MPG.highway < quantile(MPG.highway, 0.75)] = "3Q"
+  MPG.highway_cd2[MPG.highway >= quantile(MPG.highway, 0.75)]  = "4Q"
+  MPG.highway_cd2 =factor(MPG.highway_cd2, level = c("1Q", "2Q", "3Q", "4Q"))
+})
+
+head(disc_3)
+table(disc_3$MPG.highway_cd2)
+
+quantile(disc_3$MPG.highway, 0.25)
+quantile(disc_3$MPG.highway, 0.75)
+```
+
+```{r}
+(c <- seq(0:100))
+(d <- sort(round(runif(100) * 100)))
+
+quantile(c, 0.25)
+quantile(d, 0.25)
+```
+
+```{r}
+a <- seq(1:7)
+quantile(a, 0.25)
+quantile(a, 0.75)
+```
+```{r}
+a <- seq(1:8)
+quantile(a, 0.25)
+quantile(a, 0.75)
+```
+```{r}
+custome_id <- c("cu01", "cu02", "cu03", "cu04", "cu05", "cu06", "cu07")
+age <- c(26, 47, 33, 31, 43, 56, 24)
+custom_profile <- data.frame(custome_id, age, stringsAsFactors = F)
+custom_profile
+
+# print class of every columns in custom_profile
+sapply(custom_profile, class)
+
+custom_profile$x = ifelse(custom_profile$age >= 30, 1, 0)
+custom_profile
+```
+
