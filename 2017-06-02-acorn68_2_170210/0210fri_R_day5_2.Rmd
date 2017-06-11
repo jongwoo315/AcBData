@@ -1,0 +1,171 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+```{r}
+(coin <- c(2, 2, 0, 1, 1, 1, 2, 3, 1, 2, 2, 3, 3, 4, 1, 3, 2, 3, 3, 1, 2, 2, 1, 2, 2))
+# 도수, 상대도수, 누적 상대도수를 구하고, 그래프로 표현해보시오 
+
+length(coin)  # 시행횟수 25번
+
+# 도수
+table(coin)
+barplot(table(coin))
+
+# 상대도수
+(rounded.relfreq <- table(round(prop.table(coin), 4)))
+barplot(rounded.relfreq)
+
+# 누적 상대도수
+#(sorted.relfreq <- sort(rounded.relfreq, decreasing = F))
+#(sorted.relfreq <- sort(round(prop.table(coin), 4), decreasing = F))
+#barplot(sorted.relfreq)
+
+(cumul <- (cumsum(rounded.relfreq)))
+barplot(cumul)
+```
+
+```{r}
+(coin <- c(2, 2, 0, 1, 1, 1, 2, 3, 1, 2, 2, 3, 3, 4, 1, 3, 2, 3, 3, 1, 2, 2, 1, 2, 2))
+frequency <- rep(0, 5)
+for(i in 1:5){
+  frequency[i] <- length(coin[coin == i - 1])
+}
+frequency
+
+coin[coin == 1]
+(relative = frequency / length(coin))
+round(relative, 2)
+cumulative = cumsum(relative)
+round(cumulative, 2)
+
+result = data.frame("도수" = frequency, "상대도수" = round(relative, 2), "누적상대도수" = round(cumulative, 2))
+rownames(result) <- c(0, 1, 2, 3, 4)
+result
+plot(result$"도수", type = "b", col = "red", main = "도수분포표", frame.plot = F, panel.first = T)
+
+opar <- par(mfrow = c(1, 3))
+plot(frequency, xlab = "값", ylab = "도수", type = "b", col = "red", frame.plot = F)
+plot(round(relative, 2), type = "b", pch = 23, col = "red")
+plot(round(cumulative, 2), type = "b", col = "red", axes = F)
+
+barplot(frequency, xlab = "값", ylab = "도수", col = "red")
+barplot(round(relative, 2), xlab = "값", ylab = "도수", col = "red")
+barplot(round(cumulative, 2), xlab = "값", ylab = "도수", col = "red")
+par(opar)
+```
+```{r}
+(coin <- c(2, 2, 0, 1, 1, 1, 2, 3, 1, 2, 2, 3, 3, 4, 1, 3, 2, 3, 3, 1, 2, 2, 1, 2, 2))
+library(ggplot2)
+#install.packages("grid", repos="http://cran.nexr.com/")
+#library(grid)
+q = table(coin)
+newcoin = data.frame(q)
+a <- ggplot(as.data.frame(coin), aes(coin)) + geom_bar(stat = "count")
+
+# 상대도수 구하기
+newcoin$relfreq = (newcoin$Freq) / length(coin)
+
+# 누적도수 구하기
+newcoin$cum = cumsum(newcoin$Freq)
+
+# multiplot <- function(..., plotList=NULL, file, cols=1, layout=NULL){
+#   require(grid)
+#   plots <- c(list(...), plotlist)
+#   numPlots = length(plots)
+#   if(is.null(layout)){
+#     layout <- matrix(seq(1, cols * ceiling(numPlots / cols)), ncol = ncols, nrow = ceiling(numPlots / cols))
+#   }
+#   
+#   if(numPlots == 1){
+#     print(Plots[[1]])
+#   }else{
+#     grid.newpage()
+#     pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
+#     for(i in 1:numPlots){
+#       matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
+#       print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row, layout.pos.col = match$col))
+#     }
+#   }
+# }
+
+multiplot <- function(..., plotlist=NULL, cols) {
+    require(grid)
+
+    # Make a list from the ... arguments and plotlist
+    plots <- c(list(...), plotlist)
+
+    numPlots = length(plots)
+
+    # Make the panel
+    plotCols = cols                          # Number of columns of plots
+    plotRows = ceiling(numPlots/plotCols) # Number of rows needed, calculated from # of cols
+
+    # Set up the page
+    grid.newpage()
+    pushViewport(viewport(layout = grid.layout(plotRows, plotCols)))
+    vplayout <- function(x, y)
+        viewport(layout.pos.row = x, layout.pos.col = y)
+
+    # Make each plot, in the correct location
+    for (i in 1:numPlots) {
+        curRow = ceiling(i/plotCols)
+        curCol = (i-1) %% plotCols + 1
+        print(plots[[i]], vp = vplayout(curRow, curCol ))
+    }
+
+}
+
+#상대도수 그리기
+b <- ggplot(newcoin, aes(coin, relfreq)) + geom_bar(stat = "identity")
+
+# 누적도수 그리기
+c <- ggplot(newcoin, aes(coin, cum)) + geom_bar(stat = "identity")
+
+multiplot(a, b, c, cols = 3)
+```
+```{r}
+(coin <- c(2, 2, 0, 1, 1, 1, 2, 3, 1, 2, 2, 3, 3, 4, 1, 3, 2, 3, 3, 1, 2, 2, 1, 2, 2))
+coin <- as.data.frame(table(coin))
+coin$Freq
+coin
+```
+
+```{r}
+(coin <- c(2, 2, 0, 1, 1, 1, 2, 3, 1, 2, 2, 3, 3, 4, 1, 3, 2, 3, 3, 1, 2, 2, 1, 2, 2))
+library(ggplot2)
+(coin.num = sort(unique(coin)))
+
+(coin.freq = rep(0, 4))
+for(i in 1:length(coin.num)){
+  coin.freq[i] <- length(coin[coin == i - 1])
+}
+
+coin.freq
+(coin.rel = round(coin.freq / length(coin), 2))
+(coin.cum = cumsum(coin.rel))
+
+(coin.freq <- data.frame(coin.num, coin.freq))
+names(coin.freq)[2] <- paste("val")
+coin.freq$type = rep("freq", length(coin.num))
+coin.freq
+
+coin.rel = data.frame(coin.num, coin.rel)
+names(coin.rel)[2]  <- paste("val")
+coin.rel$type = rep("rel", length(coin.num))
+coin.rel
+
+coin.cum = data.frame(coin.num, coin.cum)
+names(coin.cum)[2]  <- paste("val")
+coin.cum$type = rep("cum", length(coin.num))
+coin.cum
+
+coin.graph = rbind(coin.freq, coin.rel, coin.cum)
+ggplot(coin.graph, aes(coin.num, val, group = type, col = type)) + geom_point() + geom_line()
+
+coin.rel.graph = rbind(coin.rel, coin.cum)
+ggplot(coin.rel.graph, aes(coin.num, val, group = type, col = type)) + geom_point() + geom_line()
+
+```
