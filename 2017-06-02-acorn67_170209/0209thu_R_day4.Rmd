@@ -1,0 +1,293 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+
+```{r}
+install.packages("sqldf", repos="http://cran.nexr.com/")
+library(sqldf)
+library(MASS)
+str(Cars93)
+#sqldf('select Type, count(*) as n from Cars93 group by Type order by Type')
+sqldf('SELECT Type, count(*) as n FROM Cars93 GROUP BY Type ORDER BY Type')
+```
+
+```{r}
+#install.packages("sqldf", dependencies = T)
+install.packages("PASWR", dependencies = T, , repos="http://cran.nexr.com/")
+#library(sqldf)
+library(PASWR)
+str(titanic3)
+```
+```{r}
+nrow(titanic3)
+(TitanicData <- titanic3[,])
+(TitanicSubset2Cols2 <- titanic3[, c(1, 2)])
+head(titanic3)
+nrow(titanic3[titanic3$sex == "female", ])
+nrow(titanic3[(titanic3$sex == "female" & titanic3$embarked == "Southampton"), ])
+sum(titanic3$fare[titanic3$sex == "female"])
+length(unique(titanic3$cabin))
+#nrow(Data[grep("^A", Data$name), ])
+nrow(titanic3[grep("^A", titanic3$name), ])
+```
+
+```{r}
+nrow(titanic3)
+sqldf('select count(*) from titanic3')
+
+(TitanicData <- titanic3[,])
+sqldf('select * from titanic3')
+
+(TitanicSubset2Cols2 <- titanic3[, c(1, 2)])
+sqldf('select pclass, survived from titanic3')
+
+head(titanic3)
+sqldf('select * from titanic3 limit 6')
+
+nrow(titanic3[titanic3$sex == "female", ])
+sqldf('select count(name) from titanic3 where sex = "female"')
+
+nrow(titanic3[(titanic3$sex == "female" & titanic3$embarked == "Southampton"), ])
+sqldf('select count(name) from titanic3 where sex = "female" and embarked = "Southampton"')
+
+sum(titanic3$fare[titanic3$sex == "female"])
+sqldf('select sum(fare) from titanic3 where sex = "female"')
+
+length(unique(titanic3$cabin))
+# do not need to use group by command
+sqldf('select count(distinct cabin) from titanic3')
+
+#Count the number of people in the ship whose name start with ‘A’. Below is the R equivalent to do the same.
+nrow(titanic3[grep("^A", titanic3$name), ])
+sqldf('select count(name) from titanic3 where name like "A%"')
+```
+
+```{r}
+install.packages("RMySQL", repos="http://cran.nexr.com/")
+library(RMySQL)
+1+1
+#con <- dbConnect(MySQL(), user = "root", password = "123", dbname = "acorn", host = "localhost")
+con <- dbConnect(MySQL(), user = "root", password = "123", dbname = "acorn", host = "127.0.0.1")
+
+dbListTables(con)
+
+x <- 1:10
+y <- letters[1:10]
+trial <- data.frame(x, y, stringsAsFactors = FALSE)
+dbWriteTable(con, "trial", trial)
+dbListTables(con)
+
+(data1 <- dbGetQuery(con, "select * from trial"))
+
+(query <- dbSendQuery(con, "select * from trial")) #=> # not working
+#dbRemoveTable(con, "trial")
+dbFetch(query, n = 5)
+dbGetInfo(query)
+dbGetStatement(query)
+dbGetRowCount(query)
+dbGetRowsAffected(query)
+dbColumnInfo(query)
+dbClearResult(query)
+dbDisconnect(con)
+```
+```{r}
+library(stringr)
+mtcars$mfg <- str_split_fixed(rownames(mtcars), ' ', 2)[, 1]
+mtcars$mfg[mtcars$mfg == 'Merc'] <- 'Mercedes'
+mtcars$model <- str_split_fixed(rownames(mtcars), ' ', 2)[, 2]
+#con <- dbConnect(MySQL(), username = "root", password = "123", dbname = "acorn", host = "localhost")
+con <- dbConnect(MySQL(), username = "root", password = "123", dbname = "acorn", host = "127.0.0.1")
+
+dbWriteTable(con, 'motortrend', mtcars)
+dbListTables(con)
+
+dbGetQuery(con, "select * from motortrend")
+#dbDisconnect(con)
+```
+```{r}
+# http://biostat.mc.vanderbilt.edu/wiki/Main/DataSets
+# titanic3.csv
+titanic3 = read.csv("/home/jw/Downloads/titanic3.csv")
+head(titanic3)
+str(titanic3)
+#con <- dbConnect(MySQL(), username = "root", password = "123", dbname = "acorn", host = "localhost")
+con <- dbConnect(MySQL(), username = "root", password = "123", dbname = "acorn", host = "127.0.0.1")
+dbWriteTable(con, 'titanic3', titanic3)
+dbListTables(con)
+(query <- dbSendQuery(con, "select * from titanic3"))
+dbColumnInfo(query)
+```
+```{r}
+# dplyr chaining 활용
+library(dplyr)
+#con <- dbConnect(MySQL(), username = "root", password = "123", dbname = "acorn", host = "localhost")
+con <- src_mysql(user = "root", password = "123", dbname = "acorn", host = "127.0.0.1")
+mydata <- con %>%
+  tbl("titanic3") %>%
+  select(pclass, sex, age, fare, survived, parch) %>%
+  filter(survived == 1) %>%
+  collect()
+```
+
+```{r}
+#dbDisconnect(con)
+#con <- src_mysql(user = "root", password = "123", dbname = "acorn", host = "127.0.0.1")
+con <- dbConnect(MySQL(), username = "root", password = "123", dbname = "acorn", host = "127.0.0.1")
+dbListTables(con)
+
+#dbGetQuery(con, "select * from titanic3") %>%
+#  select(pclass, sex, age, fare, survived, parch) %>%
+#  filter(survived == "1")
+
+dbGetQuery(con, "select pclass, sex, age, fare, survived, parch from titanic3 where survived='1'")
+```
+
+```{r}
+# dbDisconnect(con)
+# library(dplyr)
+# library(stringr)
+# library(RMySQL)
+# 
+# head(titanic3)
+# str(titanic3)
+# 
+# #myData <- dbGetQuery(con, "select * from titanic3") %>%
+# #  select(mean(survived), sex, pclass) %>%
+# #  group_by(sex, pclass) %>%
+# #  #filter(survived == "1")
+# #  summarise(survived_ratio = mean(survived, na.rm = T))
+# 
+# myData <- dbGetQuery(con, "select avg(survived), sex, pclass from titanic3 group by sex, pclass")
+# 
+# myData <- dbGetQuery(con, "select sex, pclass from titanic3")
+# 
+# 
+# 
+#   select(mean(survived), sex, pclass) %>%
+#   group_by(sex, pclass) %>%
+#     
+# #    
+# summarise(survived_ratio = mean(survived, na.rm = T))
+# 
+# 
+# library(ggplot2)
+# ggplot(myData, aes(pclass, survived_ratio, color = sex, group = sex)) + geom_point(size = 3) + geom_line()
+```
+
+```{r}
+score4 <- c(3, 3, 6, 7, 7, 10, 10, 10, 11, 13, 30)
+min(score4)
+max(score4)
+print('asdfasdfasdf')
+
+range(score4)
+mean(score4)
+median(score4)
+sum(score4)
+print('sort / order / rank')
+sort(score4)
+order(score4)
+rank(score4)
+
+print('standard deviation')
+sd(score4)
+
+print('summary print')
+summary(score4)
+
+print('table print')
+table(score4)
+
+print('fivenum print')
+fivenum(score4)
+
+print('quantile print')
+quantile(score4, 0.75)
+```
+
+```{r}
+boxplot(score4, xlab="정수")
+par("mar")
+var(score4)
+(total <- sum((score4 - mean(score4)) * (score4 - mean(score4))))
+(var_val <- total / (length(score4) - 1))
+sqrt(var_val)
+diff(range(score4))
+IQR(score4)
+(quantile(score4, 0.75) - quantile(score4, 0.25)) * 1.5
+```
+
+```{r}
+install.packages("moments", repos="http://cran.nexr.com/")
+library(moments)
+n.sample <- rnorm(n = 10000, mean = 55, sd = 45)
+skewness(n.sample)
+kurtosis(n.sample)
+```
+
+```{r}
+install.packages("Hmisc", repos="http://cran.nexr.com/")
+library(Hmisc)
+describe(n.sample)
+GiniMd(n.sample, na.rm=FALSE)
+```
+```{r}
+install.packages("pastecs", repos="http://cran.nexr.com/")
+library(pastecs)
+```
+
+```{r}
+library(MASS)
+round(
+  stat.desc(Cars93[c("Price", "MPG.highway")], desc = TRUE, norm = TRUE, p = 0.9)
+)
+```
+```{r}
+(height_korean <- rnorm(n = 1000, mean = 170, sd = 10))
+(height_korean <- (height_korean - mean(height_korean)) / sd(height_korean))
+
+# simplify scaling normal distribution
+(height_korean <- scale(height_korean))
+densityplot(height_korean)
+```
+
+```{r}
+height_korean <- rnorm(n = 1000, mean = 170, sd = 10)
+height_bushman <- rnorm(n = 1000, mean = 150, sd = 8)
+height <- data.frame(height_korean, height_bushman)
+rm(height_korean, height_bushman)
+
+head(height)
+attach(height)
+# attach는 인자로 주어진 데이터 프레임이나 리스트를 곧바로 접근할 수 있게 해준다.
+# 이를 해제하려면 detach()를 사용한다.
+# attach를 쓰면  height$height_korean이 아니라 그냥 height_korean으로 쓸 수 있다
+
+par(mfrow = c(1, 2))
+# mfrow를 지정하면 한 창에 여러개의 그래프를 나열할 수 있다.
+
+hist(height_korean, freq = TRUE, main = "korean height freq histogram")
+hist(height_korean, freq = FALSE, main = "korean height pdf histogram")
+
+hist(height_bushman, freq = TRUE, main = "bushman height freq histogram")
+hist(height_bushman, freq = FALSE, main = "bushman height pdf histogram")
+
+# 변수값에 대한 연산결과를 데이터 프레임의 다른 변수에 저장하는 함수이다.
+height <- transform(height, 
+                    z.height_korean = scale(height_korean), 
+                    z.height_bushman = scale(height_bushman)
+)
+
+height <- transform(height, 
+                    z2.height_korean = (height_korean - mean(height_korean)) / sd(height_korean), 
+                    z2.height_bushman = (height_bushman - mean(height_bushman)) / sd(height_bushman)
+)
+
+par(mfrow = c(1, 2))
+hist(height$z.height_korean, freq = TRUE, main = "standized freq. of Korean H")
+hist(height$z.height_bushman, freq = TRUE, main = "standized freq. of Bushman H")
+```
+
