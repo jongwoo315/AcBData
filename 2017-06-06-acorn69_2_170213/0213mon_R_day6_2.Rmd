@@ -1,0 +1,74 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+```{r}
+library(MASS)
+str(Cars93)
+summary(Cars93)
+```
+
+```{r}
+t.test(Price ~ Origin, data = Cars93)
+# 귀무가설을 기각하지 못함
+# USA차량과 non-USA차량의 가격 모평균 간에는 차이가 없다
+```
+
+```{r}
+#Cars93[Cars93$Price, Cars93$Origin]
+a <- subset(Cars93, select = c(Price, Origin))
+head(a)
+write.csv(a, "/home/jw/aaa.csv")
+####################################################################################
+
+usacar <- subset(Cars93, select = c(Price, Origin), subset = (Origin == "USA"))
+# USA 48개
+mean(usacar$Price)  # 18.57292
+sd(usacar$Price)  # 7.816914
+var(usacar$Price)  # 61.10414
+
+nonusacar <- subset(Cars93, select = c(Price, Origin), subset = (Origin == "non-USA"))
+# non-USA 45개
+mean(nonusacar$Price)  # 20.50889
+sd(nonusacar$Price)  # 11.30675
+var(nonusacar$Price)  # 127.8426
+
+t.test(usacar$Price, nonusacar$Price)
+```
+
+```{r}
+table(Cars93$Origin)
+with(Cars93, tapply(Price, Origin, summary))
+boxplot(Price ~ Origin, data = Cars93, main = "Boxplot of Price by Origin", xlab = "Origin", ylab = "Price")
+```
+
+```{r}
+library(ggplot2)
+ggplot(Cars93, aes(x = Price)) + geom_histogram(binwidth = 5) + facet_grid(Origin ~ .) + ggtitle("histogram of Price by Origin")
+```
+```{r}
+var.test(Price ~ Origin, data = Cars93)
+# 귀무가설: 두 분산이 동일하다
+# 대립가설: 두 분산이 다르다
+# 귀무가설을 기각하므로 t.test시 옵션으로 var.equal = False를 해준다(하지 않아도 상관X)
+t.test(Price ~ Origin, data = Cars93, var.equal = FALSE)
+```
+
+```{r}
+a <- with(Cars93, tapply(Price, Origin, var))
+a <- as.vector(a)
+#Fvalue <- a["non-USA"] / a["USA"]
+Fvalue <- a[1] / a[2]
+Fvalue
+```
+
+```{r}
+# wilcox test
+x1 <- c(51.4, 52, 45.5, 54.5, 52.3, 50.9, 52.7, 50.3, 53.8, 53.1)
+x2 <- c(50.1, 51.5, 45.9, 53.1, 51.8, 50.3, 52, 49.9, 52.5, 53)
+
+wilcox.test(x1, x2, alternative = c("greater"), paired = TRUE, conf.level = 0.95)
+```
+
