@@ -1,0 +1,70 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+```{r}
+######################################################
+install.packages("nnet", repos="http://cran.nexr.com/")
+library(nnet)
+m <- nnet(Species ~ ., data = iris, size = 3)  # 은닉층 노드수
+m
+y<-iris$Species
+y
+#iris 데이터에 대한 예측
+predict(m ,newdata = iris)
+
+# 모델로 부터 예측된 분류를 바로 알고자 할 때
+predict(m, newdata = iris, type = 'class')
+```
+
+```{r}
+# 신경망
+# http://m.blog.naver.com/swkim4610/220469528029
+# 원래 블로그
+
+install.packages("nnet", repos="http://cran.nexr.com/")
+library(nnet)
+
+normalize <- function(x) {return((x - min(x)) / (max(x) - min(x)))}
+# iris 데이터는 열이 5개다. iris[, -5]는 5번째 열을 제외한 데이터프레임
+irisNorm <- as.data.frame(lapply(iris[,-5], normalize))
+
+# 다시 iris의 5번째 열을 붙인다.
+irisNorm$Species <- iris$Species
+
+
+samp <- c(sample(1:50,25), sample(51:100,25), sample(101:150,25))
+
+# [1, ] 행의 모든 열을 출력
+# [samp, ]행들의 모든 열들을 출력
+# 총 75개의 sample이 뽑힌다
+iris.tr<-irisNorm[samp,]
+irisNorm[-1,]
+# [-1, ] = [1, ]행을 제외한 나머지 행들을 출력
+iris.te<-irisNorm[-samp,]
+
+ir1 <- nnet(Species~., data=iris.tr, size = 3)
+y<-iris.te$Species
+p<- predict(ir1, iris.te, type = "class")
+table(y,p)
+```
+
+```{r}
+a <- iris$Sepal.Length[1] - min(iris$Sepal.Length)
+b <- max(iris$Sepal.Length) - min(iris$Sepal.Length)
+a/b
+```
+
+```{r}
+x <- sample(1:100, 30)
+
+# 아래는 정규화시키는 것 scale을 0 ~ 1로 바꿀 때
+normalize <- (x - min(x)) / (max(x) - min(x))
+
+par(mfrow = c(1, 2))
+hist(x)
+hist(normalize)
+```
+
