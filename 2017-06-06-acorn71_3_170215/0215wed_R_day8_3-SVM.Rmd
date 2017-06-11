@@ -1,0 +1,68 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+```{r}
+# 서포트 벡터 머신 (SVM)
+install.packages('kernlab', repos="http://cran.nexr.com/")
+library(kernlab)
+(iris.ksvm <- ksvm(Species ~ ., data = iris))  # 기본 커널 함수: gaussian함수
+head(predict(iris.ksvm, newdata = iris))
+
+
+# 커널함수 바꾸기
+(iris.ksvm2 <- ksvm(Species ~ ., data = iris, kernel = 'vanilladot'))
+head(predict(iris.ksvm2, newdata = iris))
+
+# 커널함수 바꾸기
+(iris.ksvm2 <- ksvm(Species ~ ., data = iris, kernel = 'polydot', kpar = list(degree = 3)))
+head(predict(iris.ksvm2, newdata = iris))
+```
+
+
+http://web.mit.edu/~r/current/arch/i386_linux26/lib/R/library/e1071/doc/svmdoc.R
+
+```{r}
+# SVM vs RPART
+install.packages('mlbench', repos="http://cran.nexr.com/")
+### R code from vignette source 'svmdoc.Rnw'
+
+###################################################
+### code chunk number 1: svmdoc.Rnw:140-149
+###################################################
+library(e1071)
+library(rpart)
+data(Glass, package="mlbench")
+
+## split data into a train and test set
+index     <- 1:nrow(Glass)
+testindex <- sample(index, trunc(length(index)/3))
+testset   <- Glass[testindex,]
+trainset  <- Glass[-testindex,]
+
+###################################################
+### code chunk number 2: svmdoc.Rnw:154-157
+###################################################
+## svm
+svm.model <- svm(Type ~ ., data = trainset, cost = 100, gamma = 1)
+svm.pred  <- predict(svm.model, testset[,-10])
+
+###################################################
+### code chunk number 3: svmdoc.Rnw:162-165
+###################################################
+## rpart
+rpart.model <- rpart(Type ~ ., data = trainset)
+rpart.pred  <- predict(rpart.model, testset[,-10], type = "class")
+
+###################################################
+### code chunk number 4: svmdoc.Rnw:168-173
+###################################################
+## compute svm confusion matrix
+table(pred = svm.pred, true = testset[,10])
+
+## compute rpart confusion matrix 
+table(pred = rpart.pred, true = testset[,10])
+```
+
