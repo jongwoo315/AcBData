@@ -1,0 +1,166 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+```{r}
+library(PASWR)
+data('titanic3')
+
+# int형 변수들 확인
+str(titanic3)
+# int형 변수들(num포함): survivied, age, sibsp, parch, fare, body
+
+# int형 변수들을 factor화 시킨다
+# 그러기 위해서는 int형 변수들의 범위와 빈도수를 체크해야 함
+table(titanic3$survived)
+# table(titanic3$age) # 너무 많이 출력되어서 주석처리
+table(titanic3$sibsp)
+table(titanic3$parch)
+# table(titanic3$fare) # 너무 많이 출력되어서 주석처리
+table(titanic3$body)
+```
+
+```{r}
+data("titanic3")
+table(titanic3$survived)
+
+#cut(titanic3$survived, c(-Inf, 0, Inf))
+#if(titanic3$survived > 0) titanic3$survived = 'yes' else titanic3$survived = 'no'
+#if(titanic3$survived[titanic3$survived == 1] ) titanic3$survived = 'yes' else titanic3$survived = 'no'
+
+#titanic3$survived[titanic3$survived == 0] = 'no'
+#titanic3$survived[titanic3$survived == 1] = 'yes'
+
+titanic3$survived <- ordered(
+  cut(titanic3$survived, c(-Inf, 0, 1)), 
+  labels = c('no', 'yes')
+  )
+```
+
+```{r}
+sum(table(titanic3$age)) # 1046명
+
+summary(titanic3$age)
+
+sum(table(titanic3$age[titanic3$age <= 18])) # 193명
+sum(table(titanic3$age[titanic3$age > 18 & titanic3$age <= 30])) # 416명
+sum(table(titanic3$age[titanic3$age > 30 & titanic3$age <= 55])) # 378명
+sum(table(titanic3$age[titanic3$age > 55 & titanic3$age <= 80])) # 59명
+
+# titanic3$age <- titanic3$age[!is.na(titanic3$age)]
+# titanic3$age3 <- na.omit(titanic3$age)
+#y <- lapply(titanic3$age, na.omit)
+
+titanic3$age <- ordered(
+  cut(titanic3$age, c(0, 18, 30, 55, 80)), 
+  labels = c('teenager', 'young', 'senior', 'old')
+  )
+```
+
+```{r}
+table(titanic3$sibsp)
+
+sum(table(titanic3$sibsp[titanic3$sibsp == 0])) # 891
+sum(table(titanic3$sibsp[titanic3$sibsp > 0 & titanic3$sibsp <= 3])) # 381
+sum(table(titanic3$sibsp[titanic3$sibsp > 3 & titanic3$sibsp <= 8])) # 37
+
+titanic3$sibsp <- ordered(
+  cut(titanic3$sibsp, c(-Inf, 0, 3, 8, Inf)),
+  labels = c('none', 'few', 'many')
+)
+```
+
+```{r}
+table(titanic3$parch)
+
+titanic3$parch <- ordered(
+  cut(titanic3$parch, c(-Inf, 0, 3, 9, Inf)),
+  labels = c('alone', 'few', 'many')
+)
+```
+
+```{r}
+# table(titanic3$fare) # 너무 많이 출력되어서 주석처리
+summary(titanic3$fare)
+
+titanic3$fare <- ordered(
+  cut(titanic3$fare, c(-Inf, 0, 10, 35, 100, Inf)),
+  labels = c('free_ride', 'economy', '3rd_class', '2nd_class', '1st_class')
+)
+```
+
+```{r}
+table(titanic3$body)
+titanic3$body <- NULL
+
+table(titanic3$boat)
+titanic3$boat <- NULL
+
+# table(titanic3$cabin) # 너무 많이 출력되어서 주석처리
+titanic3$cabin <- NULL
+```
+
+```{r}
+# sample(titanic3, 10) # 너무 많이 출력되어서 주석처리
+```
+
+```{r}
+#titanic3 <- as(titanic3, "transactions") #이거 왜 하는 거임?
+
+install.packages("arules", repos="http://cran.nexr.com/")
+library(arules)
+install.packages("arulesViz", repos="http://cran.nexr.com/")
+library(arulesViz)
+
+summary(titanic3)
+class(titanic3)
+
+titanic3_rules <- apriori(titanic3, 
+                 parameter = list(supp = 0.005, conf = 0.8, minlen = 2),
+                 appearance = list(rhs=c("survived=no", "survived=yes"), default="lhs"), 
+                 control = list(verbose=F))
+
+titanic3_rules.sorted <- sort(titanic3_rules, by="lift")
+#inspect(titanic3_rules.sorted) # 너무 많이 출력되어서 주석처리
+
+plot(titanic3_rules, method = "graph")
+```
+
+```{r}
+table(titanic3$sex)
+```
+
+```{r}
+# 변수가 너무 많으므로 pclass, sex, age를 가지고 survived와의 연관관계를 분석해보겠다
+#titanic3$age <- ordered(cut(titanic3$age, c(0, 18, 30, 55, 80)),labels = c('teenager', 'young', 'senior', 'old'))
+# 0 ~ 18 : teenager
+# 19 ~ 30 : young
+# 31 ~ 55 : senior
+# 56 ~ 80 : old
+
+titanic3_new <- data.frame(titanic3$age, titanic3$sex, titanic3$pclass, titanic3$survived)
+colnames(titanic3_new)[c(1, 2, 3, 4)] <- c('age', 'sex', 'pclass', 'survived')
+titanic3_rules2 <- apriori(titanic3_new, 
+                 parameter = list(supp = 0.005, conf = 0.8, minlen = 2),
+                 appearance = list(rhs=c("survived=no", "survived=yes"), default="lhs"), 
+                 control = list(verbose=F))
+
+titanic3_rules.sorted2 <- sort(titanic3_rules2, by="lift")
+inspect(titanic3_rules.sorted2)
+plot(titanic3_rules2, method = "graph")
+```
+
+```{r}
+a_list = list(c('a', 'c', 'd'), c('b', 'c', 'e'), c('a', 'b', 'c', 'e'), c('b', 'e'))
+names(a_list) = paste('Tr', c(1:4), sep = '')
+a_list
+trans <- as(a_list, 'transactions')
+trans
+str(trans)
+summary(trans) # 행(각 transaction)과 열에 대한
+inspect(trans) # 입력한 원자료를 보여줌
+image(trans)
+```
+
