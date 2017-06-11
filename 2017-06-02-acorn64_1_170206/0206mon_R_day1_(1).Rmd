@@ -1,0 +1,157 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+
+```{r}
+LETTERS
+letters
+```
+
+```{r}
+month.abb
+```
+
+```{r}
+month.name
+```
+
+```{r}
+pi
+```
+
+```{r}
+1 / 0
+```
+
+```{r}
+vector(length = 4)
+```
+```{r}
+vector(mode = "numeric", length = 4)
+```
+```{r}
+vector(mode = "character", length = 4)
+```
+```{r}
+x <- 1:10
+x
+```
+```{r}
+names(x) <- letters[1:10]
+names(x)
+```
+```{r}
+x
+```
+
+```{r}
+y = 11:20
+y
+```
+
+```{r}
+a <- 10
+a
+```
+```{r}
+rm(list = ls())
+```
+
+```{r}
+c(1:4) ^ c(1:2)
+```
+
+```{r}
+(9:11) -c(4,6)
+```
+
+```{r}
+-3 %% 3
+```
+
+```{r}
+-2 %/% 3
+# ?? ????
+# ?????��?????
+```
+```{r}
+matrix(1:4, nrow=2, ncol=2, byrow = "TRUE")
+```
+```{r}
+a <- matrix(data=1:4, nrow=2, ncol=2, byrow="TRUE", dimnames = list(c("asdf","Asdf"), c("333", "555")))
+a
+```
+```{r}
+dim(a)
+```
+```{r}
+mode(a)
+```
+
+```{r}
+x <- c(2, 3, 4)
+y <- LETTERS[1:3]
+df1 <- data.frame(x, y)
+df1
+```
+
+```{r}
+df1$x
+df1$y
+```
+```{r}
+df1$z = c(pi, sqrt(2), 2.71828)
+df1
+```
+
+```{r}
+df1$x <- NULL
+df1
+```
+
+```{r}
+df1$x <- x
+df1
+```
+
+```{r}
+dim(df1)
+```
+
+```{r}
+colnames(df1)
+```
+
+```{r}
+row.names(df1)
+```
+
+```{r}
+colnames(df1) <- LETTERS[1:3]
+df1
+```
+
+```{r}
+data(iris)
+```
+```{r}
+head(iris)
+```
+
+```{r}
+str(iris)
+#????????????????
+```
+```{r}
+iris$Species
+```
+
+```{r}
+iris[1:10, c("Sepal.Length", "Petal.Length")]
+```
+
+
+
