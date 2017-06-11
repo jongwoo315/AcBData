@@ -1,0 +1,124 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+```{r}
+install.packages("lattice", repos="http://cran.nexr.com/")
+```
+```{r}
+library(lattice)
+install.packages("mlmRev", repos="http://cran.nexr.com/")
+```
+```{r}
+library(mlmRev)
+head(Chem97)
+```
+
+```{r}
+#shows the same result
+histogram(~gcsescore, data = Chem97)
+hist(Chem97$gcsescore)
+
+histogram(~gcsescore|score, data = Chem97)
+histogram(~gcsescore|factor(score), data = Chem97)
+densityplot(~gcsescore|factor(score), groups = gender, data = Chem97)
+densityplot(~gcsescore|factor(score), groups = gender, plot.points = F, data = Chem97)
+densityplot(~gcsescore|factor(score), groups = gender, plot.points = F, auto.key = T, data = Chem97)
+```
+```{r}
+View(VADeaths)
+dft <- as.data.frame.table(VADeaths)
+dft
+```
+
+```{r}
+barchart(Var1 ~ Freq | Var2, data = dft, layout = c(4, 1))
+```
+
+```{r}
+dotplot(Var1 ~ Freq | Var2, dft)
+dotplot(Var1 ~ Freq, data = dft, groups = Var2, type = "o", auto.key = list(space = "right", points = T, lines = T))
+```
+
+```{r}
+str(airquality)
+airquality
+xyplot(Ozone ~ Wind, data = airquality)
+xyplot(Ozone ~ Wind|factor(Month), data = airquality)
+xyplot(Ozone ~ Wind|factor(Month), data = airquality, layout = c(5, 1))
+xyplot(Ozone ~ Wind|Month, data = airquality)
+```
+
+```{r}
+# change 'Month' datatype to factor
+convert <- transform(airquality, Month = factor(Month))
+convert
+airquality$Month <- factor(airquality$Month)
+airquality
+```
+
+```{r}
+quakes
+str(quakes)
+tplot <- xyplot(lat ~ long, data = quakes, pch = ".")
+tplot2 <- update(tplot, main ="locations of quake occurred after 1964 in pacific")
+tplot2
+depthgroup <- equal.count(quakes$depth, number = 3, overlap = 0)
+#str(depthgroup)
+#xyplot(lat ~ long | depthgroup, data = quakes, main = "depthgroup", ylab = "latitude", xlab = "longtitude", pch = "@", col = "red")
+magnitude <- equal.count(quakes$mag, number = 2, overlap = 0)
+xyplot(lat ~ long | depthgroup * magnitude, data = quakes, main = "locations of earthquakes off Fiji", pch = "@", col = c('red', 'blue'))
+```
+
+```{r}
+cloud(depth ~ lat * long, data = quakes, zlim = rev(range(quakes$depth)), xlab = "경도", ylab = "위도", zlab = " 깊이", aspect = c(1, 1), type = "h")
+```
+```{r}
+install.packages("ggplot2", repos="http://cran.nexr.com/")
+library(ggplot2)
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) + geom_point()
+```
+```{r}
+str(diamonds)
+str(iris)
+qplot(Sepal.Length, Sepal.Width, data = iris)
+qplot(carat, price, data = diamonds)
+#qplot(carat, price, data = diamonds, geom = "histogram")
+qplot(carat, price, data = diamonds, geom_bar(stat = "histogram"))
+#qplot(carat, price, data = diamonds, geom = "histogram", binwidth = 5)
+qplot(carat, price, data = diamonds, geom = c("point", "smooth"), method = lm)
+```
+
+```{r}
+qplot(hwy, data = mpg, fill = drv)
+
+ggplot(mpg, aes(x = hwy, fill = drv)) + geom_bar()
+ggplot(mpg, aes(x = hwy, fill = drv)) + geom_bar(position = "fill")
+ggplot(mpg, aes(x = hwy, fill = drv)) + geom_bar(position = "dodge")
+
+ggplot(mpg, aes(x = hwy, fill = drv)) + geom_dotplot()
+
+ggplot(mpg, aes(x = hwy)) + geom_histogram(binwidth = 2)
+ggplot(mpg, aes(x = hwy, fill = drv)) + geom_histogram(binwidth = 2)
+ggplot(mpg, aes(x = hwy, fill = drv)) + geom_density()
+ggplot(mpg, aes(x = hwy, fill = drv)) + geom_density(adjust = 4)
+ggplot(mpg, aes(x = hwy, fill = drv)) + geom_density(adjust = 0.25)
+ggplot(mpg, aes(x = hwy, y = cty)) + geom_boxplot()
+ggplot(mpg, aes(x = hwy, y = cty)) + geom_boxplot() + coord_flip()
+
+ggplot(mpg, aes(x = hwy, fill = drv)) + geom_dotplot(dotsize = 0.4)
+ggplot(mpg, aes(x = hwy, y = cty)) + geom_point() + ylab('cty') + xlab('hwy')
+
+# loess로 회귀
+ggplot(mpg, aes(x = hwy, y = cty)) + geom_point(position = position_jitter(w = 0.2, h = 0.2)) + geom_smooth() + ylab('cty') + xlab('hwy')
+
+# 선형회귀 메소드로 회귀
+ggplot(mpg, aes(x = hwy, y = cty)) + geom_point(position = position_jitter(w = 0.2, h = 0.2)) + geom_smooth(method = "lm", se = FALSE) + ylab('cty') + xlab('hwy')
+
+ggplot(mpg, aes(x = hwy, y = cty, color = factor(hwy))) + geom_line()
+```
+
+
+
