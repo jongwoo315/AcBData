@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+  marcador Site
+{% endblock %}
+
+{% block sidebar %}
+  {{block.super}}
+  <span><a href="/marcador">Marcador_Home</a></span>
+{% endblock %}
+
+{% block heading %}
+  <div>
+    <a href="{% url "marcador_bookmark_create" %}"> ---생성---</a>
+  </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Login
+{% endblock %}
+
+{% block content %}
+  {% csrf_token %}
+    Username
+    Password
+
+  {% if form.errors %}
+    Your username and password didn't match. Please try again.
+  {% endif %}
+{% endblock content %}

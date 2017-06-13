@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h2>프로젝트 메인 홈</h2>
+
+	<div style="font-size:x-large">
+	{% for appname in object_list %}
+		{% with appname|add:":"|add:"index" as urlvar %}
+			<li><a href="{% url urlvar %}">{{ appname }}</a></li>
+		{% endwith %}
+	{% endfor %}
+	</div>
+
+{% endblock content %}

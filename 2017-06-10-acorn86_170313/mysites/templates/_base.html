@@ -1,0 +1,81 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>	<html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>	<html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>	<html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang=""> <!--<![endif]-->
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>{% block title %}장고 프로젝트{% endblock %}</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="apple-touch-icon" href="{% static "apple-touch-icon.png" %}">
+	<link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+	<style>
+		body{
+			padding-top:20px;
+			padding-bottom:10px;
+		}
+	</style>
+	<link rel="stylesheet" href="{% static "css/bootstrap-theme.min.css" %}">
+	<link rel="stylesheet" href="{% static "css/main.css" %}">
+	<script src="{% static "js/vendor/modernizr-2.8.3-respond-1.4.2.min.js" %}"></script>
+</head>
+
+<body>
+	<div id="sidebar" class="container">
+		{% block menu %}
+		{% include "base_navi.html" %}
+		{% endblock menu %}
+		{% block sidebar %}
+			<hr>
+		<div style="background-color:#cccccc; overflow:auto;"> <span><a href="/">Project_Home /</a></span>
+		{% endblock %}
+		</div>
+	</div>
+	<div class="container">
+		{% block heading %}{% endblock %}
+		{% block content %}{% endblock %}
+		<footer><p>&copy; 싸이트 2015</p></footer>
+	</div>
+	<div class="jumbotron">
+		<div class="container">
+			<h1>훈련 페이지!</h1>
+			<p>장고 훈련을 위한 페이지 URL parser - View(Control) - Model - Template로 이루어짐</p>
+			<p><a class="btn btn-primary btn-lg" href="#" role="button">훈련 페이지;</a></p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<h2>Heading</h2>
+			<p>모델 생성시 자동으로 테이블 생성</p>
+			<p><a class="btn btn-default" href="#" role="button">모델 설명;</a></p>
+		</div>
+		<div class="col-md-4">
+			<h2>Heading</h2>
+			<p>계층적으로 어플리케이션을 만들어 확장이 가능하도락 함</p>
+			<p><a class="btn btn-default" href="#" role="button">어플리케이션 확장</a></p>
+		</div>
+		<div class="col-md-4">
+			<h2>Heading</h2>
+			<p>Template로 HTML 상속이 가능하여 공통 기능을 하나의 페이지로 만들어 페이지 작업을 절약할 수 있음</p>
+			<p><a class="btn btn-default" href="#" role="button">Template 상속;</a></p>
+		</div>
+	</div>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script>window.jQuery||document.write('<script src="{% static "js/vendor/jquery-1.11.2.min.js" %}"><\/script>')</script>
+	<script src="{% static "js/vendor/bootstrap.min.js" %}"></script>
+	<script src="{% static "js/main.js" %}"></script>
+	{% block footer_javascript %}
+	{% block footer_javascript_site %}
+	<script src="{{STATIC_URL}}js/jquery.min.js"></script>
+	<script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+	<script src="{{STATIC_URL}}jjs/app.js"></script>
+	{% endblock footer_javascript_site %}
+	{% block footer_javascript_section %}{% endblock footer_javascript_section %}
+	{% endblock footer_javascript %}
+</body>
+</html>
