@@ -1,0 +1,3 @@
+[14/Mar/2017 11:14:09]DEBUG [polls.views:50] vote().question_id:1
+[14/Mar/2017 11:14:15]DEBUG [polls.views:50] vote().question_id:1
+[14/Mar/2017 11:19:21]DEBUG [polls.views:50] vote().question_id:1

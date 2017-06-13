@@ -1,0 +1,21 @@
+{% extends "base_marcador.html" %}
+{% block title %}
+  Latest bookmarks
+{% endblock %}
+
+{% block heading %}
+  <h2>Latest bookmarks</h2>
+    <div>
+      <a href="{% url "marcador:marcador_bookmark_create" %}"> ---생성--- </a>
+    </div>
+{% endblock %}
+
+{% block content %}
+  <ul class="list-unstyled">
+    {% for bookmark in bookmarks %}
+      <li class="well well-sm">{% include "marcador/bookmark.html" %}</li>
+      {% empty %}
+      <li>No bookmarks.:(</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
