@@ -1,0 +1,4 @@
+sudo pip install pytz django-crispy-forms
+pip install --upgrade django-crispy-forms
+
+settings.py에 'crispy-forms' 추가
