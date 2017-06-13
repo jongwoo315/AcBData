@@ -1,0 +1,11 @@
+{% extends "base_polls.html" %}
+{% block content %}
+    <p></p>
+    <p></p>
+    <h2>성적 편집</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit">
+    </form>
+{% endblock content%}
