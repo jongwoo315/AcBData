@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}
+    Signup
+{% endblock title%}
+
+{% block content %}
+    <div id="content-container" class="container p-none">
+        <div class="side-p">
+            <form id="user-reg-form" action="." method="post">
+                {% csrf_token %}
+                {# username & password sction #}
+                <h3>signup for a $15 monthly subscription</h3>
+                <h5 class="sn-sh">CREATE A USERNAME AND PASSWORD</h5>
+                <table class="table">
+                    <tbody>
+                        <tr><!-- form은 views.py에서 선언한 것 -->
+                            <th>{{ form.username.label }}</th>
+                            <th>{{ form.email.label }}</th>
+                        </tr>
+                        <tr>
+                            <td>{{ form.username }}</td>
+                            <td>{{ form.email }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.username.errors }}</td>
+                            <td>{{ form.email.errors }}</td>
+                        </tr>
+                        <tr>
+                            <th>Password</th>
+                            <th>Confirm Password</th>
+                        </tr>
+                        <tr>
+                            <td>{{ form.password1 }}</td>
+                            <td>{{ form.password2 }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.password1.errors }}</td>
+                            <td>{{ form.password2.errors }}</td>
+                        </tr>
+                    </tbody>
+                    {# billing address section#}
+                    <tbody>
+                        <tr>
+                            <th>{{ form.first_name.label }}</th>
+                            <th>{{ form.last_name.label }}</th>
+                        </tr>
+                        <tr>
+                            <th>{{ form.first_name }}</th>
+                            <th>{{ form.last_name }}</th>
+                        </tr>
+                        <tr>
+                            <th>{{ form.first_name.errors }}</th>
+                            <th>{{ form.last_name.errors }}</th>
+                        </tr>
+                        <tr>
+                            <th>{{ form.address_one.label }}</th>
+                            <th>{{ form.address_two.label }}</th>
+                        </tr>
+                        <tr>
+                            <th>{{ form.address_one }}</th>
+                            <th>{{ form.address_two }}</th>
+                        </tr>
+                        <tr>
+                            <th>{{ form.address_one.errors }}</th>
+                            <th>{{ form.address_two.errors }}</th>
+                        </tr>
+                        <tr>
+                            <th>{{ form.city.label }}</th>
+                            <th>{{ form.state.label }}</th>
+                        </tr>
+                        <tr>
+                            <th>{{ form.city }}</th>
+                            <th>{{ form.state }}</th>
+                        </tr>
+                        <tr>
+                            <th>{{ form.city.errors }}</th>
+                            <th>{{ form.state.errors }}</th>
+                        </tr>
+                    </tbody>
+            </table>
+                <input class="btn btn-primary" type="submit" value="submit"/>
+            </form>
+            {# credit card section #}
+        </div>
+    </div
+{% endblock content %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}
+    Account List
+{% endblock title %}
+
+{% block content %}
+    <div id="al-container" class="container p-none">
+        <div id="al-container" class="side-p">
+            <div class="al-control">
+                <h3 class="ad-mh">
+                    Account List
+                    {# Add Account Link #}
+                </h3>
+                {# Account Search Form #}
+                <form action="{% url 'account_list' %}" method="get">
+                    {# value부분: account parameter가 URL 내에서 유효한지를 검사 / 이전 검사 기록을 표시!! #}
+                    <input id="al-search" type="text" name="account" value="{{ request.GET.account }}" class="form-control"/>
+                    <input type="submit" value="Search" class="btn btn-success"/>
+                </form>
+            </div>
+            {# List of Accounts #}
+            <ul id="al-group" class="strip-list">
+                {% for account in accounts %}
+                    <li class="al-item">
+                        <a href=""><h4 class="al-name">{{ account.name }}</h4></a>
+                        <span class="al-created">created_on {{ account.created_on }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+            {# pagination section #}
+            {% if is_paginated %}
+                <div id="al-paginate">
+                    <ul class="strip-list al-pgnt-list">
+                        {% if page_obj.has_previous %}
+                            <li class="pull-left">
+                                <a href="{% url 'account_list' %}?page={{ page_obj.previous_page_number }}
+                                {% if request.GET.account %}&account={{ request.GET.account }}{% endif %}">Prev</a>
+                            </li>
+                        {% endif %}
+                        {% if page_obj.has_next %}
+                            <li class="pull-right">
+                                <a href="{% url 'account_list' %}?page={{ page_obj.next_page_number }}
+                                {%if request.GET.account %}&account={{ request.GET.account }}{% endif %}">Next</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}

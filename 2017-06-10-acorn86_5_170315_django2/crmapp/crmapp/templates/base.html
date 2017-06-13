@@ -1,0 +1,105 @@
+{# HTML5 declaration #}
+<!DOCTYPE html>
+<html>
+  {# Make modifiable head elements #}
+  <head>
+    <meta charset="utf-8">
+    <!--give you the ability to specify parts of the base.html file
+    that can be changed by pages that extend it. -->
+    <title>{% block title %}Home from base.html{% endblock %}|CRM 11Easy</title>
+
+    {% block head_favicon %}
+      <link rel="icon" type="image/png" href="{{ STATIC_URL }}images/favicon.ico"/>
+    {% endblock head_favicon%}
+
+    {% block head_meta %}
+      {% block head_meta_charset %}
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+      {% endblock head_meta_charset %}
+
+      {% block head_meta_contentlanguage %}
+        <meta http-equiv="Content-Language" value="en-US"/>
+      {% endblock head_meta_contentlanguage%}
+
+      {% block head_meta_viewport %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      {% endblock head_meta_viewport %}
+    {% endblock head_meta%}
+
+    {% block head_css %}
+      {% block head_css_site %}
+        <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+        <link href="{{ STATIC_URL}}css/app.css" rel="stylesheet" media="screen"/>
+      {% endblock head_css_site%}
+
+      {% block head_css_section %}{% endblock head_css_section %}
+
+      {% block head_css_page %}{% endblock head_css_page %}
+    {% endblock head_css%}
+  </head>
+
+  <body>
+      {# Navigation bar #}
+      <header>
+          <div class="navbar navbar-default navbar-static-top {% block nav-style %}{% endblock %}">
+              <div class="container p-none">
+
+                  <div class="navbar-header">
+                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                      </button>
+                      <a class="navbar-brand" href="/">CRM Easy</a>
+                  </div>
+
+                  <div class="collapse navbar-collapse">
+                      <ul class="nav navbar-nav navbar-right">
+                          {% if user.is_authenticated %}
+                            <li><a href="/logout/">Logout</a></li>
+                            <li><a href="{% url 'account_list' %}" class="p-r-none">Accounts</a></li>
+                          {% else %}
+                            <li><a href="/login/">Login</a></li>
+                            <li><a href="{% url 'sub_new' %}" class="p-r-none">Sign Up</a></li>
+                          {% endif %}
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </header>
+
+      {# The Document Body #}
+      <div id="site-wrapper">
+          {% block content %}
+              if you see this, something is wrong!
+              여기에 marketing의 home.html이 통째로 들어간다
+              block 이름은 <!--{ block content }-->였음
+              base.html을 extend하는 html파일들은 각자 호출이 되면 이 위치에
+              html안의 내용들을 표시한다.
+          {% endblock content %}
+      </div>
+
+      {# The Footer #}
+      <div class="footer">
+          <div class="container">
+              <p>2017 Copyright CRM Easy</p>
+          </div>
+      </div>
+
+  </body>
+  {# Set of blocks that cane be used to display JavaScript files #}
+  {% block footer_javascript %}
+
+      {% block footer_javascript_site %}
+          {# static폴더가 crmapp바로 아래에 있으므로 경로 변경#}
+          <script src="{{ STATIC_URL }}js/jquery.min.js"></script>
+          <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+          <script src="{{ STATIC_URL }}js/app.js"></script>
+      {% endblock footer_javascript_site%}
+
+      {% block footer_javascript_section %}{% endblock footer_javascript_section %}
+
+      {% block footer_javascript_page %}{% endblock footer_javascript_page %}
+
+  {% endblock footer_javascript %}
+</html>
