@@ -1,0 +1,6 @@
+{"_id":{"$oid":"58afa06337533217738d883a"},"username":"john long","surname":"long","firstname":"john","dateofbirth":{"$date":"1976-05-15T00:00:00.000Z"},"score":4,"email":"johnlong76@gmail.com"}
+{"_id":{"$oid":"58afa06337533217738d883b"},"username":"wayne rooney","surname":"rooney","firstname":"wayne","dateofbirth":{"$date":"1988-06-22T00:00:00.000Z"},"score":6,"email":"wayneroo88@gmail.com"}
+{"_id":{"$oid":"58afa06337533217738d883c"},"username":"amber cathy","surname":"cathy","firstname":"amber","dateofbirth":{"$date":"1989-07-30T00:00:00.000Z"},"score":9,"email":"amber876@gmail.com"}
+{"_id":{"$oid":"58afa06337533217738d883d"},"username":"james wick","surname":"wick","firstname":"james","dateofbirth":{"$date":"1990-12-01T00:00:00.000Z"},"score":7,"email":"james1201@gmail.com"}
+{"_id":{"$oid":"58afafca37533217738d8843"},"username":"foouser","emails":[{"email":"foouser1@example.com","primary":47657},{"email":{"email":"foouser4@example.com","primary":false}}]}
+{"_id":{"$oid":"58afd11037533217738d8847"},"username":"foouser22","emails":[{"email":"foouser1@example.com","primary":123},{"email":"foouser2@example2.com","primary":55},{"email":"foouser3@example3.com","primary":false}]}
