@@ -1,0 +1,30 @@
+UCI Machine Learning Repository (dataset 저장소)
+https://archive.ics.uci.edu/ml/datasets.html
+여기서 데이터셋을 찾고, Data Set Description을 확인하면 어떤 데이터인지 확인 가능
+==========================================================================
+
+0306class_day10_scikit/3.회귀분석 문제.ipynb => python machine learning 10장
+
+0307class_day11_
+    1. iris
+        Building Machine Learning Systems with Python.pdf - chapter2 - the iris dataset
+        http://gawron.sdsu.edu/python_for_ss/course_core/book_draft/text/regression_and_classification.html
+    2. perceptron
+        Python_Machine_Learning.pdf - chapter2 - Implementing a perceptron learning algorithm in Python
+    3. knn
+        https://github.com/luispedro/BuildingMachineLearningSystemsWithPython/blob/master/ch02/seeds_knn_sklearn.py
+    4. svm, pca combination
+        http://scikit-learn.org/stable/auto_examples/feature_stacker.html
+    5. K-means (text_mining?)
+        https://github.com/luispedro/BuildingMachineLearningSystemsWithPython/blob/master/ch03/rel_post_20news.py#L39
+    6. TFIDF
+        https://github.com/luispedro/BuildingMachineLearningSystemsWithPython/blob/master/ch03/tfidf.py
+
+0308class_day12_
+    1. hand-written digits
+        https://github.com/htygithub/machine-learning-python/blob/master/Classification/py_source/plot_digits_classification.py
+        https://www.datacamp.com/community/tutorials/machine-learning-python#gs.YpEcTFY
+    2. image_stinkbug
+        http://matplotlib.org/users/image_tutorial.html
+    6. 테이블parser
+        http://srome.github.io/Parsing-HTML-Tables-in-Python-with-BeautifulSoup-and-pandas/
