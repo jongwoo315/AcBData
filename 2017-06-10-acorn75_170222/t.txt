@@ -1,0 +1,14 @@
+(lp0
+(lp1
+S'kim'
+p2
+aI100
+aI100
+aI100
+aa(lp3
+S'yoo'
+p4
+aI90
+aI90
+aI90
+aa.
