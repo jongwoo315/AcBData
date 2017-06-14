@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>AngularJS CRUD</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="homeworkstyle.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"></script>
+	<script src="http://omnipotent.net/jquery.sparkline/2.1.2/jquery.sparkline.min.js"></script>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+</head>
+
+<body ng-app="mainApp">
+ <div class="container-fluid">
+    <div class="jumbotron head-main">
+	    <h1>Report Card</h1><br/>
+	    <h6>This Report card is powerd by JAVA, HTML, CSS, OracleDB and Angular.JS framework</h6>
+	    <h6>Made by Kong 2016.11.21 Version2.0</h6>
+    </div>
+
+	 <nav class="navbar navbar-inverse head-main">
+         <div class="container-fluid">
+           <div class="navbar-header">
+                <a class="navbar-brand" href="#">Report Card</a>
+           </div>
+          <ul class="nav navbar-nav">
+             <li><a href="#Student_info">C.R.U.D</a></li>
+             <li><a href="#viewScore_info">VIEW</a></li>
+        </ul>
+         </div>
+    </nav>
+   <div ng-view></div>
+
+	<script type="text/ng-template" id="Student_info.html">
+    <div class="container-fluid jumbotron head-main" ng-controller = "StudentController">
+    <h3><span class="glyphicon glyphicon-pencil"></span> Input</h3>
+    <table class="table table-striped table-bordered table-hover">
+          <thead>
+             <tr>
+				    <th>ID</th>
+	             <th>Name</th>
+	             <th>Korean</th>
+	             <th>English</th>
+	             <th>Math</th>
+	             <th>Total</th>
+                <th>Average</th>
+             </tr>
+          </thead>
+          <tbody ng-repeat = "scoreinfo in scores | filter:searchKeyword" ng-click="setSelected($index)" data-target="#editModal">
+	          <tr class="info">
+	                <td>{{scoreinfo.id}}</td>
+	                <td>{{scoreinfo.name}}</td>
+	                <td>{{scoreinfo.kor_score}}</td>
+	                <td>{{scoreinfo.eng_score}}</td>
+	                <td>{{scoreinfo.math_score}}</td>
+	                <td>{{scoreinfo.total_score}}</td>
+	                <td>{{scoreinfo.avg_score}}</td>
+	          </tr>
+          </tbody>
+    </table>
+
+     <form name="inputform" novalidate>
+       <div class = "form-group">
+          <label class="control-label" for="inputDefault"><h4><span class="glyphicon glyphicon-user">Name</span></h4></label>
+          <span style="color:red" ng-show="inputform.name.$dirty && inputform.name.$invalid && inputform.name=""">
+          	<span ng-show="inputform.name.$error.required">Studentname is required.</span>
+			 </span>
+          <input ng-model ="user.name" type="text" name="name" class="form-control id="addNameForm" placeholder="Insert student name" required/>
+
+          <label class="control-label" for="inputDefault"><h4><span class="glyphicon glyphicon-book">Korean</span></h4></label>
+          <span style="color:red" ng-show="inputform.kor_score.$dirty && inputform.kor_score.$invalid && inputform.kor_score=null">
+          <span ng-show="inputform.kor_score.$error.required">Korean score is required.</span></span>
+          <input ng-model ="user.kor_score" type="text" name="kor_score" class="form-control id="addKorForm" placeholder="Insert Korean score" required>
+
+          <label class="control-label" for="inputDefault"><h4><span class="glyphicon glyphicon-globe">English</span></h4></label>
+          <span style="color:red" ng-show="inputform.eng_score.$dirty && inputform.eng_score.$invalid && inputform.eng_score=null">
+          <span ng-show="inputform.eng_score.$error.required">English score is required.</span></span>
+          <input ng-model ="user.eng_score" type="text" name="eng_score" class="form-control id="addEngForm" placeholder="Insert English score" required>
+
+          <label class="control-label" for="inputDefault"><h4><span class="glyphicon glyphicon-superscript">Math</span></h4></label>
+          <span style="color:red" ng-show="inputform.math_score.$dirty && inputform.math_score.$invalid && inputform.math_score=null">
+          <span ng-show="inputform.math_score.$error.required">Math score is required.</span></span>
+          <input ng-model ="user.math_score" type="text" name="math_score" class="form-control id="addMathForm" placeholder="Insert Math score" required>
+     	 </div><br />
+
+		 <div class= "form-group">
+          <h4><button type = "button" class = "btn btn-success" ng-click="insert_student()" ng-disabled="inputform.name.$invalid || inputform.kor_score.$invalid || inputform.eng_score.$invalid || inputform.math_score.$invalid">
+       <span class="glyphicon glyphicon-floppy-saved"></span> Save</button>
+
+       <button type= "button" class = "btn btn-default" ng-click="input_reset()">
+       <span class="glyphicon glyphicon-refresh"></span> Reset</button>
+       <button type= "button" class = "btn btn-primary"><span class="glyphicon glyphicon-search"></span>  Search</button>
+       <input type="text" placeholder=" input keyword" ng-model="searchKeyword"/></h4>
+         </div>
+     </form>
+
+    <div class="modal fade" id="editModal" tableindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+          <div class="modal-content">
+             <div class="modal-header formordalhead">
+                <button type="button" class="close" data-dismiss="modal">
+                   <span arai-hidden="true">&times;</span><span class="sr-only">닫기</span>
+                </button>
+                <h4 class="modal-title" id="editModalLabel">Update / Delete Student Information</h4>
+             </div>
+             <div class="modal-body formordalbody">
+                <form role="form">
+                   <div class="form-group">
+                      <label for="student_id" class="control-label">Student #ID<redinner><b> (DISABLED)</b></redinner></label>
+                      <textarea type="text" name="id" class="form-control" id="student_id" ng-model="selected.id" ng-readonly="selected.id"></textarea>
+                   </div>
+                   <div class="form-group">
+                      <label for="student_name" class="control-label">Student Name</label>
+                      <textarea type="text" name="name" class="form-control" id="student_name" ng-model="selected.name"></textarea>
+                   </div>
+                   <div class="form-group">
+                      <label for="kor_score" class="control-label">Korean Score</label>
+                      <textarea type="text" name="kor_score" class="form-control" id="kor_score" ng-model="selected.kor_score"></textarea>
+                   </div>
+                   <div class="form-group">
+                      <label for="eng_score" class="control-label">English Score</label>
+                      <textarea type="text" name="eng_score" class="form-control" id="eng_score" ng-model="selected.eng_score"></textarea>
+                   </div>
+                   <div class="form-group">
+                      <label for="math_score" class="control-label">Math Score</label>
+                      <textarea type="text" name="math_score" class="form-control" id="math_score" ng-model="selected.math_score"></textarea>
+                   </div>
+                </form>
+             </div>
+             <div class="modal-footer formordalfooter">
+                <span class="glyphicon glyphicon-log-in"></span>&nbsp;
+                <input type="password" placeholder=" input password" name="input_password" ng-model="password"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-primary" ng-click="update_student()">
+                <span class="glyphicon glyphicon-transfer"></span> Update</button>
+                <button type="button" class="btn btn-danger" ng-click="delete_student()">
+                <span class="glyphicon glyphicon-floppy-remove"></span> Remove</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                <span class="glyphicon glyphicon-repeat"></span> Cancel</button>
+             </div>
+          </div>
+       </div>
+    </div>
+    </div>
+    </script>
+
+
+
+
+   <script type="text/ng-template" id="viewScore_info.html">
+   <div class="container-fluid jumbotron head-main" ng-controller = "ScoreController">
+    <h3><span class="glyphicon glyphicon-list-alt"></span> VIEW</h3>
+       <div class="alert alert-info sorttype">
+          <h4><span class="glyphicon glyphicon-sort"></span><i><b> Sort by : </b></i></h4>
+          <h5>Sort Type : <span class="highlight">{{sortType}}</span>&nbsp;&nbsp;
+          Sort Reverse : <span class="highlight">{{sortReverse}}</span>&nbsp;&nbsp;
+          Search Info : <span class="highlight">{{searchKeyword}}</span></h5>
+         </div>
+         <form>
+          <div class="form-group">
+             <div class="input-group">
+             <div class="input-group-addon><i class="fa fa-search"></i></div>
+             <button type= "button" class = "btn btn-primary">Search <span class="glyphicon glyphicon-search"></span>
+             <input type="text" class="form-control" placeholder="Search student info" ng-model="searchKeyword"/>
+               </div>
+          </div>
+         </form>
+       <h3><span class="glyphicon glyphicon-list"></span> Result</h3>
+       <table class="table table-bordered table-striped table-hover">
+          <thead>
+             <tr>
+            <th ng-click="sortType = 'id'; sortReverse = !sortReverse">ID
+                <span ng-show="sortType == 'id' && !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'id' && sortReverse" class="fa fa-caret-up"></span>
+            </th>
+            <th ng-click="sortType = 'name'; sortReverse = !sortReverse">Name
+                <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+            </th>
+                <th ng-click="sortType = 'kor_score'; sortReverse = !sortReverse">Korean
+                <span ng-show="sortType == 'kor_score' && !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'kor_score' && sortReverse" class="fa fa-caret-up"></span>
+            </th>
+                <th ng-click="sortType = 'eng_score'; sortReverse = !sortReverse">English
+                <span ng-show="sortType == 'eng_score' && !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'eng_score' && sortReverse" class="fa fa-caret-up"></span>
+            </th>
+                <th ng-click="sortType = 'math_score'; sortReverse = !sortReverse">Math
+                <span ng-show="sortType == 'math_score' && !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'math_score' && sortReverse" class="fa fa-caret-up"></span>
+            </th>
+                <th ng-click="sortType = 'total_score'; sortReverse = !sortReverse">Total
+                <span ng-show="sortType == 'total_score' && !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'total_score' && sortReverse" class="fa fa-caret-up"></span>
+            </th>
+                <th ng-click="sortType = 'avg_score'; sortReverse = !sortReverse">Average
+                <span ng-show="sortType == 'avg_score' && !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'avg_score' && sortReverse" class="fa fa-caret-up"></span>
+            </th>
+             </tr>
+          </thead>
+          <tbody ng-repeat = "scoreinfo in scores | filter : searchKeyword | orderBy:sortType:sortReverse">
+             <tr class="info">
+                <td>{{scoreinfo.id}}</td>
+            <td>{{scoreinfo.name}}</td>
+                <td>{{scoreinfo.kor_score}}</td>
+                <td>{{scoreinfo.eng_score}}</td>
+                <td>{{scoreinfo.math_score}}</td>
+                <td>{{scoreinfo.total_score}}</td>
+                <td>{{scoreinfo.avg_score}}</td>
+             </tr>
+          </tbody>
+          </table>
+       <br /><br /><br /><br />
+    </div>
+    </script>
+ </div>
+
+<script>
+var mainApp=angular.module("mainApp",['ngRoute']); /* angular.js module */
+
+mainApp.config(['$routeProvider',function($routeProvider){ /* router 1.CRUD 2.VIEW */
+ $routeProvider
+ .when('/Student_info',{
+    templateUrl: 'Student_info.html',
+    controller: 'StudentController'
+ }).
+ when('/viewScore_info',{
+    templateUrl: 'viewScore_info.html',
+    controller: 'ScoreController'
+ }).
+ otherwise({
+    redirectTo: 'Student_info'
+ });
+}]);
+
+mainApp.controller('StudentController', function($scope, $http){ /* CRUD(입력,수정,삭제)영역을 위한 컨트롤러 */
+    $http({ /* Oracle DB로 부터 데이터를 가져온다. */
+          method : 'GET',
+          url : 'selectProcess_Jsontype',
+          headers : {'Content-Type' : 'application/json'}
+       }).success(function(data, status, headers, config){
+          $scope.scores = data;
+       }).error(function(data, status, headers, config){
+       });
+
+    $scope.input_reset = function(){ /* 리셋 버튼을 클릭하면 -> 입력창 : 이름, 국어, 영어, 수학 초기화시킨다 */
+       $scope.user.name=""; $scope.user.kor_score=""; $scope.user.eng_score=""; $scope.user.math_score="";
+    }
+
+    $scope.setSelected = function(idx){ /* DB에서 불러온 각 행과 연동되어 클릭한 행에 대한 정보를 담고 있으며, 편집 가능한 모달을 열어준다. */
+          $scope.selected = [];
+          angular.copy($scope.scores[idx], $scope.selected);
+          $('#editModal').modal();
+          $scope.pass=1234;
+
+          $scope.update_student = function() { /* update에 대한 함수이다. */
+             if($scope.pass!=$scope.password){ /* password 일치여부 확인 */
+                   alert("Wrong Password!! please check again");
+                   return;
+                };
+             $http({ /* updateProcess로 비동기식 데이터 전송 */
+              method : 'POST',
+              url : 'updateProcess',
+              data : $.param({
+                 id : $scope.selected.id,
+                 name : $scope.selected.name,
+                  kor_score : $scope.selected.kor_score,
+                  eng_score : $scope.selected.eng_score,
+                  math_score : $scope.selected.math_score
+              }),
+              headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset= UTF-8'}
+           }).success(function(data){
+              console.log(data)
+           }).error(function(data){
+              console.log(data)
+           });
+           console.log("POST done");
+
+           $http({ /* 데이터 불러온다 ===>따라서 화면이 리프레쉬 되지 않으면서 자료가 수정 된다.  */
+               method : 'GET',
+               url : 'selectProcess_Jsontype',
+               headers : {'Content-Type' : 'application/json'}
+            }).success(function(data, status, headers, config){
+               $scope.scores = data;
+            }).error(function(data, status, headers, config){
+            });
+
+           $scope.password=""; /* 비밀번호 치는 창 초기화 안해줄시에 모달 다시 오픈했을때 그대로 남아있다. */
+           $('#editModal').modal('hide'); /* 모달 숨김 이펙트 */
+        };
+
+       $scope.delete_student = function() { /* delete에 대한 함수이다. */
+           if($scope.pass!=$scope.password){ /* password 일치여부 확인 */
+                   alert("Wrong Password!! please check again");
+                   return;
+                };
+           $http({ /* deleteProcess로 비동기식 데이터 전송 */
+              method : 'POST',
+              url : 'deleteProcess',
+              data : $.param({
+                 id : $scope.selected.id,
+              }),
+              headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset= UTF-8'}
+           }).success(function(data){
+              console.log(data)
+           }).error(function(data){
+              console.log(data)
+           });
+           console.log("POST done");
+
+          $http({ /* 데이터 불러온다 ===>따라서 화면이 리프레쉬 되지 않으면서 자료가 삭제 된다. */
+                 method : 'GET',
+                 url : 'selectProcess_Jsontype',
+                 headers : {'Content-Type' : 'application/json'}
+              }).success(function(data, status, headers, config){
+                 $scope.scores = data;
+              }).error(function(data, status, headers, config){
+              });
+
+          $scope.password="";
+          $('#editModal').modal('hide');
+        };
+       };
+
+    $scope.user = [];
+    $scope.insert_student = function() {
+       $http({
+          method : 'POST',
+          url : 'registerProcess',
+          data : $.param({
+             name : $scope.user.name,
+              kor_score : $scope.user.kor_score,
+              eng_score : $scope.user.eng_score,
+              math_score : $scope.user.math_score
+          }),
+          headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset= UTF-8'}
+       }).success(function(data){
+          console.log(data)
+       }).error(function(data){
+          console.log(data)
+       });
+       console.log("POST done");
+       $http({
+              method : 'GET',
+              url : 'selectProcess_Jsontype',
+              headers : {'Content-Type' : 'application/json'}
+           }).success(function(data, status, headers, config){
+              $scope.scores = data;
+           }).error(function(data, status, headers, config){
+           });
+          $scope.input_reset();
+    };
+});
+
+mainApp.controller('ScoreController',function($scope, $http){ /* VIEW 영역을 위한 컨트롤러 */
+  $http({
+       method : 'GET',
+       url : 'selectProcess_Jsontype',
+       headers : {'Content-Type' : 'application/json'}
+    }).success(function(data, status, headers, config){
+       $scope.scores = data;
+    }).error(function(data, status, headers, config){
+    });
+ $scope.sortType = 'id';
+ $scope.sortReverse = false;
+});
+</script>
+</body>
+</html>
