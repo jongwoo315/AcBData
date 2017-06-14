@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script type="text/javascript">
+    var str=" 대한의 아들들이 대한의 아들답게 금메달을 획득";
+    document.write(str+"<br>");
+
+    var pattern= /대한/g;
+    var str2=str.replace(pattern, "대한민국");
+    document.write(str2+"<br>");
+
+    pattern= /아들/g;
+    //pattern.compile(pattern);  //deprecated since javascript v1.5
+    str3=str2.replace(pattern,"여성");
+    document.write(str3);
+
+    var regExp= /^[0-9]+$/;  // .test안에 있는 내용들을 /aaa/ 의 정의에 따라 반복하면서 검사(패턴)
+    if(regExp.test("123s1234")){
+      alert("숫자로 구성");
+    }
+    else{
+      alert("숫자로 구성되지 않음");
+    }
+    var regExp = /^\d{3}-\d{3,4}-\d{4}$/;
+    if(regExp.test("010-4575-3742")){
+      alert("전화번호 맞음 ");
+    }
+    else{
+      alert("전화번호 아님");
+    }
+
+  </script>
+</body>
+</html>

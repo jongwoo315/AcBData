@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body onload="checkCookie()">
+  <script>
+    function setCookie(cname, cvalue, exdays) {
+      var d = new Date();
+      d.setTime(d.getTime() + (exdays*24*60*60*1000));
+      var expires = "expires="+d.toGMTString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + "; path=/";  // parameter는 총 3개. cname, expires, path
+      // path는 서버측의 경로를 의미함
+    }
+
+    function getCookie(cname) {
+      var name = cname + "=";
+      var ca = document.cookie.split(';');  //문자분리
+
+      for(var i = 0; i < ca.length; i++) {
+          var c = ca[i];  // 키 + 데이터 값
+          while (c.charAt(0) == ' ') {
+              c = c.substring(1);
+           }
+          if (c.indexOf(name)  == 0) {
+              return c.substring(name.length, c.length);
+           }
+      }
+      return "";
+    }
+
+    function checkCookie() {
+      var user = getCookie("username");
+      if (user != "") {
+          alert("재방문을 환영 " + user);
+      } else {
+          user = prompt("이름을 입력하시오:", "");
+          if (user != "" && user != null) {
+              setCookie("username", user, 30);
+          }
+      }
+    }
+  </script>
+
+  <input type="button" value="쿠키 생성" onclick="setCookie('test', 'cookie test:쿠키 테스트', 1)">
+  <input type="button" value="쿠키 보기" onclick="alert(getCookie('test'))">
+  <input type="button" value="쿠키 삭제" onclick="setCookie('test', '', -1)">
+</body>
+</html>

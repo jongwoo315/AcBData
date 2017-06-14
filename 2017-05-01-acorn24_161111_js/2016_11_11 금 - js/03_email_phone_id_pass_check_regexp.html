@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /*
+    var regExp= /^[0-9]+$/;  // .test안에 있는 내용들을 /aaa/ 범위의 내용들을 반복한다(패턴)
+    if(regExp.test("123s1234")){
+      document.write("숫자로 구성<br><br>");
+    }
+    else{
+      document.write("숫자로 구성되지 않음<br><br>");
+    }
+
+    var regExp = /^\d{3}-\d{3,4}-\d{4}$/;
+    if(regExp.test("010-4575-3742")){
+      document.write("전화번호 맞음<br><br>");
+    }
+    else{
+      document.write("전화번호 아님");
+    }
+    */
+// email checker //////////////////////////////////
+    var regExp = /^\w{4,}@\w{3,10}.\w{3}$/;
+    if(regExp.test("69595dkf@gmail.com")){
+      document.write("이메일 맞음<br><br>");
+    }
+    else{
+      document.write("이메일 아님<br><br>");
+    }
+
+// phone checker //////////////////////////////////
+    var regExp = /^\d{3}-\d{3,4}-\d{4}$/;
+    if(regExp.test("010-4575-3742")){
+      document.write("전화번호 맞음<br><br>");
+    }
+    else{
+      document.write("전화번호 아님<br><br>");
+    }
+
+// id checker: 4~20 character //////////////////////////////////
+    var regExp = /^\w{4,20}$/;
+    if(regExp.test("aads10_102")){
+      document.write("아이디 맞음<br><br>");
+    }
+    else{
+      document.write("아이디 아님<br><br>");
+    }
+
+// pass checker: consist of characters and numbers. must be between 4~15 characters//////////////////////////////////
+    var regExp = /^\w{4,15}$/;
+    if(regExp.test("0121312sadfsafd")){
+      document.write("비밀번호 맞음<br><br>");
+    }
+    else{
+      document.write("비밀번호 아님");
+    }
+
+    var regExp=/^[0-9a-zA-Z]*@[0-9a-zA-Z]*.[a-zA-Z]{2,3}$/;
+    var regExp=/01[0-9]{1}-[0-9]{4}-[0-9]{4}$/;
+    var regExp=/(?=.*[0-9])(?=.*[a-zA-Z]).{4,12}$/;
+    var regExp=/(?=.*[0-9])(?=.*[a-zA-Z]).{4,20}$/;
+
+    var regExp=/^[a-z0-9_]{4,20}$/;
+    var regExp=/^([a-z],[0-9],_){4,20}$/;
+
+  </script>
+</body>
+</html>

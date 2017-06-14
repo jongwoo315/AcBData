@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script type="text/javascript">
+    var str=" 대한의 아들들이 대한의 아들답게 금메달을 획득";
+    document.write(str+"<br><br>");
+
+    var pattern= /대한/g; //대한이 들어가는 것들을 모두 바꿈
+    var str2=str.replace(pattern, "대한민국");
+    document.write(str2+"<br><br><br>");
+
+    document.write(str+"<br><br>");
+    var aa="대한"    // 대한이 들어가는 첫번째 요소만 바꿈
+    var str3=str.replace(aa, "123");
+    document.write(str3+"<br>");
+
+
+  </script>
+</body>
+</html>

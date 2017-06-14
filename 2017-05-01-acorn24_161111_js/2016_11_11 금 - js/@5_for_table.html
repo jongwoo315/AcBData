@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+<!--
+  <table border="1" align="center" style="font-size: 11px">테이블이름
+    <tr align="center">
+        <td width="120">i행 j열</td>
+    </tr>
+  </table>-->
+
+  <script>
+    function mtable(row, col, border) {
+      document.write("<table border="+border+" align=\"center\" style=\"font-size: 11px\">")
+      for(var i=1; i<=row; i++){
+        document.write("<tr align=\"center\">")
+        for(var j=1; j<=col; j++){
+          document.write("<td width=\"120\">"+i+"행"+j+"열</td>")
+        }
+        document.write("</tr>");
+      }
+      document.write("</table>");
+    }
+  </script>
+
+  <button type="button" onclick="mtable(30, 6, 1)">실행</button>
+
+</body>
+</html>
