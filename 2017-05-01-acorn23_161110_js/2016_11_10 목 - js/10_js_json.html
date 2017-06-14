@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+  <script>
+    $(function() {
+      $("#checkJson").click(function(){
+        var personArray = new Array();
+        var personInfo = new Object();
+        personInfo.name = "송강호";
+        personInfo.age = "25";
+
+        personArray.push(personInfo);
+
+        personInfo = new Object();
+        personInfo.name = "전지현";
+        personInfo.age = "21";
+
+        personArray.push(personInfo);
+
+        totalInfo.persons = personArray;
+
+        var jsonInfo = JSON.stringify(totalInfo); //
+        console.log(jsonInfo);
+        alert(jsonInfo);
+      });
+    });
+  </script>
+</head>
+
+<body>
+
+
+  <a id="checkJson" style="cursor:pointer">확인</a>
+
+</body>
+</html>

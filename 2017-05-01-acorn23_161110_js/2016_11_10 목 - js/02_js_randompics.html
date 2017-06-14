@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+  </head>
+
+  <body>
+    <input type="button" value="daum으로 가기" onclick="move(1)">&nbsp;
+    <input type="button" value="새로고침" onclick="move(2)">&nbsp;
+    <input type="button" value="nate으로 가기" onclick="move(3)">&nbsp;
+
+    <script language="JavaScript">
+    /*메소드: sin(), cos(), abs(), log()
+      pow(x,y): x의 승
+      max(x,y): 둘 중 큰 값
+      min(x,y): 둘 중 작은 값
+      round(값): 반올림 // round(0.5) -> 1
+      floor(값): 버림 // floor(2.345) -> 2
+      ceil(값): 올림 // ceil(2.345) -> 3
+      random(): 0과 1 사이의 난수 (랜덤값)
+    */
+      Back=new Array("img1.jpg", "img2.jpg", "img3.jpg", "img4.jpg", "img5.jpg");
+      index=Math.floor(Math.random()*5);
+      document.write("<body background="+Back[index]+">");
+      document.write("<b>접속할 때마다 랜덤으로 이미지 출력....!<br>");
+      document.write("웹 브라우저에서 새로고침 해보세요!");
+
+      function move(a){
+        switch (a) {
+          case 1: location.href="http://www.daum.net"; break;
+          case 2: location.reload(); break;
+          case 3: location.replace("http://nate.com"); break;
+          default:
+        }
+      }
+    </script>
+
+  </body>
+</html>

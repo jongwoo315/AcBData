@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script language="JavaScript">
+    str1 = "100";
+    str2 = "100ASDF";
+
+    document.write("str1(100)을 10진수로 변환: "+parseInt(str1));
+    document.write("<br>str1(100)을 2진수로 변환: "+parseInt(str1,2));
+    document.write("<br>str1(100)을 8진수로 변환: "+parseInt(str1,8));
+    document.write("<br>str1(100)을 16진수로 변환: "+parseInt(str1,16));
+    document.write("<br>str2(100ASDF)를 10진수로 변환: "+parseInt(str2));
+
+    document.write("<br><br>str1 :"+Number(str1));
+    document.write("<br>str1 :"+Number(str2));
+
+    str3="-123.45";
+    str4="abcd123.45";
+    document.write("<p>str3(-123.45)를 실수로 변환 : "+parseFloat(str3));
+    document.write("<br>str4(abcd123.45)를 실수로 변환 : "+parseFloat(str4));
+
+    kk=prompt("숫자를 입력하세요..!","")
+      if(isFinite(kk)==true) document.write("<br><br>입력된 값"+kk+"는 숫자입니다.");
+      else document.write("<br>입력된 값"+kk+"는 숫자가 아닙니다.");
+
+    kk=prompt("숫자를 입력하세요..!","")
+      if(isNaN(kk)==false) document.write("<br><br>입력된 값"+k+"는 숫자입니다.");
+      else document.write("<br>입력된 값"+kk+"는 숫자가 아닙니다.");
+  </script>
+</body>
+</html>

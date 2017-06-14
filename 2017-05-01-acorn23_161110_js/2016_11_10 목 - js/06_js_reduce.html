@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+  </head>
+
+  <body>
+
+    <script>
+      //array.reduce(function(total, currentValue, currentIndex, arr), initialValue)
+      //function(total, currentValue, index, arr)
+      var numbers=[15.5, 2.3, 1.1, 4.7];
+
+      function getSum(total, num, index, arr) {
+        arr[index]=Math.round(num);
+        return total + Math.round(num);
+      }
+
+      function myFunction(item) {
+        document.getElementById("demo").innerHTML=numbers.reduce(getSum,0);
+        document.getElementById("demo2").innerHTML=numbers;
+      }
+    </script>
+
+    <button onclick="myFunction()">Try it</button>
+    <!--<p>합계:<span id="demo"></span></p>-->
+    <p id="demo"></p>
+    <p>각 배열의 변화된 값: <span id="demo2"></span></p>
+  </body>
+</html>

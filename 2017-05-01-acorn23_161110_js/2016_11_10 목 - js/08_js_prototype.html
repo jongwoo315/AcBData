@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+  </head>
+
+  <body>
+    <!--<script type="text/JavaScript">-->
+    <script type="text/javascript">
+
+    var test = new String("hello javascript");
+      if(test.constructor == String)
+        document.write("test 객체는 String 생성자 함수로 만들어진 객체입니다.<br>");
+      String.prototype.startsWith = function(s) {
+        return (s==this.substring(0,s.length));
+      }
+      if(test.startsWith("hello"))
+        document.write("test 객체는 hello로 시작합니다.<br>");
+
+      document.write("BIG".big()+"<BR>");
+      document.write("SMALL".small()+"<BR>");
+      document.write("BLINK".blink()+"<BR>");
+      document.write("BOLD".bold()+"<BR>");
+      document.write("FIX".fixed()+"<BR>");
+      document.write("ITALICS".italics()+"<BR>");
+      document.write("STRIKE".strike()+"<BR>");
+      
+
+      document.write("SUBSCRIPT".sub()+"<BR>");
+      document.write("SUPERSCRIPT".sup()+"<BR>");
+      document.write("FONTCOLOR=GREEN".fontcolor("green")+"<BR>");
+      document.write("FONTCOLOR=BLUE".fontcolor("blue")+"<BR>");
+      document.write("FONTCOLOR=RED".fontcolor("red")+"<BR>");
+      document.write("FONT SIZE 3".fontsize(3)+"<BR>");
+      document.write("FONT SIZE 4".fontsize(4)+"<BR>");
+      document.write("FONT SIZE 5".fontsize(5)+"<BR>");
+      document.write("BIG/BLINK/BLUE".big(3).blink().fontcolor("blue")+"<BR>");
+      document.write("ITALICS/STRIKE/RED".italics().strike().fontcolor("red")+"<BR>");
+      document.write("FONT SIZE 3/BOLD".fontsize(3).bold()+"<BR>");
+      document.write("FONT SIZE 5/STRIKE".fontsize(5).strike()+"<BR>");
+      var test="테스트 문자열";
+
+      document.write("<H2>\" 테스트 문자열\"의 문자 개수:"+ test.length +"</H2>");
+
+      document.write("제1장으로 이동".link("#chapter1")+"<BR>");
+          document.write("Live Search".link("http://www.naver.com")+"<BR>");
+        var s="대한민구만세1234567890";
+          document.write(s+"에서 위치 4부터 -2사이의 문자열:"+s.slice(4,-2)+"<BR>");
+        document.write(s+"에서 위치 4부터 문자 2개: "+s.substr(4,2)+"<BR>");
+          document.write(s+"에서 a의 첫번째 위치: "+s.indexOf("a")+"<BR>");
+        document.write(s+"에서 a의 마지막 위치: "+s.lastIndexOf("a")+"<BR>");
+          document.write(s+"에서 a의 마지막 문자: "+s.charAt(s.length-1)+"<BR>");
+        document.write(s+"에서 위치0 ~ 3 사이의 문자열: "+s.substring(0,3)+"<BR>");
+      document.write(s+"의 소문자 변환: "+s.toLowerCase()+"<BR>");
+      document.write(s+"의 대문자 변환: "+s.toUpperCase()+"<BR>");
+      document.write(s+"에 Rocks! 붙히기: "+s.concat("Rocks!")+"<BR>");
+      document.write("H의 유니코드 값: "+"Hello".charCodeAt(0)+"<BR>");
+      document.write(s+": C#->JavaScript :"+s.replace(/c#/i, "JavaScript")+"<BR>");
+      document.write(s+": C#->JavaScript :"+s.replace(/c#/, "JavaScript")+"<BR>");
+      document.write(s+": C#->JavaScript :"+s.replace(/c#/gi, "JavaScript")+"<BR>");
+    </script>
+  </body>
+</html>

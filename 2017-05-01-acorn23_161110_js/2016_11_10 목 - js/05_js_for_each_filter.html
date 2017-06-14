@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+  </head>
+
+  <body>
+    <p>원래 배열의 요소에 작업</p>
+    <p>곱할 수 <input type="number" id="multiplyWith" value="10"></p>
+    <script>
+      var numbers=[65, 44, 12, 4];
+      function myFunction(item, index, arr){
+        arr[index]=item * document.getElementById("multiplyWith").value;
+        demo.innerHTML=numbers;
+      }
+    </script>
+
+    <button onclick="numbers.forEach(myFunction)">Try it</button>
+    <p>갱신된 배열: <span id="demo"></span></p>
+
+
+<!--
+
+    <p>Minimum age: <input type="number" id="ageToCheck" value="18"></p>
+    <button onclick="myFunction()">Try it</button>
+    <p>All ages above minimum: <span id="demo2"></span></p>
+
+    <script>
+      var ages = [32, 33, 12, 40];
+
+      function checkAdult(age) {
+        return age >= document.getElementById("ageToCheck").value;
+      }
+
+      function myFunction() {
+        document.getElementById("demo2").innerHTML=ages.filter(checkAdult);
+      }
+    </script>
+-->
+  </body>
+</html>

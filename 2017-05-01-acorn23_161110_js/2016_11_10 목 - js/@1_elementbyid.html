@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>getElementById example</title>
+    <script type="text/javascript">
+
+    function changeColor(newColor){
+     elem = document.getElementById("para1");
+     elem.style.color = newColor;
+    }
+    </script>
+  </head>
+
+  <body>
+    <p id="para1">Some text here</p>
+    <button onclick="changeColor('blue');">blue</button>
+    <button onclick="changeColor('red');">red</button>
+  </body>
+</html>
+
+
+<!--
+<html>
+  <body>
+
+    <p id="demo">Click the button to change the color of this paragraph.</p>
+
+    <script>
+    function myFunction() {
+        var x = document.getElementById("demo");
+        x.style.color = "red";
+    }
+    </script>
+
+    <button onclick="myFunction()">Try it</button>
+
+  </body>
+</html>
+-->
+<br><br><br><br><br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<input name="myinput" type="text" size="20" value="qqqqq">
+
+<body>
+  <script type="javascript">
+    function getElements() {
+      var x = document.getElementsByName("myinput");
+      alert(x.length);
+      for(var i=0; i<x.length; i++){
+        alert(x[i].value);
+        x[i].value="thank you";
+      }
+    }
+  </script>
+
+  <button onclick="getElements()">Try it</button>
+
+
+</body>
+</html>

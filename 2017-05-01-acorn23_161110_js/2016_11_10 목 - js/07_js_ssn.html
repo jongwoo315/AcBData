@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script type="text/javascript">
+    jumin=prompt("주민등록번호를 입력(-없이)","8001011111118");
+    document.write("<b>입력된 주민번호 : "+jumin+"<br>");
+    chk="234567892345"
+    sum=0;
+    for(i=0; i<12; i++)
+      sum=sum+(jumin.charAt(i)*chk.charAt(i));  // 각각의 곱한 값을 더하기
+
+    check=sum%11;  // 11로 나눈 나머지
+    check=11-check;  // 11 - 나머지
+
+
+    if(check>=10) check-=10;
+    if(check==parseInt(jumin.charAt(12))) document.write("결과 : 맞는번호");
+    else document.write("결과: 틀린번호--- 신고하러 갈까나?");
+      </script>
+  </body>
+</html>

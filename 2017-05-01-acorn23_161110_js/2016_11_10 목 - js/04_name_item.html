@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script type="text/javascript">
+      var persons=[
+        {name:"청명한", address:"제주도"},
+        {name:"하수삼", address:"고향집"},
+        {name:"상정돈", address:"금의환"}
+      ]; //배열에 map이라는 함수가 있는데, map은 함수를 매개변수로 받음
+
+      function getFullName(item, index){
+        var inform = [index, item.name, item.address].join(" ");
+        return inform;
+      }
+
+      function myFunction(){
+        document.getElementById("demo").innerHTML=persons.map(getFullName);
+      }
+    </script>
+
+    <p id="demo">값이 나와야</p>
+    <button onclick="myFunction();">Try it</button>
+  </body>
+</html>
