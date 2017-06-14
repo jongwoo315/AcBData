@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script>
+    /*$(document).ready(function(){
+      $("button").click(function(){
+        var divj = $("div");
+        divj.animate({height:'300px', opacity:'0.4'},"slow");
+        divj.animate({width:'300px', opacity:'0.8'},"slow");
+        divj.animate({height:'100px', opacity:'0.4'},"slow");
+        divj.animate({width:'100px', opacity:'0.8'},"slow");
+        $("p").css("color","red").slideUp(2000).slideDown(2000);
+        //chaining: 하나의 오브젝트에 여러개의 함수를 호출하는 것 //위의 "p"로 시작하는 것이 chaining
+      });
+    });*/
+
+    $(document).ready(function(){
+      $("button").click(function(){
+        var divj = $("div");
+        divj.animate({left:'500px', opacity:'0.4'},"slow");
+        divj.animate({top:'500px', opacity:'0.8'},"slow");
+        divj.animate({left:'10px', opacity:'0.4'},"slow");
+        divj.animate({top:'80px', opacity:'0.8'},"slow");
+        //jQuery Effect Methods 절대좌표
+      });
+    });
+  </script>
+</head>
+  <button>애니메이션을 하려면 클릭</button>
+  <p>static position, 상대 좌표, 절대 좌표, relative, fixed</p>
+  <div style="background:#98bf21; height:100px; width:100px; position:absolute;"></div>
+<body>
+
+</body>
+</html>

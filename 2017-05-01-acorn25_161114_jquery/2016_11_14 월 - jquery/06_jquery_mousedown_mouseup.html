@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+    $(document).ready(function(){
+      var orgStyle = {"background-color":""}
+      var newStyle = {"background-color":"#00dddd"}
+
+      $("#div1").on({
+        "mousedown": function(e){$("input"+$(e.target).attr("value")).css(newStyle);},
+        "mouseup": function(e){$("input"+$(e.target).attr("value")).css(orgStyle);},
+      },"input");
+    });
+  </script>
+</head>
+
+<body>
+  <table width="400" id="table1">
+    <tr><td width="100">아이디</td><td width="300"><input type="text" name="userid" size="30" maxlength="25"></td></tr>
+    <tr><td width="100">이름</td><td width="300"><input type="text" name="usernm" size="30"></td></tr>
+    <tr><td width="100">닉네임</td><td width="300"><input type="text" name="nicknm" size="30" maxlength="20"></td></tr>
+    <tr><td width="100">관심사</td><td width="300">
+      <ul>
+        <li><input type="text" name="concern[]" size="30">
+        <li><input type="text" name="concern[]" size="30">
+        <li><input type="text" name="concern[]" size="30">
+      </ul>
+    </td></tr>
+  </table>
+
+  <div id="div1">
+    <input type="button" value="[name=userid]" id="btn1"><!--필터의 적용을 위해 [] 안에 벨류 지정-->
+    <input type="button" value="[name!=userid]" id="btn2">
+    <input type="button" value="[name^=user]" id="btn3">
+    <input type="button" value="[name$=nm]" id="btn4">
+    <input type="button" value="[maxlength]" id="btn5">
+    <input type="button" value="[size=30][name^=user]" id="btn6">
+    <input type="button" value="[name='concern[]']" id="btn7">
+  </div>
+</body>
+</html>

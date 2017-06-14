@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+    // The click() method triggers the click event,
+    // or attaches a function to run when a click event occurs.
+    // jQuery Event Methods
+    $(document).ready(function(){
+      $("#btn4").click(function(){
+        alert($("p").text());
+        alert($("p").html());  // 이건 첫번째 만나는 "p"의 내용만 출력된다. w3schools 참고
+        alert($("input").val());
+      });
+      $("#btn1").click(function(){
+        $("#test1").text("안녕하세요!");  // id="test1"의 텍스트를 "안녕하세요"로 바꿔라
+      });
+      $("#btn2").click(function(){
+        $("#test2").html("<b>안녕하세요!</b>");  // id="test2"의 텍스트를 "안녕하세요"로 바꿔라
+      });
+      $("#btn3").click(function(){
+        $("#test3").val("변경된 이름");  // id="test3"의 텍스트를 "변경된 이름"으로 바꿔라
+      })
+    });
+    // jQuery HTML / CSS Methods
+    //-> .val .text .html / 매개변수가 없으면 출력 / 있으면 입력
+
+    // .html() -> When this method is used to return content,
+    //it returns the content of the FIRST matched element.
+    // h
+  </script>
+</head>
+
+<body>
+  Name: <input type="text" id="test3" value="대한민국">
+
+  <p id="test1">this is a paragraph</p>
+  <p id="test2">this is another paragraph</p>
+  <p>this is some <b>bold</b> and <i>italic</i> text.</p>
+
+  <button id="btn1">문자열</button>
+  <button id="btn2">html로 세팅하기</button>
+  <button id="btn3">값 저장하기</button>
+  <button id="btn4">값 확인하기</button>
+</body>
+</html>

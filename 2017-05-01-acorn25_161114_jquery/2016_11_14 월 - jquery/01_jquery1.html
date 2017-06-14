@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $("button").click(function(){
+        $("p").hide();    // element p에 적용
+        $("#test").hide();  // id=test에 적용
+        $(".test").hide();  // class=test에 적용
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <h2>선택자 연습</h2>
+  <p>내용을 숨김</p>
+  <p>다른 내용</p>
+
+  <button>paragraph를 선택하여 숨김</button>
+  <p id="test">아이디를 선택하기 위하여</p>
+
+  <button>click me</button>
+  <h2 class="test">클래스로 선택하기 위하여</h2>
+  <p class="test">같은 이름의 클래스</p>
+
+
+
+
+</body>
+</html>

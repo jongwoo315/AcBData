@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <script>
+    $.fn.val2 = function(){  //$.fn.val2 -> jquery에 있는 함수 목록에 val2를 넣겠다. // $.fn -> jquery가 가지고 있는 함수 목록들
+      var tmp = $(this).val();
+      if(tmp==""){tmp=0;}
+      return parseInt(tmp, 10);
+    }
+    $(document).ready(function(){
+      $("#table1 tr").each(function(){  //The each() method specifies a function to run for each matched element.
+        var thisTr = $(this);
+        thisTr.on("keyup", $(":text").slice(0,3), function(e){    // jQuery Event Methods // .on
+          //function(e) -> callback 함수 / 이벤트를 발생시키는 함수
+          var txt1 = thisTr.find(":text[name='txt1[]']").val2();
+          var txt2 = thisTr.find(":text[name='txt2[]']").val2();
+          var txt3 = thisTr.find(":text[name='txt3[]']").val2();  // jQuery Traversing Methods
+          thisTr.find(":text[name='sum[]']").val(txt1+txt2+txt3); // type이 text이고 이름이 sum인 것을 찾아 txt1+txt2+txt3의 값을 넣어라
+          thisTr.find(":text[name='avg[]']").val((txt1+txt2+txt3)/3);
+          var tot = txt1 + txt2 + txt3;
+          var avga = Math.round(tot / 3 * 100 + 0.5) / 100;
+          thisTr.find(":text[name='avg[]']").val(avga)  ;
+        });
+      });
+    });
+  </script>
+</head>
+
+<body>
+
+  <table width="100" id="table1">
+    <thead>
+      <tr>
+        <td>국어</td>
+        <td>영어</td>
+        <td>수학</td>
+        <td>합계</td>
+        <td>평균</td>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td><input type="text" name="txt1[]"></td>
+        <td><input type="text" name="txt2[]"></td>
+        <td><input type="text" name="txt3[]"></td>
+        <td><input type="text" name="sum[]"></td>
+        <td><input type="text" name="avg[]"></td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+</html>

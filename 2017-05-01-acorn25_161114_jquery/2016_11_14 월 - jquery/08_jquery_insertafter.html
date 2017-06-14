@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    input{ text-align: center; }
+    table{
+      border-collapse: collapse;
+      border: gray 1px solid;
+    }
+    td{
+      height: 25px;
+      text-align: center;
+      border: gray 1px solid;
+    }
+    thead td{ background: #efefef; }
+  </style>
+
+  <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+
+    $(document).ready(function(){
+      $("#btn1").on("click", function(e){
+
+        if($(":radio[name=rdo]:checked").length==0){
+          alert("추가할 위치를 선택하세요");
+          return;
+        }
+        var idx = $(":radio[name=rdo]").index($(":radio[name=rdo]:checked"));
+        var userNameObj = $(":text[name=userName]");
+        var userCityObj = $(":text[name=userCity]");
+        var userAgeObj = $(":text[name=userAge]");
+        var userName = userNameObj.val();  //.val -> body에서  type=text 중 username인 것의 input value 지정 (input으로 지정된 곳에서 사용가능)
+        var userCity = userCityObj.val();
+        var userAge = userAgeObj.val();
+
+        if(userName=="" || userCity=="" || userAge==""){
+          alert("빈값을 추가할 수 없습니다.");
+          return;
+        }
+
+        var trHtml = "<tr><td><input type='radio' name='rdo'></td>"+
+                        "<td>"+
+                        userName+
+                        "</td><td>"+
+                        userCity+
+                        "</td>"+
+                        "<td>"+
+                        userAge+
+                        "</td></tr>";
+        $(trHtml).insertAfter("#table1 tbody tr:eq("+idx+")");  // .insertAfter()에 trHtml의 내용을 넣어라
+        $(":radio").prop("checked",false);
+
+        userNameObj.val("");
+        userCityObj.val("");
+        userAgeObj.val("");
+      })
+    });
+
+  </script>
+
+</head>
+
+<body>
+  <form name="form1">
+    <table width="400" id="table1">
+      <thead>
+        <tr>
+          <td></td>
+          <td>이름</td>
+          <td>지역</td>
+          <td>나이</td>
+        </tr>
+        <tr>
+          <td><input type="button" id="btn1" value="추가"></td>
+          <td><input type="text" name="userName"></td>
+          <td><input type="text" name="userCity"></td>
+          <td><input type="text" name="userAge"></td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td><input type="radio" name="rdo"></td>
+          <td>김복태</td>
+          <td>서울</td>
+          <td>32</td>
+        </tr>
+        <tr>
+          <td><input type="radio" name="rdo"></td>
+          <td>최인숙</td>
+          <td>대전</td>
+          <td>35</td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</body>
+</html>
