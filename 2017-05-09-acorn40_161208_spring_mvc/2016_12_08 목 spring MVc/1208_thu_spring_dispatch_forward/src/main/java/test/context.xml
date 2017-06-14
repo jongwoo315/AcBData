@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="to1" class="test.BoardTO" scope="prototype"> <!--  prototype은 호출시 만들어진, singleton은 생성시 만들어짐 -->
+        <property name="seq" value="1"/>
+        <property name="subject" value="제목1"/>
+        <property name="content" value="내용1"/>
+    </bean> 
+    
+    <bean id="to2" class="test.BoardTO" scope="prototype">
+        <property name="seq" value="2"/>
+        <property name="subject" value="제목2"/>
+        <property name="content" value="내용2"/>
+    </bean> 
+    
+    <bean id="listTO" class="test.BoardListTO" scope="prototype">
+        <property name="users">
+            <list>
+                <value>홍길동</value>
+                <value>박문수</value>
+            </list>
+        </property>
+        
+        <property name="boardLists"> <!-- BoardListTO의 변수명과 일치해야 함 -->
+            <list>
+                <ref bean="to1"/>   <!-- main에서 id="listTO"가 먼저 실행되고 이 부분에서 to1으로 이동 -->
+                <ref bean="to2"/>
+            </list>
+        </property>
+        
+    </bean>
+    
+</beans>
