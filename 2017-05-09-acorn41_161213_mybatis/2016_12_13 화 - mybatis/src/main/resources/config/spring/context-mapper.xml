@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	                           http://www.springframework.org/schema/beans/spring-beans.xsd
+	                           http://www.springframework.org/schema/context
+	                           http://www.springframework.org/schema/context/spring-context.xsd
+	                           http://www.springframework.org/schema/jdbc
+                               http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd"                      
+	                          
+    xmlns:context="http://www.springframework.org/schema/context">
+
+
+    <!-- <bean id="transactionManager"
+                class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+              <property name="dataSource" ref="dataSource"/>            
+    </bean> -->
+    
+    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="typeAliasesPackage" value="ldg.mybatis.model"/>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:/mybatis-config.xml"/>
+        <property name="mapperLocations">
+            <array>
+                <value>classpath*:/ldg/mybatis/repository/mapper/**/*.xml</value> <!-- 쿼리를 위한 xml파일이 여기있음을 선언 -->
+            </array>
+        </property>
+    </bean>
+    
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="ldg.mybatis.repository"/>
+    </bean>
+    
+    <!-- <tx:annotation-driven transaction-manager="transactionManager"/> -->
+    
+    <context:component-scan base-package="ldg.mybatis">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    
+    <context:annotation-config/>
+    
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+<!--         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@localhost:1521:acorn"/>
+        <property name="username" value="SCOTT"/>
+        <property name="password" value="TIGER"/> -->
+
+        <property name="driverClassName" value="org.mariadb.jdbc.Driver"/>
+        <property name="url" value="jdbc:mariadb://localhost:3306/acorn?characterEncoding=utf8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123"/>
+        
+    </bean>    
+
+</beans>
