@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>1107mon_02_</title>
+
+	<style>    <!--이것이 css -->
+		body {background-color:powerblue}
+		h1 {
+			color: blue;
+			font-family: verdana;
+			font-size:300%
+		}
+		p {
+			color: red;
+			font-size: 150%;
+			border: 1px solid powder;
+			padding: 30px;
+		}
+		a:link{
+			color: green;
+			background-color: transparent;
+			text-decoration: none;
+		}
+		a:visited{ <!--링크를 클릭한 후 색깔-->
+			color: pink;
+			background-color: transparent;
+			text-decoration: none;
+		}
+		a:hover{ <!--링크 위에 커서가 올라갈 때-->
+			color: red;
+			background-color: transparent;
+			text-decoration: none;
+		}
+		a:active{ <!--링크를 클릭하는 순간-->
+			color: yellow;
+			background-color: transparent;
+			text-decoration: none;
+		}
+	</style>
+</head>
+
+<body>
+	<h1 style="color:#ff0000">this is a heading</h1>
+	<h1>스타일 테스트입니다.</h1>
+
+	<p> 패러그래프의 컬러값이 자동으로 적용됩니다. </p>
+
+	<h1>동일한 명령을 한 번에 적용하여 h1에는 모두 같은 스타일로 적용이 됩니다.</h1>
+	<a href="http://naver.com" target="_blank"> 네이버로 이동합니다.</a>
+
+	<img src="./Desert.jpg" alt="http://naver.com" width="1024" height="768">
+
+	<a href="http://www.daum.net">
+		<img src="./Desert.jpg" alt="www.naver.com" width="1024" height="768">
+	</a>
+
+	<!-- <a href="http://www.daum.net">-->
+	<img src="./Desert.jpg" alt="www.naver.com" usemap="#planemap" width="1024" height="768">
+	<!-- </a>-->
+	<map name="planemap">
+		<area shape="rect" coords="0,0,512,384" alt="네이버" href="http://naver.com">
+		<area shape="rect" coords="512,0,1024,384" alt="다음" href="http://daum.net">
+		<area shape="circle" coords="255,570,100" alt="구글" href="http://google.com">
+
+	</map>
+
+
+</body>
+
+</html>

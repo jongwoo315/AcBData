@@ -1,0 +1,53 @@
+@CHARSET "UTF-8";
+
+div.cities{
+	background-color: black;
+	color: white;
+	margin: 20px 0 20px 0;
+	padding: 20px;
+}
+<!-- div는 전체 부분에 대한 설정 -->
+<!-- div 명령어가 span아래에 오면 적용이 안된다 -->
+<!-- span은 div 내의 개별 문장에 대한 설정을 해주는 것 -->
+
+span.note1{
+	font-size: 120%;
+	color: red;
+}
+
+span.cities{
+	font-size: 200%;
+	color: green;
+}
+
+body{
+	font-family: Verdana, sans-serif;
+	font-size: 0.9em;
+}
+
+header, footer{
+	padding: 10px;
+	color: white;
+	background-color: black;
+}
+
+section{
+	margin: 5px;
+	padding: 10px;
+	background-color: lightgray;
+}
+
+article{
+	margin: 5px;
+	padding: 10px;
+	background-color: white;
+}
+
+nav ul{
+	padding: 0;
+}
+
+nav ul li{
+	display: inline;
+	margin: 5px;
+}
