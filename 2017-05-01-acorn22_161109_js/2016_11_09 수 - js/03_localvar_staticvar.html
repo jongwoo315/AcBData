@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>1109_wed_03_localvar_staticvar</title>
+    <!-- 지역변수와 전역변수 -->
+    <script type = "text/javascript">
+      myFunction();
+
+      function myFunction(){
+        carName = "Volvo";  // var carName을 붙이면 지역변수, 없으면 전역변수
+      }
+
+      function person(first, last, age, eye){
+        this.firstName = first;
+        this.address = last;
+        this.age = age;
+        this.eyeColor = eye;
+      }
+
+      var myFather = new person("김일", "서울시 종로구", 50, "blue");
+      var myMother = new person("새로나", "제주도 감귤", 48, "green");
+      
+    </script>
+  </head>
+
+  <body>
+    지역변수와 전역변수
+    <p id="demo"></p>
+    <button onclick="document.getElementById('demo').innerHTML=Date()">시간은?</button> <!--innerHTML은 윗줄 <p>AAA</p> AAA에 들어가는 내용을 정의함 -->
+    <button onclick="document.getElementById('demo').innerHTML='I can display'+carName";>전역변수?</button>
+    <button onclick="document.getElementById('demo').innerHTML='I can display'+myFather.firstName";>객체의 내용은?</button>
+    
+  </body>
+</html>

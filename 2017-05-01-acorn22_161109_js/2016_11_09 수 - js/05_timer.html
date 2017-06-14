@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<!-- chrome에서 실행안됨. IE에서 실행됨 -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>1109_wed_05_timer</title>
+
+    <script language="JavaScript"> //javascript 소문자면 안된다
+      /* 1) 속성 status opener */
+      window.defaultStatus="상타표시줄에 기본내용";
+
+      function fconfirm(){
+        k=confirm("확인, 취소버튼확인?");
+          if(k==true) txt1.value="확인";
+          else txt1.value="취소";
+      }
+
+      function startSI(){
+        myTime=new Date();
+        txt2.value=myTime.getHours()+":"+myTime.getMinutes()+":"+myTime.getSeconds();
+      }
+
+      function Tstart(a){
+        if(a==1) Time_ID=setInterval("startSI()", 100);
+        else clearInterval(Time_ID);
+      }
+
+      function Tout(){
+        Time_ID2=setTimeout("startS2()", 100);
+      }
+
+      function startS2(){
+        mycolor=new Array("Red", "Blue", "Green", "White", "Black");
+          myTime=new Date();
+          txt2.style.background=mycolor[myTime.getSeconds()%5];
+        Tout();
+      }
+    </script>
+
+  </head>
+
+  <body>
+
+
+    <input type="button" value="setTimeout() 실행" onclick="Tout()">
+    <input type="button" value="타이머중지" onclick="clearTimeout(Time_ID2)"><p></p>
+
+    <input type="button" value="setInterval() 실행" onclick="Tstart(1)">&nbsp;&nbsp;
+    <input type="text" size="10" name="txt2">&nbsp;&nbsp;
+    <input type="button" value="타이머중지" onclick="Tstart(2)"><p></p>
+
+    <input type="button" value="확인취소버튼" onclick="fconfirm()">&nbsp;&nbsp;
+    <input type="text" size="20" name="txt1"><p></p>
+  </body>
+</html>

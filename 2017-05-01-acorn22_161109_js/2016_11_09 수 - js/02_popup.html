@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>1109_wed_02_popup</title>
+  </head>
+
+  <body>
+    <hr><input type="button" value="팝업창...?" onclick="wopen()">
+    <script type="text/javascript">
+      document.bgColor ="#CCAA55";  //문서의 배경색 지정
+      document.fgColor = "#0000FF"  //글자색 지정
+
+      document.write("문서의 제목은 : "+document.title+"<br>");
+      document.write("문서의 주소 : "+document.location+"<br>");
+      document.write("마지막 수정일 : "+document.lastModified+"<br>");
+      document.write("문서의 주소 : "+document.URL+"<br>");
+      document.write("호스트 이름 : "+location.hostname+"<br>");
+      document.write("호스트 이름 : "+location.host+"<br>");
+      document.write("호스트 이름 : "+location.protocol+"<br>");
+      document.write("호스트 이름 : "+location.pathname+"<br>");
+      document.write("브라우저의 코드이름 : "+navigator.appCodeName+"<br>");
+      document.write("브라우저의 종류 : "+navigator.appName+"<br>");
+      document.write("시스템 코드 : "+navigator.platform+"<br>");
+      function wopen() {
+        win = window.open("","","width=300", "height=200");  // window.open("win.html"); // 열리는 window의 이름은 win
+        if (win != null){
+          win.document.open();
+          win.document.write("<html><head><title>팝업문서</title></head>");
+          win.document.write("안녕하세요...!<br>");
+          win.document.write("새롭게 만든 팝업 창.!<hr>");
+          win.document.write("<input type=button value='창닫기' onclick='window.close()'>");
+          win.document.close();
+        }
+      }
+      </script>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  
+    <title>1109_wed_01_function_auto_init</title>
+  </head>
+
+  <body>
+    
+    <script type = "text/javascript">
+      function img_view(imgName){
+        document.myimg2.src = imgName;
+      }
+
+      function imgChange(obj, img){ obj.src = img; }
+
+      var getCompletedStr = (function(){
+        var buffAr = ['나의 이름 : ', '', '.주소 : ', '', '.나이 : ', '',];
+         return (function(name, city, age) {
+            buffAr[1] = name;
+            buffAr[2] = city;
+            buffAr[3] = age;
+            return buffAr.join(' ');
+         });
+      })();
+        var str = getCompletedStr('zzoon', 'seoul', 16);
+        console.log(str);
+    </script>
+
+     
+     
+    <img name = "myimg" src = "img2/login.gif" onmouseover = "imgChange(this, 'img2/logout.gif')" onmouseout= "imgChange(this, 'img2/login.gif')">
+    <img src = "img2/first.gif" onmouseover="imgChange(this, 'img2/register.gif')" onmouseout="imgChange(this, 'img2/first.gif')">
+    <img src ="img2/img1.gif" width="200" height="100" name="myimg2" onmouseover="img_view('img2/img2.jpg')" onmouseout="img_view('img2/img1.jpg')">
+    
+  </body>
+</html>
