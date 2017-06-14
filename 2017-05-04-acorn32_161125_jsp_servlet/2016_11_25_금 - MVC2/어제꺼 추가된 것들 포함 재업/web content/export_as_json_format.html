@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Angular와 servlet의 연결</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+</head>
+
+<body>
+    <div ng-app="mysqlApp" ng-controller="MyController">
+        <table border="1">
+            <tr ng-repeat="x in person">
+                <td>{{x.name}}</td>
+                <td>{{x.tel}}</td>
+                <td>{{x.addr}}</td>
+            </tr>
+        </table>
+    </div>
+    
+    <script>
+        var app = angular.module('mysqlApp', []);
+        app.controller('MyController', MyControlller);
+        function MyController($scope, $http){
+        	$http({
+        		method: 'GET',
+        		url: 'selectProcessJson',
+        		   headers: {'Content-Type': 'application/json'}
+        	}).success(function(data, status, headers, config){
+        		$scope.person = data;
+        	}).error(function(data, status, headers, config){
+        	});
+        };
+    </script>
+</body>
+</html>

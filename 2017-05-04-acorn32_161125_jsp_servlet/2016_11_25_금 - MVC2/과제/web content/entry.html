@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!-- <html ng-app="mainApp" ng-controller="abc"> -->
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>입력화면</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <!-- <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.min.js"></script> -->
+</head>
+
+<body class="container">
+   <h3>Score Card</h3>
+
+   <nav class="navbar navbar-default row">
+      <div class="container-fluid">
+         <div class="navbar-header">
+            <ul class="nav navbar-nav">
+               <li><a href="#add">add</a></li>
+               <li><a href="#output">output</a></li>
+            </ul>
+         </div>
+      </div>
+   </nav>
+   
+   <div class="row">
+        <div class="span12">
+            <div class="well"> <!--  div 부분 회색바탕-->
+                <!-- <script type="text/ng-template"> -->
+                    <form  action="register_servlet" method="post" class="form-horizontal" role="form" name="inputform">
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">이름</label>
+                            <div class="col-md-1">
+                                <input type="text" class="form-control" name="name" ng-model="name"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">국어</label>
+                            <div class="col-md-1">
+                                <input type="text" class="form-control" name="kor" ng-model="kor"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">영어</label>
+                            <div class="col-md-1">
+                                <input type="text" class="form-control" name="eng" ng-model="eng"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">수학</label>
+                            <div class="col-md-1">
+                                <input type="text" class="form-control" name="math" ng-model="math"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div style="padding-left:110px">
+                                <input type="submit" value="입력" class="btn btn-primary"/>
+                            </div>    
+                        </div>
+                    </form>
+                <!-- </script> -->
+            </div>
+
+        </div>
+   </div>
+</body>
+</html>
