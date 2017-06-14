@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>1107mon_05_set_per_paragraph</title>
+		<style>
+			div.cities{
+				background-color: black;
+				color: white;
+				margin: 20px 0 20px 0;
+				padding: 20px;
+			}
+			<!-- div는 전체 부분에 대한 설정 -->
+			<!-- div 명령어가 span아래에 오면 적용이 안된다 -->
+			<!-- span은 div 내의 개별 문장에 대한 설정을 해주는 것 -->
+
+			span.note1{
+				font-size: 120%;
+				color: red;
+			}
+
+			span.cities{
+				font-size: 200%;
+				color: green;
+			}
+
+		</style>
+	</head>
+
+	<body>
+		<h1><span class = "note1">중요한 개념</span>heading</h1>
+		<p> this is some <span class = "note1"> important</span>text.</p>
+
+		<div class = "cities">
+			<h2> Block-level</h2>
+			<pre>
+				"div h1 - h6 p form"
+			</pre>
+		</div>
+
+		<div class = "cities">
+			<h2>inline</h2>
+			<h3><span class = "cities">span.cities 부분 </span> 그냥 부분</h3>
+			<pre>
+				" span a img"
+			</pre>
+		</div>
+
+	</body>
+
+</html>
