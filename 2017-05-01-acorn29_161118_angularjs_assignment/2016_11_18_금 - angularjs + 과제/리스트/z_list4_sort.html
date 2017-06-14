@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+
+</head>
+<body>
+	<div ng-app="myapp" ng-controller="order">
+		<table>
+			<tr>
+				<th><a href="" ng-click="predicate='id'; reverse=!reverse">ID</a></th>
+				<th><a href="" ng-click="predicate='name'; reverse=!reverse">name</a></th>
+			</tr>
+			<tr ng-repeat="aa in items | orderBy:predicate:reverse">
+				<td>{{aa.id}}</td>
+				<td>{{aa.name}}</td>
+			</tr>
+		</table>
+	</div>
+	<ng-view></ng-view>
+	<script>
+	  var app = angular.module("myapp", []);
+
+	  app.controller("order", function($scope){
+		  $scope.items = [
+			  {'id':1, 'name':'cabbage'},
+			  {'id':2, 'name':'umbrella'},
+			  {'id':3, 'name':'train'}
+		  ];
+
+	  })
+	</script>
+</body>
+</html>

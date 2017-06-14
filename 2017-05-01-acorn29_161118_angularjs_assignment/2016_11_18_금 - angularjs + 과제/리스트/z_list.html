@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+<body>
+	<h3>FIFA Match Summary:</h3>
+	<div ng-app="myapp" ng-controller="myctrl">
+    <ul>
+        <li ng-repeat="(country,goals) in items">{{country}}: {{goals}}</li>
+    </ul>
+	</div>
+	<ng-view></ng-view>
+
+	<script>
+		var app = angular.module("myapp", []);
+		app.controller("myctrl", function($scope){
+			var m = {
+			 "India": "2",
+			 "England": "2",
+			 "Brazil": "3",
+			 "UK": "1",
+			 "USA": "3",
+			 "Syria": "2"
+			};
+
+			$scope.items = m;
+		});
+	</script>
+
+</body>
+</html>

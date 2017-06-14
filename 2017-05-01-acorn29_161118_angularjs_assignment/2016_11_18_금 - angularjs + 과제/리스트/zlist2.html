@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+</head>
+<body>
+	<div ng-app="myapp" ng-controller="add">
+		<ul>
+			<li ng-repeat="abc in items | filter: filterText">{{abc}}</li>
+		</ul>
+		<input type="text" ng-model="newItem"/><button ng-click="AddItem()">add</button>
+	</div>
+
+	<div ng-view></div>
+	<script>
+		var app = angular.module("myapp", []);
+
+		app.controller("add", function(){
+			$scope.items = ['cabbage', 'umbrella', 'train'];
+			$scope.AddItem = function(){
+				$scope.items.push($scope.newItem);
+			};
+		});
+
+
+	</script>
+
+</body>
+</html>

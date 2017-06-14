@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+
+   <head>
+      <title>Angular JS Services</title>
+      <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+   </head>
+
+   <body>
+      <h2>AngularJS Sample Application</h2>
+
+      <div ng-app = "mainApp" ng-controller = "CalcController">
+         <p>Enter a number1: <input type = "number" ng-model = "number1" /></p>
+			<p>Enter a number2: <input type = "number" ng-model = "number2" /></p>
+         <button ng-click = "square44()">X<sup>2</sup></button>
+         <p>Result: {{result}}</p>
+      </div>
+
+      <script>
+         var mainApp = angular.module("mainApp", []);
+
+			mainApp.controller('CalcController', function($scope, CalcService) {
+
+				$scope.square44 = function() {
+					$scope.result = CalcService.ddsquare12($scope.number1, $scope.number2);
+				}
+			});
+
+			mainApp.service('CalcService', function(MathService){
+				 this.ddsquare12 = function(x, y) {		// var ddsquare12로 선언하면 안됨. this.ddsquare12가 함수선언포맷임!
+					return MathService.multiply(x, y);
+				}
+			});
+
+         mainApp.factory('MathService', function() {	//factory는 객체를 리턴한다.
+            var factory123 = {};	// factory라는 이름의 객체
+            factory123.multiply = function(a, b) {
+               return a * b
+            }
+            return factory123;
+         });
+
+      </script>
+
+   </body>
+</html>

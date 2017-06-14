@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+<!-- 마우스 이벤트 -->
+
+<body>	<!-- ng-app은 페이지당 하나만 가능한 것이 원칙 => 하지만 추가하는 것도 가능함 -->
+	<div ng-app="myApp" ng-controller="myCtrl">
+		<button ng-click="myFunc()">Click Me!</button>
+		<div ng-show="showMe">
+		    <h1>Menu:</h1>
+		    <div>Pizza</div>
+		    <div>Pasta</div>
+		    <div>Pesce</div>
+		</div>
+	</div>
+
+	<p>Click the button to show/hide the menu.</p>
+
+	<div id="abc" ng-app="myApp2" ng-controller="myCtrl2">
+		<h1 ng-mousemove="myFunc($event)">Mouse Over Me!</h1>
+		<p>Coordinates: {{x + ', ' + y}}</p>
+	</div>
+<!--------------------------------------------------------------->
+	<script>
+		var app = angular.module('myApp', []);
+
+		app.controller('myCtrl', function($scope) {
+			$scope.showMe = false;	//	클로우저 //함수 속에 함수에 값을 선언한다.
+			$scope.myFunc = function() {
+				$scope.showMe =! $scope.showMe;
+			}
+		});
+
+		var app2 = angular.module('myApp2', []);
+
+		app2.controller('myCtrl2', function($scope) {
+		    $scope.myFunc = function(myE) {
+		        $scope.x = myE.clientX;
+		        $scope.y = myE.clientY;
+		    }
+		});
+		angular.bootstrap(document.getElementById("abc"), ['myApp2']);
+	</script>
+
+</body>
+</html>

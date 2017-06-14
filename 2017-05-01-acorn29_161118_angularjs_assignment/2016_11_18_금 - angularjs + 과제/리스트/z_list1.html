@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+</head>
+
+
+<!-- ng-app도 없고, ng-controller도 없다 -->
+<body ng-app=""> <!-- ng-app위치 주의 -->
+	<input type="text" ng-model="filterText" placeholder="filter me!"/>
+	<ul>
+		<li ng-repeat="a in ['cabbage', 'umbrella', 'train'] | filter:filterText">{{a}}</li>
+	</ul>
+</body>
+</html>
