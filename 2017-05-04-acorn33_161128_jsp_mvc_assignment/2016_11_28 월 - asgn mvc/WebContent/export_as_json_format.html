@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Angular와 servlet의 연결</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+</head>
+
+<body ng-view class="container">
+    <div ng-app="mysqlApp" ng-controller="MyController" class="row">
+        <div class="span12">
+	        <br><br><br>
+	        
+	        <table border="1">
+	            <tr>
+	                <td>번호</td>
+	                <td>이름</td>
+	                <td>국어</td>
+	                <td>영어</td>
+	                <td>수학</td>
+	                <td>총점</td>
+	                <td>평균</td>
+	            </tr>
+	            <tr ng-repeat="x in person">
+	                <td>{{x.num}}</td>
+	                <td>{{x.name}}</td>
+	                <td>{{x.kor}}</td>
+	                <td>{{x.eng}}</td>
+	                <td>{{x.math}}</td>
+	                <td>{{x.tot}}</td>
+	                <td>{{x.avg}}</td>
+	            </tr>
+	        </table>
+        </div>
+    </div>
+
+    
+    <script>
+        var app = angular.module('mysqlApp', []);
+
+        
+        app.controller('MyController', function ($scope, $http){        
+             
+            $http({
+                method: 'GET',
+                url: "selectProcessJson",
+                headers: {'Content-Type': 'application/json'},
+            }).success(function(data){
+                $scope.person = data;
+                console.log($scope.person);
+                
+            }).error(function(data, status, headers, config){
+            });
+
+        });
+        
+    </script>
+</body>
+</html>

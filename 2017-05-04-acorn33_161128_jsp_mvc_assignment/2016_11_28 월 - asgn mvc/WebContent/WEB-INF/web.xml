@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>1127_asgn</display-name>
+  <servlet>
+    <servlet-name>n</servlet-name>
+    <servlet-class>test.servlet_input</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>n</servlet-name>
+    <url-pattern>/regpro</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>select</servlet-name>
+    <servlet-class>test.servlet_display</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>select</servlet-name>
+    <url-pattern>/abcc</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>delete_row</servlet-name>
+    <servlet-class>test.servlet_delete</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>delete_row</servlet-name>
+    <url-pattern>/deldel1</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>edit_data1</servlet-name>
+    <servlet-class>test.servlet_edit1</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>edit_data1</servlet-name>
+    <url-pattern>/ediedit11</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>edit_data2</servlet-name>
+    <servlet-class>test.servlet_edit2</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>edit_data2</servlet-name>
+    <url-pattern>/ediedit22</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>edit_data3</servlet-name>
+    <servlet-class>test.servlet_edit3</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>edit_data3</servlet-name>
+    <url-pattern>/ediedit33</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>edit_data4</servlet-name>
+    <servlet-class>test.servlet_edit4</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>edit_data4</servlet-name>
+    <url-pattern>/ediedit44</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>selectjson</servlet-name>
+    <servlet-class>test.selectProcessJson</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>selectjson</servlet-name>
+    <url-pattern>/sel0000</url-pattern>
+  </servlet-mapping>
+  
+  
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
