@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+</head>
+
+<body>
+	<div ng-app="myapp" ng-controller="myCtrl">
+		Name: <input ng-model="name">
+		<br><br>
+		you entered: {{name}}
+		<br>
+		<p ng-bind="name"></p>
+	</div>
+
+	<script>
+	  var app = angular.module('myapp', []);
+	  app.controller('myCtrl', function($scope){
+		  $scope.name = "이름 입력 헐 다 바뀌네";
+	  })
+	</script>
+
+	값을 알아보는 3가지 바인딩 방법과 변수의 값이 바뀌면 모두 바뀌는 view와 controller의 연동
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+	<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-route.min.js"></script>
+	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+	<title>add+view</title>
+</head>
+
+<body>
+	<div ng-app="mainApp">	<!-- 여기에 ng-controller가 나오면 오류발생-->
+
+
+
+		<p><a href = "#add11">Added</a></p>
+		<p><a href = "#view11">View</a></p>
+
+		<div ng-view></div>
+		<script type = "text/ng-template" id = "addStudents.htm">
+			<h2> Add Student </h2>
+			{{message}}
+		</script>
+
+		<script type = "text/ng-template" id = "viewStudents.htm">
+			<h2> View Students </h2>
+			{{products}}
+		</script>
+	</div>
+	<div ng-app="myShoppingList" ng-controller="myCtrl">
+		<input ng-model="addMe"><button ng-click="addItem()">추가</button>
+		<p>{{errortext}}</p>
+	</div>
+
+	<script>
+	var app = angular.module("mainApp", ['ngRoute']);
+
+	app.config(['$routeProvider', function($routeProvider) {	// config는 초기화시키는 것
+		$routeProvider.
+
+		when('/add11', {	// /addStudent는 루트 경로라는 의미
+			templateUrl: 'addStudents.htm',
+			controller: 'myCtrl'
+		}).
+
+		when('/view11', {
+			templateUrl: 'viewStudents.htm',
+			controller: 'myCtrl'
+		}).
+
+		otherwise({
+			redirectTo: '/addStudent'
+		});
+	}]);
+
+	var app1 = angular.module("myShoppingList", []);
+	app1.controller("myCtrl", function($scope) {
+	     // js처럼 products는 미리 선언되지 않았지만, 바로 선언할 수 있다. (변수라고 읽는다)
+		 $scope.products = ["우유", "빵", "치즈"];
+	    $scope.addItem = function () {
+	        $scope.errortext = "";
+	        if (!$scope.addMe) {return;}
+	        if ($scope.products.indexOf($scope.addMe) == -1) { $scope.products.push($scope.addMe); }
+			  else { $scope.errortext = "이미 쇼핑리스트에 있습니다."; }
+	    }
+
+	    $scope.removeItem = function (x) {
+	        $scope.errortext = "";
+	        $scope.products.splice(x, 1);
+	    }
+	});
+
+	</script>
+	<p>에러 메세지 처리: 같은 품목이 들어오면 에러 메시지를 볼 수 있습니다.</p>
+</body>
+</html>

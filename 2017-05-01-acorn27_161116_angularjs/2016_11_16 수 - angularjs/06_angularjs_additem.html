@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+	<title>additem</title>
+</head>
+
+<body>
+	<div ng-app="myShoppingList" ng-controller="myCtrl">
+		<ul>
+			<li ng-repeat="x in products">{{x}}<span ng-click="removeItem($index)">×</span></li>
+		</ul>
+				<!-- ng-model로 선언할 것들을 <script>의 $scope.선언된것들 처럼 쓸 수 있다. -->
+				<!-- ng-click으로 선언된 것들도 script에서 $scope.선언된것 처럼 사용 가능 -->
+		<input ng-model="addMe"><button ng-click="addItem()">추가</button>
+				<!-- ng-model: html형태의 요소를 scope내의 변수에 묶는다-->
+				<!-- html 형태의 요소: 추가를 누르기 전의 '사과'. 웹페이지에서 사과만 입력한 것-->
+		<p>{{errortext}}</p>
+	</div>
+
+	<script>
+	var app = angular.module("myShoppingList", []);
+
+	app.controller("myCtrl", function($scope) {
+	    $scope.products = ["우유", "빵", "치즈"]; // js처럼 products는 미리 선언되지 않았지만, 바로 선언할 수 있다. (변수라고 읽는다)
+
+		 // addItem, removeItem은 div에서 함수로 선언했기 때문에 색이 파란색. 미리 내장된 기능(module, controller)은 아님
+		 // addItem11, removeItem11 로 해도 됨
+
+	    $scope.addItem = function () {
+	        $scope.errortext = "";
+	        if (!$scope.addMe) {return;}
+	        if ($scope.products.indexOf($scope.addMe) == -1) { $scope.products.push($scope.addMe); }
+			  else { $scope.errortext = "이미 쇼핑리스트에 있습니다."; }
+	    }
+
+	    $scope.removeItem = function (x) {
+	        $scope.errortext = "";
+	        $scope.products.splice(x, 1);
+	    }
+	});
+	</script>
+	<!-- <script src="06a_additem.js"></script> -->		<!-- 바로 위의 스크립트를 주석처리하고 이 부분을 실행하면 된다.-->
+	<p>에러 메세지 처리: 같은 품목이 들어오면 에러 메시지를 볼 수 있습니다.</p>
+</body>
+</html>

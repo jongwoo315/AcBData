@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Angular JS Includes</title>
+
+		<style>
+         table, th , td {
+            border: 1px solid grey;
+            border-collapse: collapse;
+            padding: 5px;
+         }
+         table tr:nth-child(odd) { background-color: #f2f2f2; }
+         table tr:nth-child(even) { background-color: #ffffff; }
+      </style>
+
+		<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+
+   </head>
+   <body>
+      <h2>AngularJS Sample Application</h2>
+
+      <div ng-app = "" ng-controller = "studentController">
+         <table>
+            <tr>
+               <th>Name</th>
+               <th>Roll No</th>
+               <th>Percentage</th>
+            </tr>
+
+            <tr ng-repeat = "hak_saeng in students">
+               <td>{{ hak_saeng.Name }}</td>
+               <td>{{ hak_saeng.RollNo }}</td>
+               <td>{{ hak_saeng.Percentage }}</td>
+            </tr>
+         </table>
+      </div>
+
+      <script>
+         function studentController($scope,$http) {
+            var url = "09a_data.txt";
+            $http.get(url).success(function(ban_eong) {
+               $scope.students = ban_eong;	// url을 가져왔다면 function(ban_eong)를 실행한다.
+															// ban_eong에는 txt의 내용이 들어가있고, 이걸 다시 scope.students에 넣는다
+            });
+         }
+      </script>
+
+   </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+</head>
+<body>
+
+	<div ng-app="myApp" ng-controller="myCtrl">	<!-- ng-app으로 angularjs를 초기화시키고, ng-controller로 script의 function에서 사용가능하게 만듦 -->
+		이름: <input type="text" ng-model="firstName"><br> <!-- ng-model로 선언할 것들을 <script>의 $scope.선언된것들 처럼 쓸 수 있다. -->
+		성: <input type="text" ng-model="lastName"><br>
+		<br>
+		Full Name: {{firstName + " " + lastName}}
+	</div>
+
+	<div ng-app="mymy" w3-test-directive></div> <!-- ng-app는 하나만 인식이 된다 -->
+
+	<script>
+		var app = angular.module('myApp',  []);	// 초기화된 angularjs를 script에서 사용할 수 있게 만드는 게 angular.module
+		app.controller('myCtrl', function($scope) {
+		    $scope.firstName  = "새로";
+		    $scope.lastName = "나";
+		});
+
+		var appapp = angular.module('mymy',  []);	// ng-app에서 하나만 인식이 되므로 실행되지 않는다
+		appapp.directive("w3TestDirective", function() {
+   	 return { template : "I was made in a directive constructor!"};
+		});
+	</script>
+</body>
+</html>

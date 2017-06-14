@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+</head>
+
+<body>
+	<div ng-app="" ng-init="myCol='lightblue'">	<!-- ng-app 는 angularjs를 초기화시키는 것. 없으면 쓴대로 출력이 된다 -->
+		<p>what's ur name: <input type="text" ng-model="name"></p>
+		<p ng-bind="name"></p>
+
+		<p>My first expression: {{ 5 * 6 }}</p>
+
+		<p>haha: <input style="background-color:{{myCol}}" ng-model="myCol" value="{{myCol}}"></p>
+	</div>
+</body>
+</html>
