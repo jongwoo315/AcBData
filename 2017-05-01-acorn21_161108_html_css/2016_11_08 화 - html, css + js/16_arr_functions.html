@@ -1,0 +1,35 @@
+ <!DOCTYPE html>
+ <html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>1108tue_16_arr_functions</title>
+    <meta name="description" content="DESCRIPTION">
+    <link rel="stylesheet" href="PATH">
+
+  </head>
+
+  <body>
+    <script type = "text/javascript">
+      var fam_name = new Array("첫번째", "두번째", "세번째", "네번째", "다섯번째", "여섯번째");
+      var temp = fam_name.length; //array에 사용된 element 숫자 return
+        document.write("element의 개수는: "+temp+"<br/>");
+
+      var temp = fam_name[2].slice();
+        document.write("fam_name[2]만 빼내면: "+temp+"<br/>");
+
+      var temp = fam_name[0].concat(", "+fam_name[3]);
+        document.write("fam_name[2]와 fam_name[3]을 합치면: "+temp+"<br/>");
+
+      var temp = fam_name.join();
+        document.write("element 전부를 합치면: "+temp+"<br/>");
+
+      var temp = fam_name.sort();
+        document.write("fam_name을 정렬하면: "+temp+"<br/>");
+
+      var temp = fam_name.reverse();
+        document.write("fam_name을 역으로 나열하면: "+temp+"<br/>");
+    </script>
+  </body>
+
+ </html>

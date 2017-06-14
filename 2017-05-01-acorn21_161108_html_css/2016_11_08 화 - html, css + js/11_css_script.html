@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>1108tue_11_css_script</title>
+		<!--CSS Scripting을 function에 적용-->
+		<style type = "text/css">
+		  .normal{
+		      font-weight: bold;
+		      border: 1px solid #00ff00; <!--body 부분의 스타일 지정-->
+		  }
+		</style>
+
+		<script type = "text/javascript">
+		   //mouseOver 때의 function
+		   function mouseOver(obj){
+			   obj.style.color = "red"
+			   obj.style.backgroundColor = "gold"
+			   obj.style.border = "1px solid royalblue"
+			   obj.style.fontWeight = "bold"
+			   obj.style.cursor = "hand"
+		   }
+
+		   //mouseOut일 때의 function
+		   function mouseOut(obj){
+			   obj.style.color = ""
+         obj.style.backgroundColor = ""
+         obj.style.border = "1px solid #ffffff"
+         obj.style.fontWeight = ""
+         obj.style.cursor = ""
+		   }
+		</script>
+
+	</head>
+
+	<body>
+	   <p class = "normal" onmouseover = "mouseOver(this);" onmouseout = "mouseOut(this);">
+	   CSS Scripting을 function에 적용</p>
+	</body>
+
+
+</html>

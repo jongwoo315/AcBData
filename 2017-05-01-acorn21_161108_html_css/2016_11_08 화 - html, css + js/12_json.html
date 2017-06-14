@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>1108tue_12_json</title>
+</head>
+
+	<body>
+        <script language = "javascript">
+        var foo = {
+        		name : 'foo',
+        		major : 'computer science' //이렇게 정의하는 것이 json
+        };
+        console.log(foo.name);
+        console.log(foo['name']); //위와 같은 결과가 출력. 다르게 쓰지만 결과는 같다
+        console.log(foo.nickname);
+
+        foo.major = 'electronics engineering';
+        console.log(foo.major);
+        console.log(foo['major']);
+
+        foo.age = 30;       // var 부분에서 정의하지 않았지만, 사용이 가능 foo에 age가 추가가 된다
+        console.log(foo.age);
+
+        foo['full-name'] = 'foo bar';
+        console.log(foo['full-name']);
+        console.log(foo.full-name);     //NaN으로 나온다. full 빼기 name으로 인식하기 때문에. / 변수에 옆줄이 있는 경우 이렇게 쓰면 안됨
+        console.log(foo.full);
+        console.log(name);
+
+        </script>
+	</body>
+</html>
+
+
+<!--확인은 브라우저 개발자모드 f12에서 확인 가능 -->

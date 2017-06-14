@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>1108_tue_13_json_arr</title>
+	</head>
+
+	<body>
+        <script language = "javascript">
+            var foo = {
+	        		name : 'foo',
+	        		major : 'computer science'
+	        };
+
+            var arr = ['zero', 'one', 'two'];
+	        arr.push('three'); //arr에 집어 넣기
+	        console.log(arr); //console에서 출력
+	        arr.length = 5;
+	        arr.push('four');
+	        console.log(arr);
+
+	        var arr = ['zero', 'one', 'two'];  //같은 이름의 배열을 또 선언 가능
+	        console.log(arr.length);   // 길이는 3
+
+	        arr.color = 'blue';    // arr에 없는 변수에 값을 집어넣음. 배열 0 ~ 3 다음 4의 위치가 아니라 color라는 위치?? 로 저장. 설명하기가 어려움..
+	        arr.name = 'number_array'; // 위와 마찬가지
+					//color, name은 attributes가 아니고, 변수명을 설정하는 것. 배열에 추가되는 변수로 생각
+	        console.log(arr.length);   // 3
+
+	        arr[3] = 'red';
+	        console.log(arr.length);   // 4
+
+	        arr[4] = foo;  //json객체를 배열에 삽입
+	        console.log(arr[4].name)
+	        console.dir(arr);
+        </script>
+	</body>
+</html>
