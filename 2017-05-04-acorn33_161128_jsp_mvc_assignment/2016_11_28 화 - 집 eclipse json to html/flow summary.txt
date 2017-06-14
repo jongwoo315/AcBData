@@ -1,0 +1,25 @@
+[VIEW]html
+
+ |
+
+[VIEW](html)angularjs
+	ng-click=getDataFromServer()
+	$scope.getDataFromServer
+		|
+	url: javaAngularJS(xml에서 AngularJsServlet.java로 연결되는 url)
+
+ |
+
+[CONTROLLER]AngularJsServlet.java
+	[MODEL]PersonData.java(모델, DTO)에 데이터 저장
+		|
+	저장된 데이터를 Json형태로 저장
+
+ |
+
+[VIEW]다시 html - $scope.getDataFromServer로 복귀
+	$scope.person = data; (Json형태로 저장된 데이터를 person에 저장)
+		|
+	{{person.firstName}}
+	{{person.lastName}} 에서 출력
+
