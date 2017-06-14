@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+	<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<style>
+	  table, th, td{
+		  	text-align: center;
+			border: 1px solid grey;
+			border-collapse: collapse;
+			padding: 5px;
+	  }
+	  table tr:nth-child(odd){ background-color: #f2f2f2; }
+	  table tr:nth-child(eve){ background-color: #ffffff; }
+	  #addTab, #viewTab{
+		  	margin: auto;
+			text-align: center;
+			width: 40%;
+			height: 65px;
+	  }
+	  #addTab{
+		  	background-color: #99ffff;
+			border: 3px solid lightblue;
+	  }
+	  #viewTab{
+		  	background-color: #ffccff;
+			/*border: 3px solid lightred;*/
+			border: 3px solid red;
+	  }
+	</style>
+</head>
+
+<body>
+
+	<div><h2>학생 성적 관리</h2></div>
+	<div ng-app="mainApp">   <!--ng-controller가 여기서 선언되지 않고, config부분에서 선언된다.-->
+		<div class="row">
+			<a href="#addStudent"><div class="col-sm-6" id="addTab"><h3>Add a student</h3></div></a>
+			<a href="#viewStudents"><div class="col-sm-6" id="viewTab"><h3>View students</h3></div></a>
+		</div>
+		<div ng-view></div>
+			<!--addStudent를 누르면 아래 angular module의 config부분의 when으로 넘어간다----->
+	<!------------------------------------------------------------------------------------------------------->
+
+		<!--<script type="text/ng-template" id="addStudent123.htm">-->
+		<script type="text/ng-template" id="abccc">
+			<table width="80%">
+				<tr>
+					<th>이름</th>
+					<th>국어</th>
+					<th>영어</th>
+					<th>수학</th>
+					<th></th>
+				</tr>
+				<tr>
+					<td><input name="nameInput" ng-model="ind.name" type="text" required></td>
+					<td><input name="korInput" ng-model="ind.kor" type="text" required></td>
+					<td><input name="engInput" ng-model="ind.eng" type="text" required></td>
+					<td><input name="mathInput" ng-model="ind.math" type="text" required></td>
+					<td><button ng-click="addStudent()">Add</button></td>
+				</tr>
+			</table>
+		</script>
+
+		<script type="text/ng-template" id="viewStudents.htm">
+			<table width="80%">
+				<tr>
+					<th>ID<button ng-click="orderByMe('id')">sort</button></th>
+					<th>이름<button ng-click="orderByMe('name')">sort</button></th>
+					<th>국어<button ng-click="orderByMe('kor')">sort</button></th>
+					<th>영어<button ng-click="orderByMe('eng')">sort</button></th>
+					<th>수학<button ng-click="orderByMe('math')">sort</button></th>
+					<th>총점<button ng-click="orderByMe('sum')">sort</button></th>
+					<th>평균<button ng-click="orderByMe('avg')">sort</button></th>
+				</tr>
+				<tr ng-repeat="hak_saeng in students_haha | orderBy:myOrderBy">
+					<td>{{hak_saeng.id}}</td>
+					<td>{{hak_saeng.name}}</td>
+					<td>{{hak_saeng.kor}}</td>
+					<td>{{hak_saeng.eng}}</td>
+					<td>{{hak_saeng.math}}</td>
+					<td>{{hak_saeng.sum}}</td>
+					<td>{{hak_saeng.avg}}</td>
+				</tr>
+			</table>
+		</script>
+   </div>
+<!------------------------------------------------------------------------------------------------------->
+<!------------------------------------------------------------------------------------------------------->
+	<script>
+	  var mainApp = angular.module("mainApp", ["ngRoute"]);
+	 //추가한 부분
+	//   mainApp.controller("mainController", function($scope){
+	// 	  $scope.students3434 = [];
+	//   });
+	 //
+	  mainApp.config(['$routeProvider', function($routeProvider){
+		  $routeProvider
+		  .when('/addStudent', {
+			  //templateUrl: 'addStudent123.htm',
+			  templateUrl: 'abccc',
+			  controller: 'AddStudentController'
+		  })
+		// 화면상의 addStudent를 누르면 이쪽으로 오는데, 가리키는 url은 위의 script에 id=addStudent123(abccc)이고,
+		// 클릭한 버튼의 행위를 관리하는 것은
+		// mainApp.controller('AddStudentController', function($scope) 부분이다
+		  .when('/viewStudents', {
+			  templateUrl: 'viewStudents.htm',
+			  controller: 'ViewStudentsController'
+		  })
+		  .otherwise({
+			  redirectTo: '/addStudent'
+		  });
+	  }]);
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	  var students3434 = [];
+	  mainApp.controller('AddStudentController', function($scope){
+		  $scope.nullStudent = {name:"", kor:"", eng:"", math:""};
+		  $scope.resetInput = function(){
+			  $scope.ind = angular.copy($scope.nullStudent);
+		  };
+
+		  $scope.addStudent = function(){
+			  if(!$scope.ind.name || !$scope.ind.kor || !$scope.ind.eng || !$scope.ind.math){
+				  alert("빈값을 추가할 수 없습니다.");
+				  return;
+			  }
+			  students3434.push({
+				  id: "ST" + students3434.length,
+				  name: $scope.ind.name,
+				  kor: parseInt($scope.ind.kor),
+				  eng: parseInt($scope.ind.eng),
+				  math: parseInt($scope.ind.math),
+				  sum: parseInt($scope.ind.kor) + parseInt($scope.ind.eng) + parseInt($scope.ind.math),
+				  avg: Math.round((parseInt($scope.ind.kor) + parseInt($scope.ind.eng) + parseInt($scope.ind.math))/ 3 * 100) / 100
+			  })
+			  $scope.resetInput();
+			  console.log(students3434);
+		  }
+	  });
+	  ///////////////////////////////////////////////////////////////////////////
+	  mainApp.controller('ViewStudentsController', function($scope){
+		  $scope.students_haha = students3434;
+		  $scope.orderByMe = function(criteria){
+			  $scope.myOrderBy = criteria;
+		  };
+	  });
+	</script>
+</body>
+</html>

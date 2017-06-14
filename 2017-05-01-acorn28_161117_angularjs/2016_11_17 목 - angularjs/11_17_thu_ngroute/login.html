@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+
+<body>
+	<form class="form-horizontal" role="form" name="loginForm" novalidate>
+
+	 <!-- 이름 입력란 -->
+	 <div class="form-group" >
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <input type="text" id="userName" name="userName" placeholder="User Name" class="form-control" ng-model="userName" required />
+            <span class="help-block" ng-show="loginForm.userName.$touched && loginForm.userName.$invalid">Please enter User Name.</span>
+        </div>
+        <div class="col-sm-3">
+        </div>
+    </div>
+
+	 <!-- 비번 입력란 -->
+    <div class="form-group" >
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <input type="password" id="password" name="password" placeholder="Password" class="form-control" ng-model="password" required />
+            <span ng-show="loginForm.password.$touched && loginForm.password.$error.required">Please enter Password.</span>
+        </div>
+        <div class="col-sm-3">
+        </div>
+    </div>
+
+	 <!-- 로그인 버튼 -->
+    <input type="submit" value="Login" class="btn btn-primary col-sm-offset-3" ng-click="authenticate(userName)" />
+
+	</form>
+
+</body>
+</html>

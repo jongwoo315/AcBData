@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<style>
+	  table, th, td{
+		  	text-align: center;
+			border: 1px solid grey;
+			border-collapse: collapse;
+			padding: 5px;
+	  }
+	  table tr:nth-child(odd){ background-color: #f2f2f2; }
+	  table tr:nth-child(eve){ background-color: #ffffff; }
+	  #addTab, #viewTab{
+		  	margin: auto;
+			text-align: center;
+			width: 40%;
+			height: 65px;
+	  }
+	  #addTab{
+		  	background-color: #99ffff;
+			border: 3px solid lightblue;
+	  }
+	  #viewTab{
+		  	background-color: #ffccff;
+			/*border: 3px solid lightred;*/
+			border: 3px solid red;
+	  }
+	</style>
+</head>
+
+<!-- 학생정보를 담는 students3434를 전역 변수로 사용~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<body>
+	<div>
+
+			<table width="80%">
+				<tr>
+					<th>이름</th>
+					<th>국어</th>
+					<th>영어</th>
+					<th>수학</th>
+					<th></th>
+				</tr>
+				<tr>
+					<td><input name="nameInput" ng-model="ind.name" type="text" required></td>
+					<td><input name="korInput" ng-model="ind.kor" type="text" required></td>
+					<td><input name="engInput" ng-model="ind.eng" type="text" required></td>
+					<td><input name="mathInput" ng-model="ind.math" type="text" required></td>
+					<td><button ng-click="addStudent()">Add</button></td>
+				</tr>
+			</table>
+
+		<script type="text/ng-template" id="viewStudents.htm">
+			<table width="80%">
+				<tr>
+					<th>ID<button ng-click="orderByMe('id')">sort</button></th>
+					<th>이름<button ng-click="orderByMe('name')">sort</button></th>
+					<th>국어<button ng-click="orderByMe('kor')">sort</button></th>
+					<th>영어<button ng-click="orderByMe('eng')">sort</button></th>
+					<th>수학<button ng-click="orderByMe('math')">sort</button></th>
+					<th>총점<button ng-click="orderByMe('sum')">sort</button></th>
+					<th>평균<button ng-click="orderByMe('avg')">sort</button></th>
+				</tr>
+				<tr ng-repeat="hak_saeng in students3434 | orderBy:myOrderBy">  <!-- students3434로 변경 -->
+					<td>{{hak_saeng.id}}</td>
+					<td>{{hak_saeng.name}}</td>
+					<td>{{hak_saeng.kor}}</td>
+					<td>{{hak_saeng.eng}}</td>
+					<td>{{hak_saeng.math}}</td>
+					<td>{{hak_saeng.sum}}</td>
+					<td>{{hak_saeng.avg}}</td>
+				</tr>
+			</table>
+		</script>
+   </div>
+<!------------------------------------------------------------------------------------------------------->
+<!------------------------------------------------------------------------------------------------------->
+
+</body>
+</html>

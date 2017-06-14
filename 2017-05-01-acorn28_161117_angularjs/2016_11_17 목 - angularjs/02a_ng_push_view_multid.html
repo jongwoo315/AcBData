@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+	<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+
+<!-- 학생정보를 담는 students3434를 전역 변수로 사용~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<body>
+
+	<div><h2>학생 성적 관리</h2></div>
+	<div ng-app="mainApp" ng-controller="mainController">   <!-- ng-controller="mainController" 추가 -->
+		<div ng-view></div>
+	</div>
+	<!------------------------------------------------------------------------------------------------------->
+
+
+<!------------------------------------------------------------------------------------------------------->
+<!------------------------------------------------------------------------------------------------------->
+	<script>
+	  var mainApp = angular.module("mainApp", ["ngRoute"]);
+
+	 //추가한 부분 // 전역변수로 선언!!!!!!!!!!!!!!!!!!!!!
+	  mainApp.controller("mainController", function($scope){
+		  $scope.students3434 = [];
+	  });
+	 //
+	  mainApp.config(['$routeProvider', function($routeProvider){
+		  $routeProvider
+		  .when('/', {
+			  templateUrl: '02b_ng_push_view_multi.html',
+			  controller: 'AddStudentController'
+		  })
+		  .when('/02b_ng_push_view_multi/:username123', {
+			  templateUrl: '02c_ng_push_view_multi.html',
+			  controller: 'ViewStudentsController'
+		  })
+		  .otherwise({
+			  redirectTo: '/addStudent'
+		  });
+	  }]);
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	  //var students3434 = []; 이제 필요 없는 부분
+	  mainApp.controller('AddStudentController', function($scope, $routeParams){
+			
+
+		  $scope.nullStudent = {name:"", kor:"", eng:"", math:""};
+		  $scope.resetInput = function(){
+			  $scope.ind = angular.copy($scope.nullStudent);
+		  };
+
+		  $scope.addStudent = function(){
+			  if(!$scope.ind.name || !$scope.ind.kor || !$scope.ind.eng || !$scope.ind.math){
+				  alert("빈값을 추가할 수 없습니다.");
+				  return;
+			  }
+			  $scope.students3434.push({	// students3434.push를 $scope.students3434.push로 변경
+				  id: "ST" + $scope.students3434.length,	// students3434.length를 $scope.students3434.length로 변경
+				  name: $scope.ind.name,
+				  kor: parseInt($scope.ind.kor),
+				  eng: parseInt($scope.ind.eng),
+				  math: parseInt($scope.ind.math),
+				  sum: parseInt($scope.ind.kor) + parseInt($scope.ind.eng) + parseInt($scope.ind.math),
+				  avg: Math.round((parseInt($scope.ind.kor) + parseInt($scope.ind.eng) + parseInt($scope.ind.math))/ 3 * 100) / 100
+			  })
+			  $scope.resetInput();
+			  console.log(students3434);
+		  }
+	  });
+	  ///////////////////////////////////////////////////////////////////////////
+	  mainApp.controller('ViewStudentsController', function($scope){
+		  //$scope.students_haha = students3434;		// <script type="text/ng-template" id="viewStudents.htm">의
+		  															// <tr ng-repeat="hak_saeng in students_haha | orderBy:myOrderBy">부분이
+																	//
+																	// <tr ng-repeat="hak_saeng in students3434 | orderBy:myOrderBy">로 변경
+																	// 전역변수에서 바로 받는다
+		  $scope.orderByMe = function(criteria){
+			  $scope.myOrderBy = criteria;
+		  };
+	  });
+	</script>
+</body>
+</html>
