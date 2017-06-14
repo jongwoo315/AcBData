@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                                          http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<bean id="targetBean" class="sample.MessageBeanImpl">
+	    <property name="name">
+	        <value>Spring</value>
+	    </property>
+	</bean>
+	
+	<bean id="LoggingAdvice" class="sample.LoggingAdvice"/>
+	
+	<bean id="Proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+	    <property name="target">
+	        <ref bean="targetBean"/>
+	    </property>
+	    <property name="interceptorNames">
+	        <list>
+	            <value>advisor</value>
+	            <value>advisor2</value>
+	        </list>
+	    </property>
+	</bean>
+	
+	<bean id="advisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+	    <property name="advice">
+	        <ref bean="LoggingAdvice"/>
+	    </property>
+	    <property name="pointcut">
+	        <bean class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+	            <property name="pattern">
+	                <value>.*sayHello.*</value>
+	            </property>
+	        </bean>
+	    </property>
+	</bean>
+	
+	<bean id="advisor2" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+	    <property name="advice">
+	        <ref bean="LoggingAdvice"/>
+	    </property>
+	    <property name="pointcut">
+	        <bean class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+	            <property name="pattern">
+	                <value>.*insert*.</value>
+	            </property>
+	        </bean>
+	    </property>
+	</bean>
+
+</beans>
