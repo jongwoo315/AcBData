@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("button").click(function(){
+				var txt = "";
+				txt += "width of div: "+ $("#div1").width()+"</br>";
+				txt += "height of div: "+ $("#div1").height()+"</br>";
+				txt += "inner width of div: "+ $("#div1").innerWidth()+"</br>";
+				txt += "inner height of div: "+ $("#div1").innerHeight()+"</br>";
+				$("#div1").html(txt);
+			})
+		})
+	</script>
+</head>
+
+<style>
+  #div1{
+  	height: 100px;
+	width: 300px;
+	padding: 20px;
+	margin: 10px;
+	border: 1px solid blue;
+	background-color: lightblue;
+  }
+</style>
+
+<body>
+	<button>div의 dimension값 출력</button>
+	<div id="div1"></div>
+	<br>
+	<p>innerWidth()-padding포함</p>
+	<p>innerHeight()-padding포함</p>
+</body>
+</html>

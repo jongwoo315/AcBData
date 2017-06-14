@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="02_1_base.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <script>
+    $(document).ready(function(e){
+      $("#btn1").on("click", function(e){	// 여기서 btn1의 이름은 opener제어
+        $("#btn1", opener.document).css({"background":"green", "color":"white"});	//여기까지 함
+	  	});   //	이걸 실행하면 창열기 버튼이 초록색으로 변함
+    });
+  </script>
+
+</head>
+
+<body>
+    <input type="button" id="btn1" value="opener 제어">
+    <div id="div1" style="width:200px; height:100px; border:gray 1px solid"></div>
+</body>
+</html>

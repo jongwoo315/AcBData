@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!--
+		1. 버튼을 하나 생성한 다음에 클래스에 세팅된 것만 밑에 출력해보세요
+		2. 32세 이상에 스타일을 생성해서 적용하는 버튼을 만드시오
+		3. point 필드 옆에 checked 박스를 만들고 체크된 것만 popup으로 출력하는 버튼을 생성하시오.
+	-->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link rel="stylesheet" href="02_1_base.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script language="javascript">
+	  $(document).ready(function(){
+		  $("#btn1").on("click", function(e){
+			  $("#table1 tbody tr").find("td:eq(1):contains('복태')").addClass("emp");
+			  //$("#table1 tbody tr").find("td:eq(1):contains('복태')").toggleClass("emp");
+			  $("<style id='empstyle'>.emp{background:gold; font-weight:bold;}</style>").appendTo("head");	// tag(<style id>) + css( .emp)
+		  });
+		  $("#btn2").on("click", function(e){
+			  $("#empstyle").remove();
+		  });
+	  });
+	</script>
+</head>
+
+<body>
+	<p id="btn_group">
+		<input type="button" id="btn1" value="스타일추가">
+		<input type="button" id="btn2" value="스타일제거">
+	</p>
+	<table width="400" id="table1">
+		<thead>
+			<tr>
+				<td>아이디</td>
+				<td>이름</td>
+				<td>지역</td>
+				<td>나이</td>
+				<td>Point</td>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr>
+				<td>kim</td>
+				<td>김복태</td>
+				<td>서울</td>
+				<td>32</td>
+				<td>80</td>
+			</tr>
+			<tr>
+				<td>choi</td>
+				<td>최인숙</td>
+				<td>대전</td>
+				<td>35</td>
+				<td>100</td>
+			</tr>
+			<tr>
+				<td>park</td>
+				<td>박복태</td>
+				<td>강원</td>
+				<td>29</td>
+				<td>85</td>
+			</tr>
+			<tr>
+				<td>oh</td>
+				<td>오복태</td>
+				<td>서울</td>
+				<td>33</td>
+				<td>90</td>
+			</tr>
+			<tr>
+				<td>jung</td>
+				<td>정순돌</td>
+				<td>제주</td>
+				<td>37</td>
+				<td>92</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

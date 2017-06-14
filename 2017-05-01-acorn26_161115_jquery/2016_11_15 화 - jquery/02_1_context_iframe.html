@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>02_context_iframe</title>
+  <link rel="stylesheet" href="02_1_base.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <script>
+    $(document).ready(function(e){
+      $("#btn1").on("click", function(e){
+        $("#btn3", parent.document).css({"background":"green", "color":"white"});
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <br>
+  <input type="button" id="btn1" value="부모문서제어">
+  <div>
+    <input type="checkbox" name="sports[]" id="sports1" value="baseball"><label for="sports1">야구</label>
+    <input type="checkbox" name="sports[]" id="sports2" value="soccer"><label for="sports2">축구</label>
+    <input type="checkbox" name="sports[]" id="sports3" value="basketball"><label for="sports3">농구</label>
+  </div>
+</body>
+</html>

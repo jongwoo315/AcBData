@@ -1,0 +1,46 @@
+// 아래와 같은 HTML Table Code 를 가정하고
+<table>
+  <thead>
+      <tr>
+          <th><input type="checkbox" name="_selected_all_"></th>
+          <th>제목</th>
+      </tr>
+  </thead> 
+  <tbody>
+         <tr>
+             <td><input type="checkbox" name="_selected_" value="ROW_1"></td>
+             <td>안녕하세요</td>
+         </tr>
+         <tr>
+             <td><input type="checkbox" name="_selected_" value="ROW_2"></td>
+             <td>반갑습니다</td>
+         </tr>
+         <tr>
+             <td><input type="checkbox" name="_selected_" value="ROW_3"></td>
+             <td>Good Luck!</td>
+         </tr>
+     </tbody>
+ </table>
+
+
+
+
+
+ //----------------------------------------------------------------------------
+ // 전체선택 및 해제 기능은..
+
+ $('input[name=_selected_all_]').on('change', function(){
+   $('input[name=_selected_]').prop('checked', this.checked);
+ });
+
+
+
+
+ //----------------------------------------------------------------------------
+ // 선택한 Checkbox 값을 가져오는 방법은...
+
+
+ var arr = $('input[name=_selected_]:checked').serializeArray().map(function(item) { return item.value });
+
+
+ //var str = $('input[name=_selected_]:checked').serialize(); // 이건 QueryString 방식으로

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="02_1_base.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <script>
+    $(document).ready(function(e){
+      var winobj;
+      $("#btn1").on("click", function(e) {	/* .on -> jQuery event reference */
+    	winobj = window.open("02_2_content_child.html", "popwin", "width=250, height=200, left=0, top=0");
+	});	// 버튼이름은 창열기
+      $("#btn2").on("click", function(e) {
+        if(jQuery.type(winobj)!=="undefined"){
+          $("#div1", winobj.document).css({"background":"#dddddd"});
+        }
+      });
+      $("#btn3").on("click", function(e) {
+        $("#ifr").contents().find(":checkbox[name='sports[]']").filter(":eq(1), :eq(2)").prop("checked", true);	// find(":checkbox[]") checkbox로 된 모든 걸 선택해라
+      });
+    });
+  </script>
+
+</head>
+
+<body>
+  <h3>context</h3>
+  <br>
+  <input type="button" id="btn1" value="창열기">  <!--btn1은 02_2_content_child를 연다-->
+  <input type="button" id="btn2" value="팝업제어">
+  <input type="button" id="btn3" value="iframe 개체 제어">
+  <br>
+  <iframe name="ifr" id="ifr" width="350" height="100" src="02_1_context_iframe.html"></iframe>
+</body>
+</html>
