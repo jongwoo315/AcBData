@@ -1,0 +1,42 @@
+1. /bin/www
+	서버 실행, 포트:3000
+	var app = require('../app');
+	app.set('port', port);
+	var server = http.createServer(app); 
+
+2. localhost:3000으로 접속 (app.js)
+	//view설정, jade형식으로 사용하겠다는 선언	
+	app.set('views', path.join(__dirname, 'views'));
+	app.set('view engine', 'jade');
+	
+	//javascript파일 경로 지정
+	app.use(express.static(path.join(__dirname, '/public')));
+
+	var db = monk('localhost:27017/nodetest2')
+	app.use(function(req, res, next){
+    	req.db = db; 
+        next();
+	});
+	
+3. localhost:3000/users12 으로 접속하면 users.js를 불러옴 (app.js)
+	app.use('/users12', users);
+	//뒤에 위치한 users는 ./routes/users.js를 의미
+
+	var users = require('./routes/users');
+
+4. ./routes/users.js
+	
+	localhost:3000/users12/에서 들어가도 get으로 가져오는 정보가 없기 때문에
+	404가 뜬다.
+	
+	//users.js 내용	
+	router.get('/userlist', function(req, res) {
+		var db = req.db;
+		collection = db.get('userlist');
+		collection.find({}, {}, function(e, doc){
+			res.json(doc);	//res로 클라이언트에게 값을 돌려준다.
+		}); 
+	});
+	get방식의 /userlist로 연결이 된 것이기 때문에
+	localhost:3000/users12/userlist로 접속을 해야 db 내용이 출력된다.
+

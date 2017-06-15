@@ -1,0 +1,41 @@
+1. /bin/www
+	서버 실행, 포트:3000
+	var app = require('../app');
+	app.set('port', port);
+	var server = http.createServer(app); 
+
+2. localhost:3000으로 접속 (app.js)
+	//view설정, jade형식으로 사용하겠다는 선언	
+	app.set('views', path.join(__dirname, 'views'));
+	app.set('view engine', 'jade');
+	
+	//javascript파일 경로 지정
+	app.use(express.static(path.join(__dirname, '/public')));
+	
+3. localhost:3000/ 으로 접속하면 index를 불러옴 (app.js)
+
+	app.use('/', index);
+	// index는 require('./routes/index'); 여기에 위치한 .js파일을 의미
+	var index = require('./routes/index'); -> index.js를 불러옴
+
+
+4. ./routes/index.js
+	
+	router.get('/', function(req, res, next) {
+		res.render('index', { title: 'Express' });    //'index'는 jade로 넘긴다
+	});												// index.jade로 정보 전송
+	
+	module.exports = router; -> app.js로 export
+
+5. ./views/index.jade
+	extends layout -> layout.jade를 불러옴
+		layout.jade의 내용 ㄱ
+ 		script(src="jquery/3.1.1/jquery.min.js")
+		script(src="/javascripts/global1.js"
+	h1= title에 title:Express'가 들어감
+	
+	
+
+
+
+

@@ -1,0 +1,4 @@
+db.studentcollection.insert({ "st_id":1000,"fullname" : "Amit Singh", "email" : "amit@testdomain.com", "age":27,"address":"Allahabad","gender":"Male" })
+
+newstuff = [{ "st_id":1001,"fullname" : "Anil Kumar", "email" : "anil@testdomain.com", "age":24,"address":"Allahabad","gender":"Male" }, { "st_id":1002,"fullname" : "Atul Kumar", "email" : "atul@testdomain.com", "age":25,"address":"Allahabad","gender":"Male" }]
+db.studentcollection.insert(newstuff);

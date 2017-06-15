@@ -1,0 +1,15 @@
+get(Configuration conf)
+Returns the configured filesystem implementation.
+
+
+create
+public FSDataOutputStream create(Path f) throws IOException
+Create an FSDataOutputStream at the indicated Path. Files are overwritten by default.
+
+
+## inputString: i,love,korea
+args[0]: maketest.txt //args[1]: i,love,korea
+path: maketest.txt
+
+
+datain 부분만 주석처리해볼 것
