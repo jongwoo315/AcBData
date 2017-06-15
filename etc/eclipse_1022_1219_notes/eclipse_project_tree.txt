@@ -1,0 +1,8 @@
+1022 ~ 1023 : 그냥 java project (아이콘: 'J')
+1107 ~ 1130 : dynamic web project (아이콘 : 지구본 + 'J')
+1205 : 그냥 java project
+1206 : maven project
+	- eclipse → new maven project → create a simple project 체크 →group id: acorn, artifact id: Design_pattern → finish
+	- pom.xml에 위의 dependencies 내용 넣기(project 내부에 위치)
+	- https://www.evernote.com/shard/s102/nl/11301608/a39a3e2d-38e1-46c2-852f-cf3f29385ad5?title=Maven%20project%20%EC%84%B8%ED%8C%85
+1214 ~ 1219 : spring legacy project -> spring MVC project -> com.acorn.hahaha (아무거나 해도 상관없다)

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- 	<bean id="teansactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean> -->
+	
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlsessionFactoryBean">
+		<property name="typeAliasesPackage" value="ldg.mybatis.model"/>
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:/mybatis-config.xml"/>
+		<property name="mapperLocations">
+			<array>
+				<value>classpath*:/ldg/mybatis/repository/mapper/**/*.xml</value>
+			</array>
+		</property>
+	</bean>
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean"/>
+	</bean>				
+	<bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<porperty name="basePackage" value="ldg.mybatis.repository"/>
+	</bean>
+	<!-- <tx:annotation-driven transaction-manager="teansactionManager"/> -->
+	
+	<context:compoent-scan base-package="ldg.mybatis">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:compoent-scan>
+	<context:annotation-config/>	
+</beans>

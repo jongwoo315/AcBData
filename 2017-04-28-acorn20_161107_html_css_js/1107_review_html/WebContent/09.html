@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<meta name = "viewport" content = "width=device-width, initial-scale=1">
+		<link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
+	</head>
+
+	<body>
+
+		<div class = "row">
+
+			<div class = "col-sm-4"> 단나누기 예제입니다.<br>
+				<img src = "./Desert.jpg" alt = "www.naver.com" width = "300" height = "200">
+			</div>
+			
+			<div class = "col-sm-4"> 자동으로 단이 나누어 지는데 class는 css를 구분하기 위해 주어집니다.
+				<img src = "./Desert.jpg" alt = "www.naver.com" width = "300" height = "200">			
+			</div>
+			
+			<div class = "col-sm-4"> 단나누기는 화면 분할 하기 위하여 많이 사용하는 예입니다.
+				<img src = "./Desert.jpg" alt = "www.naver.com" width = "300" height = "200">			
+			</div>
+
+		</div>
+		
+		<div class = "container">
+			<h2>Basic Table</h2>
+			<p>테이블의 데이터를 수평으로 분할해서 보여주기</p>
+			<table class = "table table-bordered table-hover table-striped">
+
+				<thead>
+					<tr>
+						<th>이름</th>
+						<th>주소</th>
+						<th>이메일</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr>
+						<td>김박사</td>
+						<td>서울</td>
+						<td>aaa@example.com</td>
+					</tr>
+					
+					<tr>
+						<td>빅데이터</td>
+						<td>을지로</td>
+						<td>bbb@example.com</td>
+					</tr>
+					
+					<tr>
+						<td>신한은행</td>
+						<td>을지로</td>
+						<td>shinhan@example.com</td>
+					</tr>
+				</tbody>
+					
+			</table>
+
+		</div>
+		
+		<img src = "Desert.jpg" class = "img-circle" alt = "Cinque Terre" width = "304" height = "236">
+		<img src = "Desert.jpg" class = "img-rounded" alt = "이미지자리" width = "304" height = "236">
+		<img src = "Desert.jpg" class = "img-thumbnail" alt = "Cinque Terre" width = "304" height = "236"><br><br><br><br><br>
+		<!-- 단을 3개로 나누어 3개의 이미지를 한 행으로 보이게 하세요 -->
+		
+		<div class = "container">
+			<table class = "table">
+				<thead>
+						<tr>
+							<th><img src = "Desert.jpg" class = "img-circle" alt = "Cinque Terre" width = "304" height = "236"></th>
+							<th><img src = "Desert.jpg" class = "img-rounded" alt = "이미지자리" width = "304" height = "236"></th>
+							<th><img src = "Desert.jpg" class = "img-thumbnail" alt = "Cinque Terre" width = "304" height = "236"></th>
+						</tr>
+				</thead>
+			</table>
+		</div>
+		
+	</body>
+	
+</html>

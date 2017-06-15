@@ -1,0 +1,63 @@
+<!-- 설명:Accordion은각창이 열리면서 설명이 출력됩니다. -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+	    <link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	    <script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+
+	<body>
+        <div class = "container">
+            <h2>Accordion Example</h2>
+            <p><strong>설명:</strong><strong>Accordion은</strong>각창이 열리면서 설명이 출력됩니다.</p>
+            <div class = "panel-group" id="accordion">
+                
+                <div class = "panel panel-default">
+                
+                    <div class = "panel-heading">
+                        <h4 class = "panel-title">
+                            <a data-toggle = "collapse" data-parent = "#accordion" href = "#collapse1">설명1</a>                        
+                        </h4>
+                    </div>
+                    
+                    <div id = "collapse1" class = "panel-collapse collapse in">
+                        <div class = "panel-body">CSS를 사용하기 쉽게하기 위하여 만들어진 Bootstrap</div>
+                    </div>
+                    
+                </div>
+                
+                <div class = "panel panel-default">
+                    
+                    <div class = "panel-heading">
+                        <h4 class = "panel-title">
+                            <a data-toggle = "collapse" data-parent = "#accordion" href = "#collapse2">설명 2</a>
+                        </h4>                   
+                    </div>
+                    
+                    <div id = "collapse2" class = "panel-collapse collapse">
+                        <div class = "panel-body">구조는 HTML, 모양은 CSS, 기능은 javascript를 사용합니다.</div>
+                    </div>                                                                       
+                
+                </div>
+                
+                <div class = "panel panel-default">
+
+                    <div class = "panel-heading">
+                        <h4 class = "panel-title">
+                            <a data-toggle = "collapse" data-parent = "#accordion" href = "#collapse3">설명 3</a>
+                        </h4>                                                               
+                     </div>
+                     
+                     <div id = "collapse3" class = "panel-collapse collapse">
+                        <div class = "panel-body">Javascript는 JQuery, Angulart.js 프레임워크를 사용하여 활용을 배가합니다.</div>
+                     </div>                                
+                
+                </div>
+                
+            </div>
+        </div>	
+	</body>
+</html>

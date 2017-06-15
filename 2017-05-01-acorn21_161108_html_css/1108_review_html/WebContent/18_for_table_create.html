@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>반복문을 이용한 table 생성기</title>
+		
+		<script type = "text/javascript">
+            function makeTable(row, col, border){
+                
+            	document.write("<table border = "+border+" align = \"center\" style = \" font-size: 11px\";>\n")
+                
+            	for (var i = 1; i <= row; i++){
+                
+            		document.write("<tr align = \"center\">\n")
+                
+                	for(var j = 1; j <= col; j++){
+                        document.write("<td width = \"120\">"+i+"행"+j+"열</td>\n")                		
+                	}
+                    document.write("</tr>\n\n")                	
+                }
+            	
+            document.write("</table>\n")
+            }
+            
+        </script>
+	</head>
+
+	<body>
+	
+        <button type = "button" style ="width: 100; height:25; background-color: navy; color: white;" 
+               onclick = "makeTable(30, 6, 1)" >테이블 생성하기</button>
+               	
+	</body>
+</html>

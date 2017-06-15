@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mainApp" ng-controller="myctrl">
+	<head>
+		<meta charset="UTF-8">
+		<title>1127 성적표 과제</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+   		<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+		<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.min.js"></script>		
+	</head>
+
+	<body class="container">
+	       <!-- <form method="post" action="servlet_input">
+	           
+	           <table width="40%" border="1">
+	               <caption><h3>점수 입력</h3></caption>
+	               <tr>
+	                   <th width="30%">이름</th>
+	                   <td width="70%" align="center">
+	                       <input type="text" name="name" size="27%"/>
+	                   </td>
+                   </tr>
+                   
+                   <tr>
+                       <th width="30%">국어점수</th>
+                       <td width="70%" align="center">
+                            <input type="text" name="kor" size="27%"/>
+                       </td>
+                   </tr>
+                   
+                   <tr>
+                        <th width="30%">영어점수</th>
+                        <td width="70%" align="center">
+                            <input type="text" name="eng" size="27%"/>
+                        </td>
+                   </tr>
+
+                   <tr>
+                        <th width="30%">수학점수</th>
+                        <td width="70%" align="center">
+                            <input type="text" name="math" size="27%"/>
+                        </td>
+                   </tr> 
+                    
+	           </table>
+	           
+	           <br/>
+	           <button type="submit">제출</button>
+	       </form> -->
+<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+		<br><br>
+		<h3>성적 입력</h3>			
+		   <div class="row">
+           	 <div class="span12">
+             	<div class="well" ng-view> <!--  div 부분 회색바탕-->
+             		<script type="text/ng-template" id="add_id.htm">
+	                    <form  action="servlet_input" method="post" class="form-horizontal" ng-submit="addscore()" role="form" name="inputform">
+	                        <div class="form-group">
+	                            <label class="col-md-1 control-label">이름</label>
+	                            <div class="col-md-1">
+	                                <input type="text" class="form-control" name="name" ng-model="name"/>
+	                            </div>
+	                        </div>
+	
+	                        <div class="form-group">
+	                            <label class="col-md-1 control-label">국어</label>
+	                            <div class="col-md-1">
+	                                <input type="text" class="form-control" name="kor" ng-model="kor"/>
+	                            </div>
+	                        </div>
+	
+	                        <div class="form-group">
+	                            <label class="col-md-1 control-label">영어</label>
+	                            <div class="col-md-1">
+	                                <input type="text" class="form-control" name="eng" ng-model="eng"/>
+	                            </div>
+	                        </div>
+	
+	                        <div class="form-group">
+	                            <label class="col-md-1 control-label">수학</label>
+	                            <div class="col-md-1">
+	                                <input type="text" class="form-control" name="math" ng-model="math"/>
+	                            </div>
+	                        </div>
+	
+	                        <div class="form-group">
+	                            <div style="padding-left:110px">
+	                                <input type="submit" value="입력" class="btn btn-primary"/>
+	                            </div>    
+	                        </div>
+	                    </form>
+	            	</script>        
+	            </div>
+	         </div>
+	   	   </div>	
+		   
+	       <br>
+	       <form method="get" action="servlet_display">
+	           <input type="submit" value="회원보기"/>
+	       </form>
+
+	       <br>	      
+	                   
+           <form method="post" action="servlet_delete">
+    		<input type="text" name="name" placeholder="삭제할 레코드의 이름 입력">
+    		<button type="submit">삭제실행</button>
+    	   </form>
+    	   
+    	   <script>
+		      var app = angular.module("mainApp", ["ngRoute"]);
+		
+		      app.controller("myctrl", function($scope){
+		         $scope.stu = [];
+		      });
+		
+		      app.config(['$routeProvider',function($routeProvider){
+		         $routeProvider
+		         .when('/add',{
+		            templateUrl: 'add_id.htm',
+		            controller: 'add_ctrl'
+		         })
+		         .when('/output',{
+		            templateUrl: 'output_id.htm',
+		            controller: 'output_ctrl'
+		         })
+		         .otherwise('/add');
+		      }]);
+		
+		      app.controller('add_ctrl', function($scope){
+		         $scope.addscore = function(name){
+		            //DataService.set($scope.name, $scope.kor, $scope.eng, $scope.math);
+		            if(!$scope.name || !$scope.kor || !$scope.eng || !$scope.math){
+		              alert("빈값을 추가할 수 없습니다.");
+		              return;
+		            }
+		
+		            var newname = $scope.name;
+		            var matches = true;
+		
+		            angular.forEach($scope.stu, function(stu){
+		               if(newname==stu.name){
+		                  matches = false;
+		                  alert('이미 있음');
+		               }
+		            });
+		            if(matches != false){
+		               $scope.stu.push({
+		                    id: $scope.stu.length,
+		                    name: $scope.name,
+		                    kor: parseInt($scope.kor),
+		                    eng: parseInt($scope.eng),
+		                    math: parseInt($scope.math)//,
+		                    //tot: parseInt($scope.kor) + parseInt($scope.eng) + parseInt($scope.math),
+		                    //avg: Math.round((parseInt($scope.kor) + parseInt($scope.eng) + parseInt($scope.math))/ 3 * 100) / 100
+		               });
+		               //$scope.total = $scope.kor + $scope.eng + $scope.math;
+		            };
+		            // $scope.calc = function(hak_saeng){
+		            //    if(hak_saeng){
+		            //       hak_saeng.total = hak_saeng.kor + hak_saeng.eng + hak_saeng.math;
+		            //    }
+		            //}
+		
+		            // 입력 후 inputform 비우기
+		            $scope.inputform.name.$setPristine();
+		            $scope.inputform.kor.$setPristine();
+		            $scope.inputform.eng.$setPristine();
+		            $scope.inputform.math.$setPristine();
+		            $scope.name='';
+		            $scope.kor='';
+		            $scope.eng='';
+		            $scope.math='';
+		
+		         }
+		      });
+    	   </script>
+	</body>
+</html>

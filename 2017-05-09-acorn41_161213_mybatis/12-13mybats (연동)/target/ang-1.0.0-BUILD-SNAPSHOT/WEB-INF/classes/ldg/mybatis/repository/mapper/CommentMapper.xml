@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ldg.mybatis.repository.mapper.CommentMapper">
+
+	<cache />
+	
+	<select id="selectCommentByCondition" parameterType="hashmap" resultType="User">
+		select * from mycomment
+		<where>
+			<if test="username != null">
+				username = #{username}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insertComment" parameterType="User">
+		insert into mycomment values (SQNC.NEXTVAL,#{username}, #{address}, #{email})
+	</insert>
+	
+	<delete id="deleteComment" parameterType="String">
+		delete from mycomment where name = #{username}
+	</delete>
+	
+</mapper>
+
+    

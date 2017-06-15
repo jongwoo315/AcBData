@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="ldg.mybatis.repository.mapper.UserMapper">
+
+	<cache></cache>
+	
+	<select id="selectUserCondition" parameterType="hashmap" resultType="User">
+		select * from springUser
+			<where>
+				<if test="id != null">
+					id = #{id}
+				</if>
+			</where>
+	</select>
+	
+	<select id="selectAllUser" resultType="List">
+		select * from springUser
+	</select>
+	
+	<insert id="insertUser">
+		insert into springUser(id, pw, name, regDate) values(#{id}, #{pw}, #{name}, #{regDate})
+	</insert>
+	
+	<update id="updateUser">
+	</update>
+	
+	<delete id="deleteUser" parameterType="String">
+		delete from springUser where id=#{id}
+	</delete>
+	
+	<delete id="deleteAllUser">
+		deleter from springUser
+	</delete>
+
+</mapper>
