@@ -1,0 +1,38 @@
+websystique angular + spring
+
+생성순서
+
+1. location: usermanagement.jsp
+	ng-submit="ctrl.submit()
+		ng-model="ctrl.user.id
+		ng-model="ctrl.user.username
+		ng-model="ctrl.user.address
+		ng-model="ctrl.user.email
+		
+		type="submit" value="{{!ctrl.user.id ? '추가' : '업데이트'}}
+
+2. location: user_controller.js
+	function submit()
+		createUser(self.user);
+
+3. location: user_controller.js
+	function createUser(user){
+		UserService.createUser(user)
+			.then(
+				fetchAllUsers,
+			);
+	}	
+
+4. user_service.js	(FACTORY)
+	var factory = {createUser: createUser123};
+	
+	function createUser123(user){
+		var deferred = $q.defer();
+		$http.post(REST_SERVICE_URI, user)
+			.then(
+				function(response){
+					deferred.resolve(response.data);
+				}
+			);
+		return deferred.promise;
+	}

@@ -1,0 +1,84 @@
+등록과정
+
+index.jsp
+
+1. 위치: app.js
+$routeProvider
+	.otherwise( -> /login)
+	templateUrl: login.view.html
+
+
+2. 위치: login.view.html
+	register버튼 href="#!/register"
+
+3. 위치: app.js
+	.when( /register)
+     controller: 'RegisterController',
+     templateUrl: 'resources/register/register.view.html',
+     controllerAs: 'vm'
+
+4-1. 위치: register.view.html
+	ng-submit="vm.register()"
+		ng-model="vm.user.firstName"	//firstName 여기서 최초 선언?
+		ng-model="vm.user.lastName"
+		ng-model="vm.user.username"
+		ng-model="vm.user.password"
+
+4-2. 위치: registercontroller.js
+	function register()
+		UserService.Create(vm.user)	// vm.user을 통째로 매개변수로 넣음
+
+4-2-1. 위치: user.service.local-storage.js	(FACTORY)
+	function Create(user){
+		GetByUsername(user.username).then({ { if(){} else{} })
+	}
+	
+4-2-1-1. 위치: user.service.local-storage.js	(FACTORY)
+	function GetByUsername(username) {	// 4-2-1의 getbyusername의 then 이하의 내용을 promise에 담는다
+	var deferred = $q.defer();
+     deferred.resolve(user);   /성공시 user를 리턴
+     return deferred.promise;		// promise는 user 값을 가지고 있다.
+
+4-2-2. 위치: user.service.local-storage.js	(FACTORY)
+	var service = { service.Create = Create12; }
+
+	function Create(user){
+		GetByUsername(user.username)
+
+			var users = getUsers();
+	}
+
+	
+4-2-2-1. 위치: user.service.local-storage.js	(FACTORY)
+	function getUsers()
+		localStorage.users = JSON.stringify([]); // 빈 json파일을 users에 넣음 (나중에 localStorage를 지워야 하나?)
+
+4-2-3. 위치: user.service.local-storage.js	(FACTORY)
+	function Create(user){
+		GetByUsername(user.username)
+
+			var users = getUsers()
+           // assign id
+	        var lastUser = users[users.length - 1] || { id: 0 };
+	        user.id = lastUser.id + 1;	// id (숫자) 추가
+	}
+
+4-2-4. 위치: user.service.local-storage.js	(FACTORY)
+	function Create(user){
+		GetByUsername(user.username)
+
+			var users = getUsers();
+	        var lastUser = users[users.length - 1] || { id: 0 };
+	        user.id = lastUser.id + 1;
+
+	        // save to local storage
+            users.push(user);
+            setUsers(users);
+
+            deferred.resolve({ success: true });
+	}
+
+4-2-4-1. 위치: user.service.local-storage.js
+ function setUsers(users) {
+            localStorage.users = JSON.stringify(users);
+        }	//users json배열에 저장
